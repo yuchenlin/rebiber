@@ -20,7 +20,7 @@ Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pr
 ---> "lin-etal-2020-birds" in anthology.bib
 
 Example output:
-```
+```bib
 @inproceedings{lin2020birds,
     title = "{B}irds have four legs?! {N}umer{S}ense: {P}robing {N}umerical {C}ommonsense {K}nowledge of {P}re-{T}rained {L}anguage {M}odels",
     author = "Lin, Bill Yuchen  and
