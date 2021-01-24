@@ -1,4 +1,4 @@
-# BibTex Normalizer for ACL Anthology
+# Reiber: BibTex Normalizer for ACL Anthology
 
 Normalizing the bibtex entries to the official ACL Anthology format.
 
