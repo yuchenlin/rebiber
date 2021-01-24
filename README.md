@@ -1,4 +1,4 @@
-# Reiber: A tool for normalizing your bibtex file with official format
+# Reiber: A tool for normalizing bibtex with official info.
 
 Normalizing the bibtex entries to the official ACL Anthology format.
 
