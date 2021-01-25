@@ -27,15 +27,22 @@ def normalize_bib(bib_db, all_bib_entries):
         title = normalize_title(original_title)    
         # try to map the bib_entry to the keys in all_bib_entries
         if title in bib_db:
-            output_bib_entries.append(bib_db[title])
+            # keep the original_bib_key
+            key_start_idx = bib_db[title][0].find('{')+1
+            key_end_idx = len(bib_db[title][0])-2
+            bib_key = bib_db[title][0][key_start_idx:key_end_idx]
+            bib_db[title][0] = bib_db[title][0].replace(bib_key, original_bibkey)
             log_str = "Converted to the official format. ID: %s ; Title: %s" % (original_bibkey, original_title)
             print(log_str)
             log_text += log_str
+
+            output_bib_entries.append(bib_db[title])
         else:
             output_bib_entries.append(bib_entry)
             
     # TODO: write the log_text to a file 
-
+    with open(sys.argv[3], "w") as f:
+        json.dump(output_bib_entries, f, indent=2)
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as f:
