@@ -5,16 +5,18 @@
 
 ```bash
 git clone https://github.com/yuchenlin/rebiber.git
+pip install bibtexparser
 cd rebiber
+```
+
+Normalizing the bibtex entries to the official format.
+```bash
 python normalize.py -i example_input.bib -o example_output.bib -l bib_list.txt
 ```
 
 
-Normalizing the bibtex entries to the official format.
 
-
-
-Example input:
+Example input about the arXiv version (from Google Scholar or somewhere):
 ```bib
 @article{lin2020birds,
 	title={Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models},
@@ -26,7 +28,7 @@ Example input:
 ```
  
 
-Example output:
+Example output with the official information:
 ```bib
 @inproceedings{lin2020birds,
     title = "{B}irds have four legs?! {N}umer{S}ense: {P}robing {N}umerical {C}ommonsense {K}nowledge of {P}re-{T}rained {L}anguage {M}odels",
@@ -46,11 +48,39 @@ Example output:
 ```
 
 
-## Update the local bib data.
+## Supported Conferences 
 
-### ACL Anthology
+The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full ACL anthology, i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
+Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
+
+These are current supported conferences in our `data` folder. Please feel free to create PR to add your conferences here following the next section! 
+
+| Name | Link |
+| --- | ----------- |
+| ACL anthology | https://www.aclweb.org/anthology/ |
+| ICLR2020 | https://dblp.org/db/conf/iclr/iclr2020.html |
+| ICLR2019 | https://dblp.org/db/conf/iclr/iclr2019.html |
+| ICLR2018 | https://dblp.org/db/conf/iclr/iclr2018.html |
+| AAAI2020 | https://dblp.org/db/conf/aaai/aaai2020.html |
+
+
+<!-- 
+python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
+python bib2json.py -i data/iclr2019.bib -o data/iclr2019.json
+python bib2json.py -i data/iclr2018.bib -o data/iclr2018.json
+python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
+ -->
+
+## Add the local bib data
+
+You can manually add any conferences from DBLP by downloading its bib file to our `data` folder, then convert the conference bib file to the json format, and finally add its path to the `bib_list.txt`.
+
+Take ICLR2020 as an example:
+
+- Step 1: Go to https://dblp.org/db/conf/iclr/iclr2020.html 
+- Step 2: Download the bib file, and put it here as `data/iclr2020.bib` 
+- Step 3: Convert it to the json format.
 ```bash
-
+python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
 ```
-
-### DBLP (ICLR, NeurIPS, etc.)
+- Step 4: Add its path to `bib_list.txt`.
