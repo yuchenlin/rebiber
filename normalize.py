@@ -56,7 +56,7 @@ def normalize_bib(args, bib_db, all_bib_entries):
                     bibkey = bib_db[title][line_idx][bib_db[title][line_idx].find('{')+1:-1]
                     if not bibkey:
                         bibkey = bib_db[title][line_idx+1].strip()[:-1]
-                    bib_db[title][line_idx] = bib_db[title][line_idx].replace(bibkey, original_bibkey)
+                    bib_db[title][line_idx] = bib_db[title][line_idx].replace(bibkey, original_bibkey+",")
                     break
             log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
             num_converted += 1

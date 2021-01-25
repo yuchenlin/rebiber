@@ -129,6 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# sample output
-example_output.bib
+ 
