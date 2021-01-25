@@ -29,8 +29,10 @@ def normalize_bib(args, bib_db, all_bib_entries):
             if entry.strip().startswith("@"):
                 original_bibkey = entry[entry.find('{')+1:-1]
                 if not original_bibkey:
+                    # the bib id is in the second line
                     original_bibkey = bib_entry[entry_idx+1].strip()[:-1]
-            if entry.strip().startswith("title"):
+                    print(original_bibkey)
+            if entry.strip().lower().startswith("title"):
                 start_idx = entry.find('=')+1
                 while not entry[start_idx].isalpha():
                     start_idx += 1
@@ -39,8 +41,7 @@ def normalize_bib(args, bib_db, all_bib_entries):
                     end_idx -= 1
                 original_title = entry[start_idx:end_idx+1]
                 break
-        title = normalize_title(original_title)   
-         
+        title = normalize_title(original_title)    
         # try to map the bib_entry to the keys in all_bib_entries
         if title in bib_db and title:
             # update the bib_key to be the original_bib_key
@@ -66,10 +67,10 @@ def normalize_bib(args, bib_db, all_bib_entries):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_bib", 
+    parser.add_argument("-i", "--input_bib", default="example_input.bib",
                         type=str, help="The input bib file")
-    parser.add_argument("-o", "--output_bib", 
-                        type=str, help="The input bib file")
+    parser.add_argument("-o", "--output_bib", default="example_output.bib",
+                        type=str, help="The output bib file")
     parser.add_argument("-l", "--bib_list", default="bib_list.txt",
                         type=str, help="The list of candidate bib data.")
     args = parser.parse_args()

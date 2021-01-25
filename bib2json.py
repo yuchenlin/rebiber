@@ -23,7 +23,7 @@ def buil_json(all_bib_entries):
     all_bib_dict = {}
     for bib_entry in all_bib_entries:
         for entry in bib_entry:
-            if entry.strip().startswith("title"):
+            if entry.strip().lower().startswith("title"):
                 target_bp = entry.find('=')+1
                 while entry[target_bp] == ' ':
                     target_bp += 1
