@@ -4,18 +4,20 @@ import json
 import sys
 
 
-def construct_bib_db(bib_list="bib_list.txt"):
-    with open(bib_list) as f:
+def construct_bib_db(bib_list_file):
+    with open(bib_list_file) as f:
         filenames = f.readlines()
     bib_db = {}
     for filename in filenames:
+        print("Loading ... ", filename)
         with open(filename.strip()) as f:
             db = json.load(f)
-            bib_db.update(db)
+            print(" Size: ", len(db))
+        bib_db.update(db)        
     return bib_db
 
 
-def normalize_bib(bib_db, all_bib_entries):
+def normalize_bib(args, bib_db, all_bib_entries):
     output_bib_entries = []
     log_text = ""
     for bib_entry in all_bib_entries:
@@ -50,13 +52,12 @@ def normalize_bib(bib_db, all_bib_entries):
                     bib_db[title][line_idx] = bib_db[title][line_idx].replace(bibkey, original_bibkey)
                     break
             log_str = "Converted to the official format. ID: %s ; Title: %s" % (original_bibkey, original_title)
-            # print(log_str)
+            print(log_str)
             log_text += log_str
             output_bib_entries.append(bib_db[title])
         else:
             output_bib_entries.append(bib_entry)
-            
-    # TODO: write the log_text to a file 
+             
     with open(args.output_bib, "w") as output_file:
         for entry in output_bib_entries:
             for line in entry:
@@ -65,10 +66,14 @@ def normalize_bib(bib_db, all_bib_entries):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("input_bib", help="The input bib file")
-    parser.add_argument("output_bib", help="The output bib file")
+    parser.add_argument("-i", "--input_bib", 
+                        type=str, help="The input bib file")
+    parser.add_argument("-o", "--output_bib", 
+                        type=str, help="The input bib file")
+    parser.add_argument("-l", "--bib_list", default="bib_list.txt",
+                        type=str, help="The list of candidate bib data.")
     args = parser.parse_args()
 
-    bib_db = construct_bib_db()
+    bib_db = construct_bib_db(args.bib_list)
     all_bib_entries = load_bib_file(args.input_bib)
-    normalize_bib(bib_db, all_bib_entries)
+    normalize_bib(args, bib_db, all_bib_entries)

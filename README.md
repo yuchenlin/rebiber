@@ -1,8 +1,18 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
-Normalizing the bibtex entries to the official ACL Anthology format.
 
-https://www.aclweb.org/anthology/anthology.bib.gz
+## Get started
+
+```bash
+git clone https://github.com/yuchenlin/rebiber.git
+cd rebiber
+python normalize.py -i example_input.bib -o example_output.bib -l bib_list.txt
+```
+
+
+Normalizing the bibtex entries to the official format.
+
+
 
 Example input:
 ```bib
@@ -14,10 +24,7 @@ Example input:
 }
 
 ```
-
-Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models
----> "birdshavefourlegsnumersenseprobingnumericalcommonsenseknowledgeofpretrainedlanguagemodels"
----> "lin-etal-2020-birds" in anthology.bib
+ 
 
 Example output:
 ```bib
@@ -38,3 +45,12 @@ Example output:
 }
 ```
 
+
+## Update the local bib data.
+
+### ACL Anthology
+```bash
+
+```
+
+### DBLP (ICLR, NeurIPS, etc.)

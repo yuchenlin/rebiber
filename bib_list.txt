@@ -1,2 +1,2 @@
-acl.json
-iclr2020.json
+data/acl.json
+data/iclr2020.json
