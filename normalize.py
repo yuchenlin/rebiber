@@ -57,13 +57,18 @@ def normalize_bib(bib_db, all_bib_entries):
             output_bib_entries.append(bib_entry)
             
     # TODO: write the log_text to a file 
-    with open(sys.argv[2], "w") as output_file:
+    with open(args.output_bib, "w") as output_file:
         for entry in output_bib_entries:
             for line in entry:
                 output_file.write(line)
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_bib", help="The input bib file")
+    parser.add_argument("output_bib", help="The output bib file")
+    args = parser.parse_args()
+
     bib_db = construct_bib_db()
-    all_bib_entries = load_bib_file(sys.argv[1])
+    all_bib_entries = load_bib_file(args.input_bib)
     normalize_bib(bib_db, all_bib_entries)
