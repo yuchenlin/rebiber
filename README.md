@@ -1,5 +1,6 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
+We often cite papers using their arXiv info without noting that they are already __PUBLISHED__ in some conferences suach as ACL, EMNLP, ICLR or AAAI. These noisy bib entries might violate rules for submissions or camera-ready versions. Rebiber is a simple python tool to fix them , according to the official format from the full ACL anthology or DBLP (for ICLR and other conferences)! 
 
 ## Get started
 
@@ -16,7 +17,7 @@ python normalize.py -i example_input.bib -o example_output.bib -l bib_list.txt
 
 
 
-Example input about the arXiv version (from Google Scholar or somewhere):
+An example input entry with the arXiv information (from Google Scholar or somewhere):
 ```bib
 @article{lin2020birds,
 	title={Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models},
@@ -28,7 +29,7 @@ Example input about the arXiv version (from Google Scholar or somewhere):
 ```
  
 
-Example output with the official information:
+An example normalized output entry with the official information:
 ```bib
 @inproceedings{lin2020birds,
     title = "{B}irds have four legs?! {N}umer{S}ense: {P}robing {N}umerical {C}ommonsense {K}nowledge of {P}re-{T}rained {L}anguage {M}odels",
@@ -53,7 +54,7 @@ Example output with the official information:
 The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full ACL anthology, i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
 Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
 
-These are current supported conferences in our `data` folder. Please feel free to create PR to add your conferences here following the next section! 
+These are current supported conferences in our `data` folder. 
 
 | Name | Link |
 | --- | ----------- |
@@ -62,7 +63,9 @@ These are current supported conferences in our `data` folder. Please feel free t
 | ICLR2019 | https://dblp.org/db/conf/iclr/iclr2019.html |
 | ICLR2018 | https://dblp.org/db/conf/iclr/iclr2018.html |
 | AAAI2020 | https://dblp.org/db/conf/aaai/aaai2020.html |
+| ... | ... |
 
+**Please feel free to create PR to add your conferences here following the next section!** 
 
 <!-- 
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
@@ -71,7 +74,8 @@ python bib2json.py -i data/iclr2018.bib -o data/iclr2018.json
 python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
  -->
 
-## Add the local bib data
+
+## Adding a new conference
 
 You can manually add any conferences from DBLP by downloading its bib file to our `data` folder, then convert the conference bib file to the json format, and finally add its path to the `bib_list.txt`.
 
@@ -84,3 +88,7 @@ Take ICLR2020 as an example:
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
 ```
 - Step 4: Add its path to `bib_list.txt`.
+
+## Contact
+
+Please email yuchen.lin@usc.edu or create Github issues here if you have any questions or suggestions. 
