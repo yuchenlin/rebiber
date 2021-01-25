@@ -1,6 +1,6 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
-We often cite papers using their arXiv info without noting that they are already __PUBLISHED__ in some conferences suach as ACL, EMNLP, ICLR or AAAI. These noisy bib entries might violate rules for submissions or camera-ready versions. Rebiber is a simple python tool to fix them , according to the official format from the full ACL anthology or DBLP (for ICLR and other conferences)! 
+We often cite papers using their arXiv info without noting that they are already __PUBLISHED__ in some conferences suach as ACL, EMNLP, NAACL, ICLR or AAAI. These noisy bib entries might violate rules for submissions or camera-ready versions. Rebiber is a simple tool in Python to fix them automatically, based on their official information from the full ACL anthology and DBLP (for ICLR and other conferences)! 
 
 ## Get started
 
