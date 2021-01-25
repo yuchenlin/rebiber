@@ -19,7 +19,7 @@ def construct_bib_db(bib_list_file):
 
 def normalize_bib(args, bib_db, all_bib_entries):
     output_bib_entries = []
-    log_text = ""
+    num_converted = 0
     for bib_entry in all_bib_entries:
         # read the title from this bib_entry
         original_title = ""
@@ -58,18 +58,19 @@ def normalize_bib(args, bib_db, all_bib_entries):
                         bibkey = bib_db[title][line_idx+1].strip()[:-1]
                     bib_db[title][line_idx] = bib_db[title][line_idx].replace(bibkey, original_bibkey)
                     break
-            log_str = "Converted to the official format. ID: %s ; Title: %s" % (original_bibkey, original_title)
-            print(log_str)
-            log_text += log_str
+            log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
+            num_converted += 1
+            print(log_str) 
             output_bib_entries.append(bib_db[title])
         else:
             output_bib_entries.append(bib_entry)
-             
+    print("Num of converted items:", num_converted)
     with open(args.output_bib, "w") as output_file:
         for entry in output_bib_entries:
             for line in entry:
                 output_file.write(line)
-
+            output_file.write("\n")
+    print("Written to:", args.output_bib)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
