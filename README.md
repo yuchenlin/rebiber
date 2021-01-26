@@ -89,7 +89,7 @@ These are current supported conferences in our `data` folder.
 
 **Please feel free to create PR to add your conferences here following the next section!** 
 
-Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete bib files! 
+Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files! 
 
 <!-- 
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
