@@ -58,7 +58,7 @@ These are current supported conferences in our `data` folder.
 
 | Name | Link |
 | --- | ----------- |
-| ACL anthology | https://www.aclweb.org/anthology/ |
+| ACL anthology (until 2021-01) | https://www.aclweb.org/anthology/ |
 | ICLR (17-20) | https://dblp.org/db/conf/iclr/iclr2020.html |
 | NeurIPS2020 | https://dblp.org/db/conf/nips/neurips2020.html |
 | AAAI (15,17,19,20) | https://dblp.org/db/conf/aaai/aaai2020.html |
