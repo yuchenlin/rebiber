@@ -59,12 +59,9 @@ These are current supported conferences in our `data` folder.
 | Name | Link |
 | --- | ----------- |
 | ACL anthology | https://www.aclweb.org/anthology/ |
-| ICLR (2017-2020) | https://dblp.org/db/conf/iclr/iclr2020.html |
+| ICLR (17-20) | https://dblp.org/db/conf/iclr/iclr2020.html |
 | NeurIPS2020 | https://dblp.org/db/conf/nips/neurips2020.html |
-| AAAI2020 | https://dblp.org/db/conf/aaai/aaai2020.html |
-| AAAI2019 | https://dblp.org/db/conf/aaai/aaai2019.html |
-| AAAI2017 | https://dblp.org/db/conf/aaai/aaai2017.html |
-| AAAI2015 | https://dblp.org/db/conf/aaai/aaai2015.html |
+| AAAI (15,17,19,20) | https://dblp.org/db/conf/aaai/aaai2020.html |
 | ... | ... |
 
 **Please feel free to create PR to add your conferences here following the next section!** 
