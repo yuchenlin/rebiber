@@ -6,7 +6,7 @@ We often cite papers using their arXiv info without noting that they are already
 
 ```bash
 git clone https://github.com/yuchenlin/rebiber.git
-pip install bibtexparser
+pip install bibtexparser tqdm
 cd rebiber
 ```
 
