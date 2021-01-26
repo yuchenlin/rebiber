@@ -63,7 +63,7 @@ These are current supported conferences in our `data` folder.
 | AISTATS | 2013 -- 2020 |
 | ALENEX | 2010 -- 2020 |
 | ASONAM | 2010 -- 2019 |
-| BIGDATACONF | 2013 -- 2019 |
+| BigDataConf | 2013 -- 2019 |
 | BMVC | 2010 -- 2020 |
 | CHI | 2010 -- 2020 |
 | CIDR | 2009 -- 2020 |
@@ -76,8 +76,7 @@ These are current supported conferences in our `data` folder.
 | ICML | 2000 -- 2020 |
 | IJCAI | 2011 -- 2020 |
 | KDD | 2010 -- 2020 |
-| NEURIPS | 2020 -- 2020 |
-| NIPS | 2000 -- 2019 |
+| NeurIPS | 2000 -- 2020 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
 | SIGIR | 2010 -- 2020 |
@@ -86,7 +85,7 @@ These are current supported conferences in our `data` folder.
 | STOC | 2010 -- 2020 |
 | UAI | 2010 -- 2020 |
 | WSDM | 2008 -- 2020 |
-| WWW | 2001 -- 2020 |
+| WWW (The Web Conf) | 2001 -- 2020 |
 
 **Please feel free to create PR to add your conferences here following the next section!** 
 
