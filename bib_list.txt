@@ -5,3 +5,6 @@ data/iclr2018.json
 data/aaai2020.json
 data/neurips2020.json
 data/iclr2017.json
+data/aaai2015.json
+data/aaai2017.json
+data/aaai2019.json
