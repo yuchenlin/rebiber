@@ -1,0 +1,15 @@
+{
+  "ieeecomputersocietyconferenceoncomputervisionandpatternrecognitioncvprjunemadisonwiusa": [
+    "@proceedings{DBLP:conf/cvpr/2003,\n",
+    "  title     = {2003 {IEEE} Computer Society Conference on Computer Vision and Pattern\n",
+    "               Recognition {(CVPR} 2003), 16-22 June 2003, Madison, WI, {USA}},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2003},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/8603/proceeding},\n",
+    "  isbn      = {0-7695-1900-8},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/cvpr/2003.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}

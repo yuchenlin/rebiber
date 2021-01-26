@@ -51,20 +51,46 @@ An example normalized output entry with the official information:
 
 ## Supported Conferences 
 
-The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full ACL anthology, i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
+The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full [ACL anthology](https://www.aclweb.org/anthology/), i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
 Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
 
 These are current supported conferences in our `data` folder. 
 
-| Name | Link |
+| Name | Years |
 | --- | ----------- |
-| ACL anthology (until 2021-01) | https://www.aclweb.org/anthology/ |
-| ICLR (17-20) | https://dblp.org/db/conf/iclr/iclr2020.html |
-| NeurIPS2020 | https://dblp.org/db/conf/nips/neurips2020.html |
-| AAAI (15,17,19,20) | https://dblp.org/db/conf/aaai/aaai2020.html |
-| ... | ... |
+| ACL Anthology |  (until 2021-01) |
+| AAAI | 2010 -- 2020 |
+| AISTATS | 2013 -- 2020 |
+| ALENEX | 2010 -- 2020 |
+| ASONAM | 2010 -- 2019 |
+| BIGDATACONF | 2013 -- 2019 |
+| BMVC | 2010 -- 2020 |
+| CHI | 2010 -- 2020 |
+| CIDR | 2009 -- 2020 |
+| CIKM | 2010 -- 2020 |
+| COLT | 2000 -- 2020 |
+| CVPR | 2000 -- 2020 |
+| ICASSP | 2015 -- 2020 |
+| ICCV | 2003 -- 2019 |
+| ICLR | 2013 -- 2020 |
+| ICML | 2000 -- 2020 |
+| IJCAI | 2011 -- 2020 |
+| KDD | 2010 -- 2020 |
+| NEURIPS | 2020 -- 2020 |
+| NIPS | 2000 -- 2019 |
+| RECSYS | 2010 -- 2020 |
+| SDM | 2010 -- 2020 |
+| SIGIR | 2010 -- 2020 |
+| SIGMOD | 2010 -- 2020 |
+| SODA | 2010 -- 2020 |
+| STOC | 2010 -- 2020 |
+| UAI | 2010 -- 2020 |
+| WSDM | 2008 -- 2020 |
+| WWW | 2001 -- 2020 |
 
 **Please feel free to create PR to add your conferences here following the next section!** 
+
+Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete bib files! 
 
 <!-- 
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json

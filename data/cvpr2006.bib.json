@@ -1,0 +1,15 @@
+{
+  "ieeecomputersocietyconferenceoncomputervisionandpatternrecognitioncvprjunenewyorknyusa": [
+    "@proceedings{DBLP:conf/cvpr/2006,\n",
+    "  title     = {2006 {IEEE} Computer Society Conference on Computer Vision and Pattern\n",
+    "               Recognition {(CVPR} 2006), 17-22 June 2006, New York, NY, {USA}},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2006},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/10924/proceeding},\n",
+    "  isbn      = {0-7695-2597-0},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/cvpr/2006.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}
