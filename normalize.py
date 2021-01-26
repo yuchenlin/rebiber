@@ -26,7 +26,7 @@ def normalize_bib(args, bib_db, all_bib_entries):
         original_bibkey = ""
         bib_entry_str = " ".join([line for line in bib_entry if "month" not in line.lower()]).lower()
         bib_entry_parsed = bibtexparser.loads(bib_entry_str)
-        if "title" not in bib_entry_parsed.entries[0]:
+        if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
             continue
         original_title = bib_entry_parsed.entries[0]["title"]
         original_bibkey = bib_entry_parsed.entries[0]["ID"]
