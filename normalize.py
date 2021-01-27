@@ -2,20 +2,28 @@ from bib2json import normalize_title, load_bib_file
 import argparse
 import json
 import bibtexparser
-from tqdm import tqdm
 
 def construct_bib_db(bib_list_file):
     with open(bib_list_file) as f:
         filenames = f.readlines()
     bib_db = {}
     for filename in filenames:
-        print("Loading ... ", filename)
         with open(filename.strip()) as f:
             db = json.load(f)
-            print(" Size: ", len(db))
+            print("Loaded:", f.name, "Size:", len(db))
         bib_db.update(db)        
     return bib_db
 
+def is_contain_var(line):
+    if "month=" in line.lower().replace(" ",""):
+        return True # special case
+    line_clean = line.lower().replace(" ","")
+    if "=" in line_clean:
+        if '{' in line_clean or '"' in line_clean or "'" in line_clean:
+            return False
+        else:
+            return True
+    return False
 
 def normalize_bib(args, bib_db, all_bib_entries):
     output_bib_entries = []
@@ -24,8 +32,9 @@ def normalize_bib(args, bib_db, all_bib_entries):
         # read the title from this bib_entry
         original_title = ""
         original_bibkey = ""
-        bib_entry_str = " ".join([line for line in bib_entry if "month" not in line.lower()]).lower()
-        bib_entry_parsed = bibtexparser.loads(bib_entry_str)
+        # bib_entry_str = " ".join([line for line in bib_entry if not('=' in line and '{' not in line)])
+        bib_entry_str = " ".join([line for line in bib_entry if not is_contain_var(line)])
+        bib_entry_parsed = bibtexparser.loads(bib_entry_str.lower())
         if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
             continue
         original_title = bib_entry_parsed.entries[0]["title"]

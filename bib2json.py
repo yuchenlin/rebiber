@@ -10,19 +10,21 @@ def normalize_title(title_str):
     return title_str.lower().replace(" ", "").strip()
 
 
-def load_bib_file(bibpath="acl.bib"):
+def load_bib_file(bibpath):
     all_bib_entries = []
     with open(bibpath) as f:
         bib_entry_buffer = []
         for line in f.readlines():
             # line = line.strip()
+            if "@string" in line:
+                continue
             bib_entry_buffer.append(line)
-            if line == "}\n":
+            if line.strip() == "}":
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
     return all_bib_entries
 
-def buil_json(all_bib_entries):
+def build_json(all_bib_entries):
     all_bib_dict = {}
     num_expections = 0
     for bib_entry in tqdm(all_bib_entries[:]):
@@ -48,6 +50,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     all_bib_entries = load_bib_file(args.input_bib)
-    all_bib_dict = buil_json(all_bib_entries)
+    all_bib_dict = build_json(all_bib_entries)
     with open(args.output_json, "w") as f:
         json.dump(all_bib_dict, f, indent=2)
