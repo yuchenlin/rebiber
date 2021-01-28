@@ -1,18 +1,24 @@
-from bib2json import normalize_title, load_bib_file
+from rebiber.bib2json import normalize_title, load_bib_file
 import argparse
 import json
 import bibtexparser
+import os
+
+
+filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
+
 
 def construct_bib_db(bib_list_file):
     with open(bib_list_file) as f:
         filenames = f.readlines()
     bib_db = {}
     for filename in filenames:
-        with open(filename.strip()) as f:
+        with open(filepath+filename.strip()) as f:
             db = json.load(f)
             print("Loaded:", f.name, "Size:", len(db))
         bib_db.update(db)        
     return bib_db
+
 
 def is_contain_var(line):
     if "month=" in line.lower().replace(" ",""):
@@ -24,6 +30,7 @@ def is_contain_var(line):
         else:
             return True
     return False
+
 
 def normalize_bib(args, bib_db, all_bib_entries):
     output_bib_entries = []
@@ -64,13 +71,29 @@ def normalize_bib(args, bib_db, all_bib_entries):
             output_file.write("\n")
     print("Written to:", args.output_bib)
 
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
+                        type=str, help="The input bib file")
+    parser.add_argument("-o", "--output_bib", default=filepath+"example_output.bib",
+                        type=str, help="The output bib file")
+    parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
+                        type=str, help="The list of candidate bib data.")
+    args = parser.parse_args()
+
+    bib_db = construct_bib_db(args.bib_list)
+    all_bib_entries = load_bib_file(args.input_bib)
+    normalize_bib(args, bib_db, all_bib_entries)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_bib", default="example_input.bib",
+    parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
                         type=str, help="The input bib file")
-    parser.add_argument("-o", "--output_bib", default="example_output.bib",
+    parser.add_argument("-o", "--output_bib", default=filepath+"example_output.bib",
                         type=str, help="The output bib file")
-    parser.add_argument("-l", "--bib_list", default="bib_list.txt",
+    parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
                         type=str, help="The list of candidate bib data.")
     args = parser.parse_args()
 

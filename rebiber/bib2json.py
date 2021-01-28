@@ -4,6 +4,11 @@ import sys
 import bibtexparser
 import argparse
 from tqdm import tqdm
+import os
+
+
+filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
+
 
 def normalize_title(title_str):
     title_str = re.sub(r'[^a-zA-Z]',r'', title_str) 
@@ -43,10 +48,10 @@ def build_json(all_bib_entries):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_bib", default="data/acl.bib",
+    parser.add_argument("-i", "--input_bib", default=filepath+"data/acl.bib",
                         type=str, help="The input bib file")
-    parser.add_argument("-o", "--output_json", default="data/acl.json",
-                        type=str, help="The output bib file")
+    parser.add_argument("-o", "--output_json", default=filepath+"data/acl.json",
+                        type=str, help="The output json file")
     args = parser.parse_args()
     
     all_bib_entries = load_bib_file(args.input_bib)
