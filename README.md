@@ -1,6 +1,6 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
-We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences such as ACL, EMNLP, NAACL, ICLR or AAAI. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
+We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
 We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is on their official conference information from the DBLP or the ACL anthology (for NLP confernces)! You can check the list of suported conferences [here](#supported-conferences).
 
 
