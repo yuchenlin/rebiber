@@ -87,7 +87,7 @@ def main():
     assert args.input_bib is not None, "You need to specify an input path by -i xxx.bib"
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
-    output_path = args.input_bib if args.output == "same" else args.output_bib
+    output_path = args.input_bib if args.output_bib == "same" else args.output_bib
     normalize_bib(bib_db, all_bib_entries, output_path)
 
 
