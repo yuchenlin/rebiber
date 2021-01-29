@@ -1,5 +1,0 @@
-data/acl.json
-data/iclr2020.json
-data/iclr2019.json
-data/iclr2018.json
-data/aaai2020.json
