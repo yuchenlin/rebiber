@@ -20,7 +20,7 @@ pip install -e .
 
 
 ## Usage
-To normalize your bibtex file with the official converence information.
+Normalize your bibtex file with the official converence information:
 
 ```bash 
 rebiber -i /path/to/input.bib -o /path/to/output.bib
