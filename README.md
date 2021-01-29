@@ -74,8 +74,7 @@ An example normalized output entry with the official information:
 The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full [ACL anthology](https://www.aclweb.org/anthology/), i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
 Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
 
-The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`.  
-**Please feel free to create PR for adding new conferences following [this](#adding-a-new-conference)!** 
+The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`. **Please feel free to create PR for adding new conferences following [this](#adding-a-new-conference)!** 
 
 | Name | Years |
 | --- | ----------- |
