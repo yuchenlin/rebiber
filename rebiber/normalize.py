@@ -5,15 +5,15 @@ import bibtexparser
 import os
 
 
-filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
 
 
-def construct_bib_db(bib_list_file):
+
+def construct_bib_db(bib_list_file, start_dir=""):
     with open(bib_list_file) as f:
         filenames = f.readlines()
     bib_db = {}
     for filename in filenames:
-        with open(filepath+filename.strip()) as f:
+        with open(start_dir+filename.strip()) as f:
             db = json.load(f)
             print("Loaded:", f.name, "Size:", len(db))
         bib_db.update(db)        
@@ -32,7 +32,7 @@ def is_contain_var(line):
     return False
 
 
-def normalize_bib(args, bib_db, all_bib_entries):
+def normalize_bib(bib_db, all_bib_entries, output_bib_path):
     output_bib_entries = []
     num_converted = 0
     for bib_entry in all_bib_entries:
@@ -64,30 +64,17 @@ def normalize_bib(args, bib_db, all_bib_entries):
         else:
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
-    with open(args.output_bib, "w") as output_file:
+    with open(output_bib_path, "w") as output_file:
         for entry in output_bib_entries:
             for line in entry:
                 output_file.write(line)
             output_file.write("\n")
-    print("Written to:", args.output_bib)
+    print("Written to:", output_bib_path)
 
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
-                        type=str, help="The input bib file")
-    parser.add_argument("-o", "--output_bib", default=filepath+"example_output.bib",
-                        type=str, help="The output bib file")
-    parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
-                        type=str, help="The list of candidate bib data.")
-    args = parser.parse_args()
-
-    bib_db = construct_bib_db(args.bib_list)
-    all_bib_entries = load_bib_file(args.input_bib)
-    normalize_bib(args, bib_db, all_bib_entries)
 
 
 if __name__ == "__main__":
+    filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
                         type=str, help="The input bib file")
@@ -96,7 +83,7 @@ if __name__ == "__main__":
     parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
                         type=str, help="The list of candidate bib data.")
     args = parser.parse_args()
-
-    bib_db = construct_bib_db(args.bib_list)
+    
+    bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
-    normalize_bib(args, bib_db, all_bib_entries)
+    normalize_bib(bib_db, all_bib_entries, args.output_bib)
