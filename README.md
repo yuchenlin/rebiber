@@ -1,6 +1,7 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
-We often cite papers using their arXiv info without noting that they are already __PUBLISHED__ in some conferences such as ACL, EMNLP, NAACL, ICLR or AAAI. These incorrect bib entries might violate rules about submissions or camera-ready versions for some conferences. __Rebiber__ is a simple tool in Python to fix them automatically, based on their official information from the full ACL anthology and DBLP (for ICLR and other conferences)! 
+We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences such as ACL, EMNLP, NAACL, ICLR or AAAI. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
+We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is on their official conference information from the DBLP or the ACL anthology (for NLP confernces)! You can check the list of suported conferences [here](#supported-conferences).
 
 
 ## Installation
@@ -73,8 +74,8 @@ An example normalized output entry with the official information:
 The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full [ACL anthology](https://www.aclweb.org/anthology/), i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
 Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
 
-The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`. 
-**Please feel free to create PR to add new conferences following [this]()!** 
+The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`.  
+**Please feel free to create PR for adding new conferences following [this](#adding-a-new-conference)!** 
 
 | Name | Years |
 | --- | ----------- |
@@ -108,7 +109,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | WWW (The Web Conf) | 2001 -- 2020 |
 
 
-Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files! 
+**Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
 
 <!-- 
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
