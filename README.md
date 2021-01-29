@@ -96,6 +96,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | ICML | 2000 -- 2020 |
 | IJCAI | 2011 -- 2020 |
 | KDD | 2010 -- 2020 |
+| MLSys | 2019 -- 2020 |
 | NeurIPS | 2000 -- 2020 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
