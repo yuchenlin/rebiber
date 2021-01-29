@@ -73,7 +73,7 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path):
 
 
 
-if __name__ == "__main__":
+def main():
     filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
@@ -87,3 +87,7 @@ if __name__ == "__main__":
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
     normalize_bib(bib_db, all_bib_entries, args.output_bib)
+
+
+if __name__ == "__main__":
+    main()
