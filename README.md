@@ -5,14 +5,12 @@ We often cite papers using their arXiv info without noting that they are already
 
 ## Installation
 
-#### Install via pip
-
 ```bash
 pip install rebiber -U
 ```
 
+OR 
 
-#### Install Locally
 ```bash
 git clone https://github.com/yuchenlin/rebiber.git
 cd rebiber/
