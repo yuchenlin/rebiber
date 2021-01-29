@@ -26,7 +26,7 @@ To normalize your bibtex file with the official converence information.
 rebiber -i /path/to/input.bib -o /path/to/output.bib
 ```
 You can find a pair of example input and output files in `rebiber/example_input.bib` and `rebiber/example_output.bib`.
-You can also specify your own bib list files by `-l /path/to/bib_list.txt`.
+You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If you don't specify any `-o` then it will be the same as the `-i`.
 <!-- Or 
 ```bash
 python rebiber/normalize.py \

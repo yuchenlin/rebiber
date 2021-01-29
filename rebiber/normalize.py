@@ -76,17 +76,19 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path):
 def main():
     filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_bib", default=filepath+"example_input.bib",
+    parser.add_argument("-i", "--input_bib",
                         type=str, help="The input bib file")
-    parser.add_argument("-o", "--output_bib", default=filepath+"example_output.bib",
+    parser.add_argument("-o", "--output_bib", default="same",
                         type=str, help="The output bib file")
     parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
                         type=str, help="The list of candidate bib data.")
     args = parser.parse_args()
     
+    
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
-    normalize_bib(bib_db, all_bib_entries, args.output_bib)
+    output_path = args.input_bib if args.output == "same" else args.output_bib
+    normalize_bib(bib_db, all_bib_entries, output_path)
 
 
 if __name__ == "__main__":
