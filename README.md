@@ -17,7 +17,7 @@ git clone https://github.com/yuchenlin/rebiber.git
 cd rebiber/
 pip install -e .
 ```
-If you would like to use the most updated version.
+If you would like to use the latest version.
 
 ## Usage
 Normalize your bibtex file with the official converence information:
