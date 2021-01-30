@@ -39,7 +39,6 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path):
         # read the title from this bib_entry
         original_title = ""
         original_bibkey = ""
-        # bib_entry_str = " ".join([line for line in bib_entry if not('=' in line and '{' not in line)])
         bib_entry_str = " ".join([line for line in bib_entry if not is_contain_var(line)])
         bib_entry_parsed = bibtexparser.loads(bib_entry_str)
         if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
@@ -48,19 +47,26 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path):
         original_bibkey = bib_entry_parsed.entries[0]["ID"]
         title = normalize_title(original_title)    
         # try to map the bib_entry to the keys in all_bib_entries
+        found_bibitem = None
         if title in bib_db and title:
             # update the bib_key to be the original_bib_key
             for line_idx in range(len(bib_db[title])):
-                if bib_db[title][line_idx].strip().startswith("@"):
-                    bibkey = bib_db[title][line_idx][bib_db[title][line_idx].find('{')+1:-1]
+                line = bib_db[title][line_idx]
+                if line.strip().startswith("@"):
+                    bibkey = line[line.find('{')+1:-1]
+                    if "Devlin2019BERTPO" == original_bibkey:
+                        print(bibkey)
                     if not bibkey:
                         bibkey = bib_db[title][line_idx+1].strip()[:-1]
-                    bib_db[title][line_idx] = bib_db[title][line_idx].replace(bibkey, original_bibkey+",")
+                    line = line.replace(bibkey, original_bibkey+",")
+                    found_bibitem = bib_db[title].copy()
+                    found_bibitem[line_idx] = line
                     break
-            log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
-            num_converted += 1
-            print(log_str) 
-            output_bib_entries.append(bib_db[title])
+            if found_bibitem:
+                log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
+                num_converted += 1
+                print(log_str)
+                output_bib_entries.append(found_bibitem)
         else:
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
