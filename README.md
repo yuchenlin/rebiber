@@ -10,14 +10,14 @@ We introduce __Rebiber__, a simple tool in Python to fix them automatically. It 
 pip install rebiber -U
 ```
 
-OR 
+OR
 
 ```bash
 git clone https://github.com/yuchenlin/rebiber.git
 cd rebiber/
 pip install -e .
 ```
-
+If you would like to use the most updated version.
 
 ## Usage
 Normalize your bibtex file with the official converence information:
