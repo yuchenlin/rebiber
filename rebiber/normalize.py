@@ -54,8 +54,6 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path):
                 line = bib_db[title][line_idx]
                 if line.strip().startswith("@"):
                     bibkey = line[line.find('{')+1:-1]
-                    if "Devlin2019BERTPO" == original_bibkey:
-                        print(bibkey)
                     if not bibkey:
                         bibkey = bib_db[title][line_idx+1].strip()[:-1]
                     line = line.replace(bibkey, original_bibkey+",")
