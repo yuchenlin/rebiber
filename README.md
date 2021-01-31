@@ -4,7 +4,7 @@ We often cite papers using their arXiv versions without noting that they are alr
 We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is based on the official conference information from the [DBLP](https://dblp.org/) or [the ACL anthology](https://www.aclweb.org/anthology/) (for NLP confernces)! You can check the list of suported conferences [here](#supported-conferences).
 
 
-You can use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a (tentative) web demo.
+You can use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a simple web demo.
 
 ## Installation
 
