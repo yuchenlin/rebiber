@@ -31,13 +31,13 @@ You can find a pair of example input and output files in `rebiber/example_input.
 You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If you don't specify any `-o` then it will be the same as the `-i`.
 
 
-| argument | usage |
-| --- | ----------- |
-| -i, --input_bib |  the path to the input bib file that you want to update |
-| -o, --output_bib |  the path to the output bib file that you want to save |
-| -r, --remove |  a comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`  |
-| -d, --deduplicate |  a bool argument that is `True` by default, used for removing the duplicate bib entries sharing the same key. |
-| -l, --bib_list |  the path to the list of the bib json files to be loaded. Usually you don't need to set this argument, the default value is the path to our curated list. |
+| argument names | usage |
+| ----------- | ----------- |
+| `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
+| `-o` | or `--output_bib`.  The path to the output bib file that you want to save |
+| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`  |
+| `-d` | or `--deduplicate`. A bool argument that is `True` by default, used for removing the duplicate bib entries sharing the same key. |
+| `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Usually you don't need to set this argument, the default value is the path to our curated list. |
 <!-- Or 
 ```bash
 python rebiber/normalize.py \

@@ -1,11 +1,17 @@
 import setuptools
+import os
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+about = {}
+with open("rebiber/_version.py") as f:
+    exec(f.read(), about)
+os.environ["PBR_VERSION"] = about["__version__"]
+
 setuptools.setup(
     name="rebiber", 
-    version="1.0.2",
+    version=about["__version__"],
     author='Bill Yuchen Lin',
     author_email='yuchen.lin@usc.edu',
     description="A tool for normalizing bibtex with official info.",
