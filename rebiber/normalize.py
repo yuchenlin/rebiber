@@ -3,8 +3,7 @@ import argparse
 import json
 import bibtexparser
 import os
-
-
+import re
 
 
 
@@ -32,7 +31,7 @@ def is_contain_var(line):
     return False
 
 
-def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True):
+def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[]):
     output_bib_entries = []
     num_converted = 0
     bib_keys = set()
@@ -76,6 +75,8 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True):
     with open(output_bib_path, "w") as output_file:
         for entry in output_bib_entries:
             for line in entry:
+                if any([re.match(r".*%s.*=.*"%n, line) for n in removed_value_names if len(n)>1]):
+                    continue
                 output_file.write(line)
             output_file.write("\n")
     print("Written to:", output_bib_path)
@@ -93,13 +94,16 @@ def main():
                         type=str, help="The list of candidate bib data.")
     parser.add_argument("-d", "--deduplicate", default=True,
                         type=bool, help="True to remove entries with duplicate keys.")
+    parser.add_argument("-r", "--remove", default="",
+                        type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
     args = parser.parse_args()
     
     assert args.input_bib is not None, "You need to specify an input path by -i xxx.bib"
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
     output_path = args.input_bib if args.output_bib == "same" else args.output_bib
-    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate)
+    removed_value_names = [s.strip() for s in args.remove.split(",")]
+    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names)
 
 
 if __name__ == "__main__":
