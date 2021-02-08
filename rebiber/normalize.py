@@ -32,19 +32,24 @@ def is_contain_var(line):
     return False
 
 
-def normalize_bib(bib_db, all_bib_entries, output_bib_path):
+def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True):
     output_bib_entries = []
     num_converted = 0
+    bib_keys = set()
     for bib_entry in all_bib_entries:
         # read the title from this bib_entry
+        bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
         original_title = ""
         original_bibkey = ""
         bib_entry_str = " ".join([line for line in bib_entry if not is_contain_var(line)])
-        bib_entry_parsed = bibtexparser.loads(bib_entry_str)
+        bib_entry_parsed = bibtexparser.loads(bib_entry_str, bibparser)
         if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
             continue
         original_title = bib_entry_parsed.entries[0]["title"]
         original_bibkey = bib_entry_parsed.entries[0]["ID"]
+        if deduplicate and original_bibkey in bib_keys:
+            continue        
+        bib_keys.add(original_bibkey)
         title = normalize_title(original_title)    
         # try to map the bib_entry to the keys in all_bib_entries
         found_bibitem = None
@@ -86,13 +91,15 @@ def main():
                         type=str, help="The output bib file")
     parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
                         type=str, help="The list of candidate bib data.")
+    parser.add_argument("-d", "--deduplicate", default=True,
+                        type=bool, help="True to remove entries with duplicate keys.")
     args = parser.parse_args()
     
     assert args.input_bib is not None, "You need to specify an input path by -i xxx.bib"
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
     output_path = args.input_bib if args.output_bib == "same" else args.output_bib
-    normalize_bib(bib_db, all_bib_entries, output_path)
+    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate)
 
 
 if __name__ == "__main__":
