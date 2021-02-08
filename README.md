@@ -31,7 +31,7 @@ You can find a pair of example input and output files in `rebiber/example_input.
 You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If you don't specify any `-o` then it will be the same as the `-i`.
 
 
-| argument names | usage |
+| argument | usage|
 | ----------- | ----------- |
 | `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
 | `-o` | or `--output_bib`.  The path to the output bib file that you want to save |
