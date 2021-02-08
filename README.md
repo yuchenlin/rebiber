@@ -28,13 +28,11 @@ Normalize your bibtex file with the official converence information:
 rebiber -i /path/to/input.bib -o /path/to/output.bib
 ```
 You can find a pair of example input and output files in `rebiber/example_input.bib` and `rebiber/example_output.bib`.
-You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If you don't specify any `-o` then it will be the same as the `-i`.
-
 
 | argument | usage|
 | ----------- | ----------- |
 | `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
-| `-o` | or `--output_bib`.  The path to the output bib file that you want to save |
+| `-o` | or `--output_bib`.  The path to the output bib file that you want to save. If you don't specify any `-o` then it will be the same as the `-i`. |
 | `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`. Empty by __default__.  |
 | `-s` | or `--shorten`. A bool argument that is `False` by __default__, used for replacing `booktitle` with abbreviation in `-a`. |
 | `-d` | or `--deduplicate`. A bool argument that is `True` by __default__, used for removing the duplicate bib entries sharing the same key. |
