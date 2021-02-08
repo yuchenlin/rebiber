@@ -19,14 +19,16 @@ def load_bib_file(bibpath):
     all_bib_entries = []
     with open(bibpath) as f:
         bib_entry_buffer = []
-        for line in f.readlines():
+        lines = f.readlines() + ["\n"]
+        for ind, line in enumerate(lines):
             # line = line.strip()
             if "@string" in line:
                 continue
             bib_entry_buffer.append(line)
-            if line.strip() == "}":
+            if line.strip() == "}" or (line.strip().endswith("}") and "{" not in line and ind+1<len(lines) and lines[ind+1]=="\n"):
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
+            
     return all_bib_entries
 
 def build_json(all_bib_entries):

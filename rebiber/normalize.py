@@ -30,8 +30,39 @@ def is_contain_var(line):
             return True
     return False
 
+def post_processing(output_bib_entries, removed_value_names, abbr_dict):
+    bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
+    bib_entry_str = ""
+    for entry in output_bib_entries:
+        for line in entry:
+            if is_contain_var(line):
+                continue
+            bib_entry_str += line
+        bib_entry_str += "\n"
+    parsed_entries  = bibtexparser.loads(bib_entry_str, bibparser)
+    if len(parsed_entries.entries) < len(output_bib_entries)-5:
+        print("Warning: len(parsed_entries.entries) < len(output_bib_entries) -5 -->", len(parsed_entries.entries), len(output_bib_entries))
+        output_str = "" 
+        for entry in output_bib_entries:
+            for line in entry:
+                # if any([re.match(r".*%s.*=.*"%n, line) for n in removed_value_names if len(n)>1]):
+                #     continue
+                output_str += line
+            output_str += "\n"
+        return output_str
+    for output_entry in parsed_entries.entries:
+        for remove_name in removed_value_names:
+            if remove_name in output_entry:
+                del output_entry[remove_name]
+        for short, pattern in abbr_dict.items():
+            if "booktitle" in output_entry:
+                if re.match(pattern, output_entry["booktitle"]):
+                    output_entry["booktitle"] = short
+                
+    return bibtexparser.dumps(parsed_entries)
 
-def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[]):
+
+def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[], abbr_dict={}):
     output_bib_entries = []
     num_converted = 0
     bib_keys = set()
@@ -72,16 +103,20 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
         else:
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
+    # post-formatting 
+    output_string = post_processing(output_bib_entries, removed_value_names, abbr_dict)
     with open(output_bib_path, "w") as output_file:
-        for entry in output_bib_entries:
-            for line in entry:
-                if any([re.match(r".*%s.*=.*"%n, line) for n in removed_value_names if len(n)>1]):
-                    continue
-                output_file.write(line)
-            output_file.write("\n")
+        output_file.write(output_string)
     print("Written to:", output_bib_path)
 
-
+def load_abbr_tsv(abbr_tsv_file):
+    abbr_dict = {}
+    with open(abbr_tsv_file) as f:
+        for line in f.read().splitlines():
+            ls = line.split("|")
+            if len(ls) == 2:
+                abbr_dict[ls[0].strip()] = ls[1].strip()
+    return abbr_dict
 
 def main():
     filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
@@ -92,8 +127,12 @@ def main():
                         type=str, help="The output bib file")
     parser.add_argument("-l", "--bib_list", default=filepath+"bib_list.txt",
                         type=str, help="The list of candidate bib data.")
+    parser.add_argument("-a", "--abbr_tsv", default=filepath+"abbr.tsv",
+                        type=str, help="The list of conference abbreviation data.")
     parser.add_argument("-d", "--deduplicate", default=True,
                         type=bool, help="True to remove entries with duplicate keys.")
+    parser.add_argument("-s", "--shorten", default=False,
+                        type=bool, help="True to shorten the conference names.")
     parser.add_argument("-r", "--remove", default="",
                         type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
     args = parser.parse_args()
@@ -103,7 +142,11 @@ def main():
     all_bib_entries = load_bib_file(args.input_bib)
     output_path = args.input_bib if args.output_bib == "same" else args.output_bib
     removed_value_names = [s.strip() for s in args.remove.split(",")]
-    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names)
+    if args.shorten:
+        abbr_dict = load_abbr_tsv(args.abbr_tsv)
+    else:
+        abbr_dict = {}
+    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names, abbr_dict)
 
 
 if __name__ == "__main__":

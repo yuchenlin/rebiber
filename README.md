@@ -35,9 +35,12 @@ You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If y
 | ----------- | ----------- |
 | `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
 | `-o` | or `--output_bib`.  The path to the output bib file that you want to save |
-| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`  |
-| `-d` | or `--deduplicate`. A bool argument that is `True` by default, used for removing the duplicate bib entries sharing the same key. |
-| `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Usually you don't need to set this argument, the default value is the path to our curated list. |
+| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`. Empty by __default__.  |
+| `-s` | or `--shorten`. A bool argument that is `False` by __default__, used for replacing `booktitle` with abbreviation in `-a`. |
+| `-d` | or `--deduplicate`. A bool argument that is `True` by __default__, used for removing the duplicate bib entries sharing the same key. |
+| `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check `rebiber/bib_list.txt` for the default file. Usually you don't need to set this argument. |
+| `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check `rebiber/abbr.tsv` for the default file. Usually you don't need to set this argument. |
+
 <!-- Or 
 ```bash
 python rebiber/normalize.py \
