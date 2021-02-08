@@ -34,7 +34,7 @@ You can find a pair of example input and output files in `rebiber/example_input.
 | ----------- | ----------- |
 | `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
 | `-o` | or `--output_bib`.  The path to the output bib file that you want to save. If you don't specify any `-o` then it will be the same as the `-i`. |
-| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "url,biburl,address,publisher,pages"`. Empty by __default__.  |
+| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as `-r "pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi"`. Empty by __default__.  |
 | `-s` | or `--shorten`. A bool argument that is `False` by __default__, used for replacing `booktitle` with abbreviation in `-a`. |
 | `-d` | or `--deduplicate`. A bool argument that is `True` by __default__, used for removing the duplicate bib entries sharing the same key. |
 | `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check `rebiber/bib_list.txt` for the default file. Usually you don't need to set this argument. |
