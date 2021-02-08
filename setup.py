@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="rebiber", 
-    version="1.0.1",
+    version="1.0.2",
     author='Bill Yuchen Lin',
     author_email='yuchen.lin@usc.edu',
     description="A tool for normalizing bibtex with official info.",
