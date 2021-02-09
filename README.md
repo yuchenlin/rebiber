@@ -9,8 +9,8 @@ You can use [this google colab notebook](https://colab.research.google.com/drive
 
 ## Changelogs
 
-- 2021.02.08 We now support multiple useful feaures: 1) turning off some certain values, e.g., `-r url,pages,address` for removing the values from the output, 2) using abbr. to shorten the booktile values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
-- 2021.01.30 We build a colab notebook as a simple web demo. [link](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing)
+- `2021.02.08` We now support multiple useful feaures: 1) turning off some certain values, e.g., `-r url,pages,address` for removing the values from the output, 2) using abbr. to shorten the booktile values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
+- `2021.01.30` We build a colab notebook as a simple web demo. [link](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing)
 
 
 
