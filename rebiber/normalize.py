@@ -1,3 +1,4 @@
+import rebiber
 from rebiber.bib2json import normalize_title, load_bib_file
 import argparse
 import json
@@ -121,6 +122,8 @@ def load_abbr_tsv(abbr_tsv_file):
 def main():
     filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
     parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--update", action='store_true', help="Update the data of bib and abbr.")
+    parser.add_argument("-v", "--version", action='store_true', help="Print the version of Rebiber.")
     parser.add_argument("-i", "--input_bib",
                         type=str, help="The input bib file")
     parser.add_argument("-o", "--output_bib", default="same",
@@ -136,6 +139,27 @@ def main():
     parser.add_argument("-r", "--remove", default="",
                         type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
     args = parser.parse_args()
+    
+    
+    if args.update:
+        # TODO: download from the https://github.com/yuchenlin/rebiber/tree/main/rebiber/data
+        # TODO: download from the https://github.com/yuchenlin/rebiber/blob/main/rebiber/bib_list.txt
+        # TODO: download from the https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv
+        # And replace them with the ones in `filepath`        
+        def execute(cmd):
+            print(cmd)
+            os.system(cmd)         
+        execute("wget https://github.com/yuchenlin/rebiber/archive/main.zip -O /tmp/rebiber.zip")
+        execute("unzip -o /tmp/rebiber.zip -d /tmp/")
+        execute(f"cp /tmp/rebiber-main/rebiber/bib_list.txt {filepath}/bib_list.txt")
+        execute(f"cp /tmp/rebiber-main/rebiber/abbr.tsv {filepath}/abbr.tsv")
+        execute(f"cp /tmp/rebiber-main/rebiber/data/* {filepath}/data/")
+        print("Done Updating.")
+        return
+    if args.version:
+        print(rebiber.__version__)
+        return
+    
     
     assert args.input_bib is not None, "You need to specify an input path by -i xxx.bib"
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)

@@ -22,7 +22,7 @@ pip install -e .
 ```
 If you would like to use the latest github version with more bug fixes, please use the second installation method.
 
-## Usage （v1.1）
+## Usage（v1.1.1）
 Normalize your bibtex file with the official converence information:
 
 ```bash 
@@ -39,6 +39,8 @@ You can find a pair of example input and output files in `rebiber/example_input.
 | `-d` | or `--deduplicate`. A bool argument that is `True` by __default__, used for removing the duplicate bib entries sharing the same key. |
 | `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check `rebiber/bib_list.txt` for the default file. Usually you don't need to set this argument. |
 | `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check `rebiber/abbr.tsv` for the default file. Usually you don't need to set this argument. |
+| `-u` | or `--update`. Update the local bib-related data with the lateset Github version.
+| `-v` | or `--version`. Print the version of current Rebiber.
 
 <!-- Or 
 ```bash
