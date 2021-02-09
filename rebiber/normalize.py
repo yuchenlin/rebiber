@@ -119,6 +119,17 @@ def load_abbr_tsv(abbr_tsv_file):
                 abbr_dict[ls[0].strip()] = ls[1].strip()
     return abbr_dict
 
+def update(filepath):
+    def execute(cmd):
+        print(cmd)
+        os.system(cmd)         
+    execute("wget https://github.com/yuchenlin/rebiber/archive/main.zip -O /tmp/rebiber.zip")
+    execute("unzip -o /tmp/rebiber.zip -d /tmp/")
+    execute(f"cp /tmp/rebiber-main/rebiber/bib_list.txt {filepath}/bib_list.txt")
+    execute(f"cp /tmp/rebiber-main/rebiber/abbr.tsv {filepath}/abbr.tsv")
+    execute(f"cp /tmp/rebiber-main/rebiber/data/* {filepath}/data/")
+    print("Done Updating.")
+
 def main():
     filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
     parser = argparse.ArgumentParser()
@@ -142,19 +153,7 @@ def main():
     
     
     if args.update:
-        # TODO: download from the https://github.com/yuchenlin/rebiber/tree/main/rebiber/data
-        # TODO: download from the https://github.com/yuchenlin/rebiber/blob/main/rebiber/bib_list.txt
-        # TODO: download from the https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv
-        # And replace them with the ones in `filepath`        
-        def execute(cmd):
-            print(cmd)
-            os.system(cmd)         
-        execute("wget https://github.com/yuchenlin/rebiber/archive/main.zip -O /tmp/rebiber.zip")
-        execute("unzip -o /tmp/rebiber.zip -d /tmp/")
-        execute(f"cp /tmp/rebiber-main/rebiber/bib_list.txt {filepath}/bib_list.txt")
-        execute(f"cp /tmp/rebiber-main/rebiber/abbr.tsv {filepath}/abbr.tsv")
-        execute(f"cp /tmp/rebiber-main/rebiber/data/* {filepath}/data/")
-        print("Done Updating.")
+        update(filepath)
         return
     if args.version:
         print(rebiber.__version__)
