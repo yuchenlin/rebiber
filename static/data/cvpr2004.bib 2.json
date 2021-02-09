@@ -1,0 +1,16 @@
+{
+  "ieeecomputersocietyconferenceoncomputervisionandpatternrecognitioncvprwithcdromjunejulywashingtondcusa": [
+    "@proceedings{DBLP:conf/cvpr/2004,\n",
+    "  title     = {2004 {IEEE} Computer Society Conference on Computer Vision and Pattern\n",
+    "               Recognition {(CVPR} 2004), with CD-ROM, 27 June - 2 July 2004, Washington,\n",
+    "               DC, {USA}},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2004},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/9183/proceeding},\n",
+    "  isbn      = {0-7695-2158-4},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/cvpr/2004.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}

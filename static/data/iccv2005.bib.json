@@ -1,0 +1,15 @@
+{
+  "thieeeinternationalconferenceoncomputervisioniccvoctoberbeijingchina": [
+    "@proceedings{DBLP:conf/iccv/2005,\n",
+    "  title     = {10th {IEEE} International Conference on Computer Vision {(ICCV} 2005),\n",
+    "               17-20 October 2005, Beijing, China},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2005},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/10347/proceeding},\n",
+    "  isbn      = {0-7695-2334-X},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/iccv/2005.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}

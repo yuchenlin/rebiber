@@ -1,0 +1,15 @@
+{
+  "ieeecomputersocietyconferenceoncomputervisionandpatternrecognitioncvprjunesandiegocausa": [
+    "@proceedings{DBLP:conf/cvpr/2005,\n",
+    "  title     = {2005 {IEEE} Computer Society Conference on Computer Vision and Pattern\n",
+    "               Recognition {(CVPR} 2005), 20-26 June 2005, San Diego, CA, {USA}},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2005},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/9901/proceeding},\n",
+    "  isbn      = {0-7695-2372-2},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/cvpr/2005.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}

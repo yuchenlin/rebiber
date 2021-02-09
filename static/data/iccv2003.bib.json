@@ -1,0 +1,15 @@
+{
+  "thieeeinternationalconferenceoncomputervisioniccvoctobernicefrance": [
+    "@proceedings{DBLP:conf/iccv/2003,\n",
+    "  title     = {9th {IEEE} International Conference on Computer Vision {(ICCV} 2003),\n",
+    "               14-17 October 2003, Nice, France},\n",
+    "  publisher = {{IEEE} Computer Society},\n",
+    "  year      = {2003},\n",
+    "  url       = {https://ieeexplore.ieee.org/xpl/conhome/8769/proceeding},\n",
+    "  isbn      = {0-7695-1950-4},\n",
+    "  timestamp = {Wed, 16 Oct 2019 01:00:00 +0200},\n",
+    "  biburl    = {https://dblp.org/rec/conf/iccv/2003.bib},\n",
+    "  bibsource = {dblp computer science bibliography, https://dblp.org}\n",
+    "}\n"
+  ]
+}
