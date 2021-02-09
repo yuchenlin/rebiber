@@ -56,9 +56,10 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict):
             if remove_name in output_entry:
                 del output_entry[remove_name]
         for short, pattern in abbr_dict.items():
-            if "booktitle" in output_entry:
-                if re.match(pattern, output_entry["booktitle"]):
-                    output_entry["booktitle"] = short
+            for place in ["booktitle", "journal"]:
+                if place in output_entry:
+                    if re.match(pattern, output_entry[place]):
+                        output_entry[place] = short
                 
     return bibtexparser.dumps(parsed_entries)
 
