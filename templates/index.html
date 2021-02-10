@@ -1,17 +1,37 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title>Upload file</title>
+<style>
+    body {
+        margin: 0;
+    }
+
+    #upload-btn {
+        margin: 20px;
+    }
+
+    #header, p {
+        margin: 20px;
+    }
+
+    #submit-btn {
+        margin-left: 20px;
+    }
+
+</style>
 {% endblock %}
 
 {% block body %}
 
-<div align="center">
-    <h1>Rebiber - Online Bibtext Formatter</h1>
-    <h2>Upload new File</h2>
+<div>
+    <h1 id="header">Rebiber - Online Bibtext Formatter</h1>
+    <p>Upload new File</p>
     <form action="/" method=post enctype=multipart/form-data>
-        <p><input type=file name="bib">
-            <input type=submit value=Upload>
+        <div class="form-group">
+            <input class="form-control-file" id="upload-btn" type="file" name="bib">
+            <input class="btn btn-primary" id="submit-btn" type="submit" value=Upload>
+        </div>
     </form>
 </div>
 

@@ -1,14 +1,25 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title>Download file</title>
+<style>
+    #header, p {
+        margin: 20px;
+    }
+
+    #download-btn {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+</style>
 {% endblock %}
 
 {% block body %}
 
-<div class="container" align="left">
-    <a href="/" target="blank"><button class='btn btn-default'>Back</button></a>
-    <a href="/return-files/{{value}}" target="blank"><button class='btn btn-default'>Download</button></a>
-</div>
+<h1 id="header">Rebiber - Online Bibtext Formatter</h1>
+<p>File processed successfully</p>
+<a href="/return-files/{{value}}" target="blank"><button id="download-btn" class="btn btn-primary">Download</button></a>
+<a href="/" target="blank"><button id="back-btn" class="btn btn-primary">Back</button></a>
 
 {% endblock %}
