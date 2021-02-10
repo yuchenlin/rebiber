@@ -49,8 +49,9 @@ def index():
                 bib_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
                 print("File uploaded successfully")
                 process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), os.path.join(app.config["STATIC_FOLDER"], "bib_list.txt"))
-                return redirect(url_for('uploaded_file', filename=filename))
+                # return redirect(url_for('uploaded_file', filename=filename))
                 # return redirect(request.url)
+                return redirect('/downloadfile/'+ filename)
             
             else:
                 print("That file extension is not allowed")
@@ -59,9 +60,15 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-   return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+# Download API
+@app.route("/downloadfile/<filename>", methods = ['GET'])
+def download_file(filename):
+    return render_template('download.html',value=filename)
+
+@app.route('/return-files/<filename>')
+def return_files_tut(filename):
+    file_path = app.config['UPLOAD_FOLDER'] + filename
+    return send_file(file_path, as_attachment=True, attachment_filename='')
 
 
 if __name__ == "__main__":
