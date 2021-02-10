@@ -20,7 +20,7 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 
 ```bash
 pip install rebiber -U
-rebiber --update
+rebiber --update  # update the bib data and the abbr. info 
 ```
 
 OR
