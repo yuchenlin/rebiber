@@ -7,15 +7,15 @@ import rebiber
 app = Flask(__name__)
 filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
 app.config["UPLOAD_FOLDER"] = filepath + "static/uploads"
-app.config["STATIC_FOLDER"] = filepath + 'static/'
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
 
 
-def process_file(input_file_path, bib_list):
-    bib_db = rebiber.construct_bib_db(bib_list, app.config["STATIC_FOLDER"])
+def process_file(input_file_path):
     all_bib_entries = rebiber.load_bib_file(input_file_path)
-    output_path = os.path.join(app.config['UPLOAD_FOLDER'], '/output.bib')
-    rebiber.normalize_bib(bib_db, all_bib_entries, output_path)
+    filepath = os.path.abspath(rebiber.__file__).replace("__init__.py","")
+    bib_list_path = os.path.join(filepath, "bib_list.txt")
+    bib_db = rebiber.construct_bib_db(bib_list_path, start_dir=filepath)
+    rebiber.normalize_bib(bib_db, all_bib_entries, "output.bib") 
 
 
 def allowed_file(filename):
@@ -48,9 +48,7 @@ def index():
                 filename = secure_filename(bib_file.filename)
                 bib_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
                 print("File uploaded successfully")
-                process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), os.path.join(app.config["STATIC_FOLDER"], "bib_list.txt"))
-                # return redirect(url_for('uploaded_file', filename=filename))
-                # return redirect(request.url)
+                process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 return redirect('/downloadfile/'+ 'output.bib')
             
             else:
