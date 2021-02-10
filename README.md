@@ -122,6 +122,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | IJCAI | 2011 -- 2020 |
 | KDD | 2010 -- 2020 |
 | MLSys | 2019 -- 2020 |
+| MM | 2016 -- 2020 |
 | NeurIPS | 2000 -- 2020 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
@@ -146,17 +147,16 @@ python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
 
 ## Adding a new conference
 
-You can manually add any conferences from DBLP by downloading its bib file to our `data` folder, then convert the conference bib file to the json format, and finally add its path to the `bib_list.txt`.
+You can manually add any conferences from DBLP by downloading their bib files to our `raw_data` folder, and run a prepared script `add_conf.sh`.
 
-Take ICLR2020 as an example:
+Take ICLR2020 and ICLR2019 as an example:
 
-- Step 1: Go to https://dblp.org/db/conf/iclr/iclr2020.html 
-- Step 2: Download the bib file, and put it here as `data/iclr2020.bib` 
-- Step 3: Convert it to the json format.
+- Step 1: Go to [DBLP](https://dblp.org/db/conf/iclr/iclr2020.html) 
+- Step 2: Download the bib files, and put them here as `raw_data/iclr2020.bib` and `raw_data/iclr2019.bib` (name should be in the format as {conf_name}{year}.bib)
+- Step 3: Run script
 ```bash
-python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
+bash add_conf.sh iclr 2019 2020
 ```
-- Step 4: Add its path to `bib_list.txt`.
 
 ## Contact
 
