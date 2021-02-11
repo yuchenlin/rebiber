@@ -9,7 +9,7 @@ app = Flask(__name__)
 filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
 app.config["UPLOAD_FOLDER"] = filepath
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
-BUCKET = "rebiber"
+# BUCKET = "rebiber"
 # os.environ['AWS_PROFILE'] = "Profile1"
 
 
@@ -73,7 +73,7 @@ def index():
                 print("File uploaded successfully")
 
                 process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                upload_file(f"output.bib", BUCKET)
+                # upload_file(f"output.bib", BUCKET)
                 return redirect('/downloadfile/'+ 'output.bib')
             
             else:
@@ -91,8 +91,15 @@ def download_file(filename):
 
 @app.route('/return-files/<filename>')
 def return_files_tut(filename):
-    output = download_bib(f"{filename}", BUCKET)
-    return send_file(output, as_attachment=True)
+    # output = download_bib(f"{filename}", BUCKET)
+    # return send_file(output, as_attachment=True)
+    return send_file(f"{filename}", as_attachment=True)
+
+
+@app.route('/back')
+def back():
+    return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
