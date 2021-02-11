@@ -10,7 +10,7 @@ filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
 app.config["UPLOAD_FOLDER"] = filepath
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
 BUCKET = "rebiber"
-os.environ['AWS_PROFILE'] = "Profile1"
+# os.environ['AWS_PROFILE'] = "Profile1"
 
 
 def upload_file(file_name, bucket):
