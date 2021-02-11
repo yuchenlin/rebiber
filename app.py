@@ -7,7 +7,7 @@ import boto3
 
 app = Flask(__name__)
 filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
-app.config["UPLOAD_FOLDER"] = filepath + "uploads"
+app.config["UPLOAD_FOLDER"] = filepath
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
 BUCKET = "rebiber"
 os.environ['AWS_PROFILE'] = "Profile1"
@@ -38,7 +38,7 @@ def process_file(input_file_path):
     filepath = os.path.abspath(rebiber.__file__).replace("__init__.py","")
     bib_list_path = os.path.join(filepath, "bib_list.txt")
     bib_db = rebiber.construct_bib_db(bib_list_path, start_dir=filepath)
-    rebiber.normalize_bib(bib_db, all_bib_entries, "uploads/output.bib") 
+    rebiber.normalize_bib(bib_db, all_bib_entries, "output.bib") 
 
 
 def allowed_file(filename):
@@ -71,9 +71,9 @@ def index():
                 filename = secure_filename(bib_file.filename)
                 bib_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
                 print("File uploaded successfully")
-                
+
                 process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                upload_file(f"uploads/output.bib", BUCKET)
+                upload_file(f"output.bib", BUCKET)
                 return redirect('/downloadfile/'+ 'output.bib')
             
             else:
@@ -91,7 +91,7 @@ def download_file(filename):
 
 @app.route('/return-files/<filename>')
 def return_files_tut(filename):
-    output = download_bib(f"uploads/{filename}", BUCKET)
+    output = download_bib(f"{filename}", BUCKET)
     return send_file(output, as_attachment=True)
 
 if __name__ == "__main__":
