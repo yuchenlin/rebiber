@@ -2,12 +2,35 @@ from flask import Flask, render_template, url_for, request, redirect, send_from_
 import os
 from werkzeug.utils import secure_filename
 import rebiber
+import boto3
 
 
 app = Flask(__name__)
 filepath = os.path.dirname(os.path.abspath(__file__)) + '/'
-app.config["UPLOAD_FOLDER"] = filepath + "static/uploads"
+app.config["UPLOAD_FOLDER"] = filepath + "uploads"
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
+BUCKET = "rebiber"
+os.environ['AWS_PROFILE'] = "Profile1"
+
+
+def upload_file(file_name, bucket):
+    """
+    Function to upload a file to an S3 bucket
+    """
+    object_name = file_name
+    s3_client = boto3.client('s3')
+    response = s3_client.upload_file(file_name, bucket, object_name)
+
+    return response
+
+
+def download_bib(file_name, bucket):
+    """
+    Function to download a given file from an S3 bucket
+    """
+    s3 = boto3.resource('s3')
+    s3.Bucket(bucket).download_file(file_name, file_name)
+    return file_name
 
 
 def process_file(input_file_path):
@@ -15,7 +38,7 @@ def process_file(input_file_path):
     filepath = os.path.abspath(rebiber.__file__).replace("__init__.py","")
     bib_list_path = os.path.join(filepath, "bib_list.txt")
     bib_db = rebiber.construct_bib_db(bib_list_path, start_dir=filepath)
-    rebiber.normalize_bib(bib_db, all_bib_entries, "output.bib") 
+    rebiber.normalize_bib(bib_db, all_bib_entries, "uploads/output.bib") 
 
 
 def allowed_file(filename):
@@ -48,7 +71,9 @@ def index():
                 filename = secure_filename(bib_file.filename)
                 bib_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
                 print("File uploaded successfully")
+                
                 process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                upload_file(f"uploads/output.bib", BUCKET)
                 return redirect('/downloadfile/'+ 'output.bib')
             
             else:
@@ -66,9 +91,8 @@ def download_file(filename):
 
 @app.route('/return-files/<filename>')
 def return_files_tut(filename):
-    file_path = app.config['UPLOAD_FOLDER'] + '/output.bib'
-    return send_file(file_path, as_attachment=True, attachment_filename='')
-
+    output = download_bib(f"uploads/{filename}", BUCKET)
+    return send_file(output, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
