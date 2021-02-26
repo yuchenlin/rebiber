@@ -7,26 +7,32 @@
         margin: 0;
     }
 
+    #container {
+        border: 1px solid #000;
+        width: 50%;
+        border-radius: 5px;
+        margin: auto;
+        padding: 30px;
+    }
+
     #upload-btn {
-        margin: 20px;
+        margin-bottom: 20px;
     }
-
-    #header, p {
-        margin: 20px;
-    }
-
-    #submit-btn {
-        margin-left: 20px;
-    }
-
 </style>
 {% endblock %}
 
 {% block body %}
 
-<div>
+<div id="container">
     <h1 id="header">Rebiber - Online Bibtext Formatter</h1>
     <p>Upload new File</p>
+    
+    {% if error %}
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
     <form action="/" method=post enctype=multipart/form-data>
         <div class="form-group">
             <input class="form-control-file" id="upload-btn" type="file" name="bib">

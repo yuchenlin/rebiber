@@ -3,23 +3,30 @@
 {% block head %}
 <title>Download file</title>
 <style>
-    #header, p {
-        margin: 20px;
+    body {
+        margin: 0;
     }
 
-    #download-btn {
-        margin-left: 20px;
-        margin-right: 20px;
+    #container {
+        border: 1px solid #000;
+        width: 50%;
+        border-radius: 5px;
+        margin: auto;
+        padding: 30px;
     }
-
 </style>
 {% endblock %}
 
 {% block body %}
 
-<h1 id="header">Rebiber - Online Bibtext Formatter</h1>
-<p>File processed successfully</p>
-<a href="/return-files/{{value}}" target="blank"><button id="download-btn" class="btn btn-primary">Download</button></a>
-<a href="/back" target="blank"><button id="back-btn" class="btn btn-primary">Back</button></a>
+<div id="container">
+
+    <h1 id="header">Rebiber - Online Bibtext Formatter</h1>
+    <p>File processed successfully</p>
+    <a href="/return-files/{{value}}" target="blank"><button id="download-btn"
+            class="btn btn-primary">Download</button></a>
+    <a href="/back" target="blank"><button id="back-btn" class="btn btn-primary">Back</button></a>
+
+</div>
 
 {% endblock %}

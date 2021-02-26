@@ -13,24 +13,24 @@ app.config["ALLOWED_EXTENSIONS"] = ["bib"]
 # os.environ['AWS_PROFILE'] = "Profile1"
 
 
-def upload_file(file_name, bucket):
-    """
-    Function to upload a file to an S3 bucket
-    """
-    object_name = file_name
-    s3_client = boto3.client('s3')
-    response = s3_client.upload_file(file_name, bucket, object_name)
+# def upload_file(file_name, bucket):
+#     """
+#     Function to upload a file to an S3 bucket
+#     """
+#     object_name = file_name
+#     s3_client = boto3.client('s3')
+#     response = s3_client.upload_file(file_name, bucket, object_name)
 
-    return response
+#     return response
 
 
-def download_bib(file_name, bucket):
-    """
-    Function to download a given file from an S3 bucket
-    """
-    s3 = boto3.resource('s3')
-    s3.Bucket(bucket).download_file(file_name, file_name)
-    return file_name
+# def download_bib(file_name, bucket):
+#     """
+#     Function to download a given file from an S3 bucket
+#     """
+#     s3 = boto3.resource('s3')
+#     s3.Bucket(bucket).download_file(file_name, file_name)
+#     return file_name
 
 
 def process_file(input_file_path):
@@ -65,7 +65,8 @@ def index():
 
             if bib_file.filename == "":
                 print("No filename")
-                return redirect(request.url)
+                error = "File not found."
+                return render_template("index.html", error=error)
 
             if allowed_file(bib_file.filename):
                 filename = secure_filename(bib_file.filename)
@@ -78,7 +79,8 @@ def index():
             
             else:
                 print("That file extension is not allowed")
-                return redirect(request.url)
+                error = "Invalid file extension. Please upload a bib file."
+                return render_template("index.html", error=error)
 
     return render_template("index.html")
 
@@ -98,7 +100,7 @@ def return_files_tut(filename):
 
 @app.route('/back')
 def back():
-    return redirect(url_for('index'))
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
