@@ -98,9 +98,9 @@ def return_files_tut(filename):
     return send_file(f"{filename}", as_attachment=True)
 
 
-@app.route('/back')
-def back():
-    return render_template("index.html")
+# @app.route('/back')
+# def back():
+#     return render_template("index.html")
 
 
 if __name__ == "__main__":
