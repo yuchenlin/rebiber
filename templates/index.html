@@ -37,7 +37,7 @@
     }
 
     .info:hover {
-        background-color:beige;
+        background-color: #e1ebf5;
         padding: 0 0 0 5px;
         width: auto;
         height: auto;
@@ -50,6 +50,7 @@
 
 <div class="container">
     <h1 id="header">Rebiber - Online Bibtext Formatter</h1>
+
     <p>Upload a bib file</p>
 
     {% if error %}
@@ -63,6 +64,7 @@
             <input class="form-control-file" id="upload-btn" type="file" name="bib">
 
             <div class="form-check form-check-inline">
+                <p>Personalized Requirements (optional)</p>
                 <div class="col-md-3">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                     <label class="form-check-label" for="inlineCheckbox1">remove</label>
@@ -96,15 +98,15 @@
             
             <div class="form-check form-check-inline">
                 <div class="col-md-3">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                    <label class="form-check-label" for="inlineCheckbox3">deduplicate</label>
+                    <input class="form-check-input" type="checkbox" id="duplicate" value="duplicate" name="duplicate">
+                    <label class="form-check-label" for="duplicate">Keep duplicates</label>
                 </div>
                 <div class="col-md-9">
                     <div class="info">
                       <i class="icon-info-sign"></i>
                 
                       <span class="extra-info">
-                        A bool argument that is "True" by default, used for removing the duplicate bib entries sharing the same key. Used as -d True.
+                        By checking this box, duplicate bib entries sharing the same key will be kept in the output bib file.
                       </span>
                     </div>
                 </div>
