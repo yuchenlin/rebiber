@@ -11,12 +11,12 @@ app.config["UPLOAD_FOLDER"] = filepath
 app.config["ALLOWED_EXTENSIONS"] = ["bib"]
 
 
-def process_file(input_file_path, deduplicate):
+def process_file(input_file_path, deduplicate, removed_value_names):
     all_bib_entries = rebiber.load_bib_file(input_file_path)
     filepath = os.path.abspath(rebiber.__file__).replace("__init__.py","")
     bib_list_path = os.path.join(filepath, "bib_list.txt")
     bib_db = rebiber.construct_bib_db(bib_list_path, start_dir=filepath)
-    rebiber.normalize_bib(bib_db, all_bib_entries, "output.bib", deduplicate=deduplicate) 
+    rebiber.normalize_bib(bib_db, all_bib_entries, "output.bib", deduplicate=deduplicate, removed_value_names=removed_value_names) 
 
 
 def allowed_file(filename):
@@ -57,7 +57,15 @@ def index():
                     print('keep duplicate is selected')
                     deduplicate = False
 
-                process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), deduplicate)
+                value_names = ['pages','editor','volume','month','url','biburl','address','publisher','bibsource','timestamp','doi']
+                removed_value_names=[]
+                
+                for value in value_names:
+                    if request.form.get(value):
+                        removed_value_names.append(value)
+                        print(value + ' is selected')
+
+                process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), deduplicate, removed_value_names)
                 return redirect('/downloadfile/'+ 'output.bib')
             
             else:
