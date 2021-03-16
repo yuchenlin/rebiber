@@ -17,7 +17,7 @@ def normalize_title(title_str):
 
 def load_bib_file(bibpath):
     all_bib_entries = []
-    with open(bibpath) as f:
+    with open(bibpath, encoding='utf8') as f:
         bib_entry_buffer = []
         lines = f.readlines() + ["\n"]
         for ind, line in enumerate(lines):

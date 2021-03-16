@@ -107,7 +107,7 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
     print("Num of converted items:", num_converted)
     # post-formatting 
     output_string = post_processing(output_bib_entries, removed_value_names, abbr_dict)
-    with open(output_bib_path, "w") as output_file:
+    with open(output_bib_path, "w", encoding='utf8') as output_file:
         output_file.write(output_string)
     print("Written to:", output_bib_path)
 
