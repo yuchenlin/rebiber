@@ -6,6 +6,7 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 
 You can use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a simple web demo.
+And [this](https://rebiber.herokuapp.com/) is a beta version of our web app for Rebiber (still under development).
 
 ## Changelogs
 
