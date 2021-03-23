@@ -84,13 +84,14 @@ def main(
 
                 if entry_title in bib_db:
                     new_entry = "".join(original_entries[entry_title])
-                    console.print("Found arXiv Publication:")
-                    console.print("Original entry:")
+                    console.print("[bold red]Original entry:[/bold red]")
                     user_entry = "".join(writer._entry_to_bibtex(entry))
                     console.print(f"{user_entry}")
-                    console.print("New Entry:")
+                    console.print("[bold green]New Entry:[/bold green]")
                     console.print(f"{new_entry}")
-                    console.print()
+                    console.print(
+                        "[bold yellow]-------------------------------------------[/bold yellow]"
+                    )
 
 
 if __name__ == "__main__":
