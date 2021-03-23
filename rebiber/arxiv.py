@@ -49,6 +49,8 @@ def main(
     filepath: str = "rebiber/",
 ):
     bib_db = construct_paper_db(bib_list, start_dir=filepath)
+
+    console.log("Caching papers")
     with open("/tmp/papers_bib.picle", "wb") as f:
         pickle.dump(bib_db, f)
     bibliography = load_bibfile(bib_path)
