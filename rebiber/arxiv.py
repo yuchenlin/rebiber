@@ -12,6 +12,8 @@ from rebiber.bib2json import normalize_title
 
 console = Console()
 
+app = typer.Typer()
+
 
 def construct_paper_db(bib_list_file, start_dir=""):
     with open(bib_list_file) as f:
@@ -63,7 +65,8 @@ def load_or_build_db(bib_list: str, start_dir: str, force: bool = False):
     return bib_db, original_entries
 
 
-def main(
+@app.command()
+def unarxiv(
     user_bib_path: str,
     bib_list: str = "rebiber/bib_list.txt",
     filepath: str = "rebiber/",
@@ -94,5 +97,39 @@ def main(
                     )
 
 
+@app.command()
+def doi(
+    user_bib_path: str,
+    bib_list: str = "rebiber/bib_list.txt",
+    filepath: str = "rebiber/",
+):
+    console.log("Loading bibliography database")
+    bib_db, original_entries = load_or_build_db(bib_list, start_dir=filepath)
+
+    console.log("Loading user bibliography")
+    user_bibliography = load_bibfile(user_bib_path)
+
+    console.log(f"Read bibliography: {len(user_bibliography.entries)} Entries")
+
+    writer = bibtexparser.bwriter.BibTexWriter()
+    for user_entry in user_bibliography.entries:
+        entry_title = normalize_title(user_entry["title"])
+        if "doi" not in user_entry:
+            if entry_title in bib_db:
+                db_entry = bib_db[entry_title]
+                if "doi" in db_entry:
+                    text_user_entry = "".join(writer._entry_to_bibtex(user_entry))
+                    console.print("[bold red]Entry missing DOI:[/bold red]")
+                    console.print(f"{text_user_entry}")
+
+                    text_db_entry = "".join(original_entries[entry_title])
+                    console.print("[bold green]Entry with DOI:[/bold green]")
+                    console.print(f"DOI: {db_entry['doi']}")
+                    console.print(f"{text_db_entry}")
+                    console.print(
+                        "[bold yellow]-----------------------------------------------------------------[/bold yellow]"
+                    )
+
+
 if __name__ == "__main__":
-    typer.run(main)
+    app()
