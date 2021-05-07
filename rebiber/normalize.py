@@ -77,9 +77,7 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
         original_title = ""
         original_bibkey = ""
         bib_entry_str = " ".join([line for line in bib_entry if not is_contain_var(line)])
-        print("bib_entry_str = ", bib_entry_str)
         bib_entry_parsed = bibtexparser.loads(bib_entry_str, bibparser)
-        print(bib_entry_parsed.entries[0])
         if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
             continue
         original_title = bib_entry_parsed.entries[0]["title"]
