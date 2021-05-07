@@ -20,6 +20,7 @@ data/aistats2017.bib.json
 data/aistats2018.bib.json
 data/aistats2019.bib.json
 data/aistats2020.bib.json
+data/aistats2021.bib.json
 data/alenex2010.bib.json
 data/alenex2011.bib.json
 data/alenex2012.bib.json

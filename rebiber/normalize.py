@@ -16,16 +16,19 @@ def construct_bib_db(bib_list_file, start_dir=""):
         with open(start_dir+filename.strip()) as f:
             db = json.load(f)
             print("Loaded:", f.name, "Size:", len(db))
-        bib_db.update(db)        
+        bib_db.update(db)
     return bib_db
 
+def has_integer(line):
+    return any(char.isdigit() for char in line)
 
 def is_contain_var(line):
     if "month=" in line.lower().replace(" ",""):
         return True # special case
     line_clean = line.lower().replace(" ","")
     if "=" in line_clean:
-        if '{' in line_clean or '"' in line_clean or "'" in line_clean:
+        # We ask if there is {, ', ", or if there is an integer in the line (since integer input is allowed)
+        if ('{' in line_clean or '"' in line_clean or "'" in line_clean) or has_integer(line):
             return False
         else:
             return True
@@ -43,7 +46,7 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict):
     parsed_entries  = bibtexparser.loads(bib_entry_str, bibparser)
     if len(parsed_entries.entries) < len(output_bib_entries)-5:
         print("Warning: len(parsed_entries.entries) < len(output_bib_entries) -5 -->", len(parsed_entries.entries), len(output_bib_entries))
-        output_str = "" 
+        output_str = ""
         for entry in output_bib_entries:
             for line in entry:
                 # if any([re.match(r".*%s.*=.*"%n, line) for n in removed_value_names if len(n)>1]):
@@ -60,7 +63,7 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict):
                 if place in output_entry:
                     if re.match(pattern, output_entry[place]):
                         output_entry[place] = short
-                
+
     return bibtexparser.dumps(parsed_entries)
 
 
@@ -74,15 +77,17 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
         original_title = ""
         original_bibkey = ""
         bib_entry_str = " ".join([line for line in bib_entry if not is_contain_var(line)])
+        print("bib_entry_str = ", bib_entry_str)
         bib_entry_parsed = bibtexparser.loads(bib_entry_str, bibparser)
+        print(bib_entry_parsed.entries[0])
         if len(bib_entry_parsed.entries)==0 or "title" not in bib_entry_parsed.entries[0]:
             continue
         original_title = bib_entry_parsed.entries[0]["title"]
         original_bibkey = bib_entry_parsed.entries[0]["ID"]
         if deduplicate and original_bibkey in bib_keys:
-            continue        
+            continue
         bib_keys.add(original_bibkey)
-        title = normalize_title(original_title)    
+        title = normalize_title(original_title)
         # try to map the bib_entry to the keys in all_bib_entries
         found_bibitem = None
         if title in bib_db and title:
@@ -105,7 +110,7 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
         else:
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
-    # post-formatting 
+    # post-formatting
     output_string = post_processing(output_bib_entries, removed_value_names, abbr_dict)
     with open(output_bib_path, "w", encoding='utf8') as output_file:
         output_file.write(output_string)
@@ -123,7 +128,7 @@ def load_abbr_tsv(abbr_tsv_file):
 def update(filepath):
     def execute(cmd):
         print(cmd)
-        os.system(cmd)         
+        os.system(cmd)
     execute("wget https://github.com/yuchenlin/rebiber/archive/main.zip -O /tmp/rebiber.zip")
     execute("unzip -o /tmp/rebiber.zip -d /tmp/")
     execute(f"cp /tmp/rebiber-main/rebiber/bib_list.txt {filepath}/bib_list.txt")
@@ -151,16 +156,16 @@ def main():
     parser.add_argument("-r", "--remove", default="",
                         type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
     args = parser.parse_args()
-    
-    
+
+
     if args.update:
         update(filepath)
         return
     if args.version:
         print(rebiber.__version__)
         return
-    
-    
+
+
     assert args.input_bib is not None, "You need to specify an input path by -i xxx.bib"
     bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
     all_bib_entries = load_bib_file(args.input_bib)
