@@ -28,7 +28,10 @@ def load_bib_file(bibpath):
             if line.strip() == "}" or (line.strip().endswith("}") and "{" not in line and ind+1<len(lines) and lines[ind+1]=="\n"):
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
-            
+            elif line.strip().endswith("}}"):
+                bib_entry_buffer.append('}\n')
+                all_bib_entries.append(bib_entry_buffer)
+                bib_entry_buffer = []  
     return all_bib_entries
 
 def build_json(all_bib_entries):
