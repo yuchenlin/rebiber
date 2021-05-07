@@ -1,13 +1,27 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
 We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
-We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is based on the official conference information from the [DBLP](https://dblp.org/) or [the ACL anthology](https://www.aclweb.org/anthology/) (for NLP confernces)! You can check the list of suported conferences [here](#supported-conferences).
+We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is based on the official conference information from the [DBLP](https://dblp.org/) or [the ACL anthology](https://www.aclweb.org/anthology/) (for NLP confernces)! You can check the list of supported conferences [here](#supported-conferences).
+Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citations in a unified way (DBLP-style), supporting abbreviation and value selection.
+
+
+You can use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a simple web demo.
+And [this](https://rebiber.herokuapp.com/) is a beta version of our web app for Rebiber (still under development).
+
+## Changelogs
+
+- **2021.02.08** 
+We now support multiple useful feaures: 1) turning off some certain values, e.g., "-r url,pages,address" for removing the values from the output, 2) using abbr. to shorten the booktile values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
+- **2021.01.30** 
+We build a colab notebook as a simple web demo. [link](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing)
+
 
 
 ## Installation
 
 ```bash
 pip install rebiber -U
+rebiber --update  # update the bib data and the abbr. info 
 ```
 
 OR
@@ -19,14 +33,26 @@ pip install -e .
 ```
 If you would like to use the latest github version with more bug fixes, please use the second installation method.
 
-## Usage
+## Usage（v1.1.1）
 Normalize your bibtex file with the official converence information:
 
 ```bash 
 rebiber -i /path/to/input.bib -o /path/to/output.bib
 ```
 You can find a pair of example input and output files in `rebiber/example_input.bib` and `rebiber/example_output.bib`.
-You can also specify your own bib list files by `-l /path/to/bib_list.txt`. If you don't specify any `-o` then it will be the same as the `-i`.
+
+| argument | usage|
+| ----------- | ----------- |
+| `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
+| `-o` | or `--output_bib`.  The path to the output bib file that you want to save. If you don't specify any `-o` then it will be the same as the `-i`. |
+| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as "-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi". Empty by __default__.  |
+| `-s` | or `--shorten`. A bool argument that is `"False"` by __default__, used for replacing `booktitle` with abbreviation in `-a`. Used as `-s True`. |
+| `-d` | or `--deduplicate`. A bool argument that is `"True"` by __default__, used for removing the duplicate bib entries sharing the same key. Used as `-d True`. |
+| `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check [rebiber/bib_list.txt](rebiber/bib_list.txt) for the default file. Usually you don't need to set this argument. |
+| `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check [rebiber/abbr.tsv](rebiber/abbr.tsv) for the default file. Usually you don't need to set this argument. |
+| `-u` | or `--update`. Update the local bib-related data with the lateset Github version.
+| `-v` | or `--version`. Print the version of current Rebiber.
+
 <!-- Or 
 ```bash
 python rebiber/normalize.py \
@@ -97,6 +123,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | IJCAI | 2011 -- 2020 |
 | KDD | 2010 -- 2020 |
 | MLSys | 2019 -- 2020 |
+| MM | 2016 -- 2020 |
 | NeurIPS | 2000 -- 2020 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
@@ -121,17 +148,16 @@ python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
 
 ## Adding a new conference
 
-You can manually add any conferences from DBLP by downloading its bib file to our `data` folder, then convert the conference bib file to the json format, and finally add its path to the `bib_list.txt`.
+You can manually add any conferences from DBLP by downloading their bib files to our `raw_data` folder, and run a prepared script `add_conf.sh`.
 
-Take ICLR2020 as an example:
+Take ICLR2020 and ICLR2019 as an example:
 
-- Step 1: Go to https://dblp.org/db/conf/iclr/iclr2020.html 
-- Step 2: Download the bib file, and put it here as `data/iclr2020.bib` 
-- Step 3: Convert it to the json format.
+- Step 1: Go to [DBLP](https://dblp.org/db/conf/iclr/iclr2020.html) 
+- Step 2: Download the bib files, and put them here as `raw_data/iclr2020.bib` and `raw_data/iclr2019.bib` (name should be in the format as {conf_name}{year}.bib)
+- Step 3: Run script
 ```bash
-python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
+bash add_conf.sh iclr 2019 2020
 ```
-- Step 4: Add its path to `bib_list.txt`.
 
 ## Contact
 
