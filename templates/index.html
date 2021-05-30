@@ -43,6 +43,11 @@
         height: auto;
         text-align: left !important;
     }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+    }
 </style>
 {% endblock %}
 
@@ -156,6 +161,15 @@
             </div>
         </div>
         <input class="btn btn-primary" id="submit-btn" type="submit" value=Upload>
+
+        
+        <div class="footer">
+            <hr style="width:100%;text-align:left;margin-left:0">
+            <h5>Rebiber Version</h5>
+            <p>{{ version }}</p>
+            <h5>Contact</h5>
+            <p>Please email <a>yuchen.lin@usc.edu</a> or create Github issues <a href="https://github.com/yuchenlin/rebiber/tree/webdemo">here</a> if you have any questions or suggestions. You can also visit our <a href="https://github.com/yuchenlin/rebiber">project homepage</a> for more information.</p>
+        </div>
     </form>
 </div>
 

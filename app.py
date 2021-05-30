@@ -44,7 +44,7 @@ def index():
             if bib_file.filename == "":
                 print("No filename")
                 error = "File not found."
-                return render_template("index.html", error=error)
+                return render_template("index.html", error=error, version=rebiber.__version__)
 
             if allowed_file(bib_file.filename):
                 filename = secure_filename(bib_file.filename)
@@ -71,15 +71,15 @@ def index():
             else:
                 print("That file extension is not allowed")
                 error = "Invalid file extension. Please upload a bib file."
-                return render_template("index.html", error=error)
+                return render_template("index.html", error=error, version=rebiber.__version__)
 
-    return render_template("index.html")
+    return render_template("index.html", version=rebiber.__version__)
 
 
 # Download API
 @app.route("/downloadfile/<filename>", methods = ['GET'])
 def download_file(filename):
-    return render_template('download.html',value=filename)
+    return render_template('download.html',value=filename, version=rebiber.__version__)
 
 
 @app.route('/return-files/<filename>')
