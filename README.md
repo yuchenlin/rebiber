@@ -10,6 +10,8 @@ And [this](https://rebiber.herokuapp.com/) is a beta version of our web app for 
 
 ## Changelogs
 
+- **2021.05.30** 
+We build a [beta version](https://rebiber.herokuapp.com/) of our web app for Rebiber; add new conferences to our dataset; fix a few minor bugs.
 - **2021.02.08** 
 We now support multiple useful feaures: 1) turning off some certain values, e.g., "-r url,pages,address" for removing the values from the output, 2) using abbr. to shorten the booktile values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
 - **2021.01.30** 
@@ -33,7 +35,7 @@ pip install -e .
 ```
 If you would like to use the latest github version with more bug fixes, please use the second installation method.
 
-## Usage（v1.1.1）
+## Usage（v1.1.2）
 Normalize your bibtex file with the official converence information:
 
 ```bash 
