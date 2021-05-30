@@ -1,11 +1,12 @@
-import rebiber
-from rebiber.bib2json import normalize_title, load_bib_file
 import argparse
 import json
-import bibtexparser
 import os
 import re
 
+import bibtexparser
+
+import rebiber
+from rebiber.bib2json import load_bib_file, normalize_title
 
 
 def construct_bib_db(bib_list_file, start_dir=""):
