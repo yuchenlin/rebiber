@@ -47,6 +47,14 @@
     .footer {
         position: fixed;
         bottom: 0;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 991px) {
+        .footer {
+            position: static;
+        }
+        /* CSS that should be displayed if width is equal to or less than 800px goes here */
     }
 </style>
 {% endblock %}
