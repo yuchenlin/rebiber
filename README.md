@@ -5,13 +5,14 @@ We introduce __Rebiber__, a simple tool in Python to fix them automatically. It 
 Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citations in a unified way (DBLP-style), supporting abbreviation and value selection.
 
 
-You can use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a simple web demo.
-And [this](https://rebiber.herokuapp.com/) is a beta version of our web app for Rebiber (still under development).
+
+[This](https://rebiber.herokuapp.com/) is a beta version of our **web app** for Rebiber (still under development). 
+You can also use [this google colab notebook](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) as a simple web demo.
 
 ## Changelogs
 
 - **2021.05.30** 
-We build a [beta version](https://rebiber.herokuapp.com/) of our web app for Rebiber; add new conferences to our dataset; fix a few minor bugs.
+We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs.
 - **2021.02.08** 
 We now support multiple useful feaures: 1) turning off some certain values, e.g., "-r url,pages,address" for removing the values from the output, 2) using abbr. to shorten the booktile values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
 - **2021.01.30** 
