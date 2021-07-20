@@ -53,8 +53,9 @@ You can find a pair of example input and output files in `rebiber/example_input.
 | `-d` | or `--deduplicate`. A bool argument that is `"True"` by __default__, used for removing the duplicate bib entries sharing the same key. Used as `-d True`. |
 | `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check [rebiber/bib_list.txt](rebiber/bib_list.txt) for the default file. Usually you don't need to set this argument. |
 | `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check [rebiber/abbr.tsv](rebiber/abbr.tsv) for the default file. Usually you don't need to set this argument. |
-| `-u` | or `--update`. Update the local bib-related data with the lateset Github version.
-| `-v` | or `--version`. Print the version of current Rebiber.
+| `-u` | or `--update`. Update the local bib-related data with the lateset Github version. |
+| `-v` | or `--version`. Print the version of current Rebiber. |
+| `-st` | or `--sort`. A bool argument that is `"False"` by __default__. used for keeping the original order of the bib entries of the input file. By setting it to be `"True"`, the bib entries are ordered alphabetically in the output file. Used as `-st True`. |
 
 <!-- Or 
 ```bash
