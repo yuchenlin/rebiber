@@ -45,11 +45,11 @@ def load_bib_file(bibpath):
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
             elif line.strip().endswith("}}"):
-                bib_entry_buffer[-1] = bib_entry_buffer[-1][:-1]
+                bib_entry_buffer[-1] = bib_entry_buffer[-1].strip()[:-1]
                 bib_entry_buffer.append('}\n')
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
-    print(all_bib_entries)  
+    # print(all_bib_entries)  
     return all_bib_entries
 
 def build_json(all_bib_entries):
