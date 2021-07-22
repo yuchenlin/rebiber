@@ -20,18 +20,36 @@ def load_bib_file(bibpath):
     with open(bibpath, encoding='utf8') as f:
         bib_entry_buffer = []
         lines = f.readlines() + ["\n"]
+
+        temp = -1
         for ind, line in enumerate(lines):
             # line = line.strip()
             if "@string" in line:
                 continue
-            bib_entry_buffer.append(line)
+            if temp >= ind:
+                continue
+            buffer = ""
+            if lines[ind].strip().endswith("={"):
+                temp = ind
+                while temp < len(lines) and not lines[temp].strip().endswith("}"):
+                    buffer += lines[temp].strip()
+                    temp += 1
+
+                buffer += lines[temp]
+                bib_entry_buffer.append(buffer)
+                buffer = ""                 
+            else:
+                bib_entry_buffer.append(lines[ind])
+
             if line.strip() == "}" or (line.strip().endswith("}") and "{" not in line and ind+1<len(lines) and lines[ind+1]=="\n"):
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
             elif line.strip().endswith("}}"):
+                bib_entry_buffer[-1] = bib_entry_buffer[-1][:-1]
                 bib_entry_buffer.append('}\n')
                 all_bib_entries.append(bib_entry_buffer)
-                bib_entry_buffer = []  
+                bib_entry_buffer = []
+    print(all_bib_entries)  
     return all_bib_entries
 
 def build_json(all_bib_entries):
