@@ -3,6 +3,7 @@ from rebiber.bib2json import normalize_title, load_bib_file
 import argparse
 import json
 import bibtexparser
+from bibtexparser.bwriter import BibTexWriter
 import os
 import re
 
@@ -34,7 +35,7 @@ def is_contain_var(line):
             return True
     return False
 
-def post_processing(output_bib_entries, removed_value_names, abbr_dict):
+def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
     bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
     bib_entry_str = ""
     for entry in output_bib_entries:
@@ -64,10 +65,13 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict):
                     if re.match(pattern, output_entry[place]):
                         output_entry[place] = short
 
-    return bibtexparser.dumps(parsed_entries)
+    writer = BibTexWriter()
+    if not sort:
+        writer.order_entries_by = None
+    return bibtexparser.dumps(parsed_entries, writer=writer)
 
 
-def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[], abbr_dict={}):
+def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[], abbr_dict={}, sort=False):
     output_bib_entries = []
     num_converted = 0
     bib_keys = set()
@@ -109,7 +113,7 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
     # post-formatting
-    output_string = post_processing(output_bib_entries, removed_value_names, abbr_dict)
+    output_string = post_processing(output_bib_entries, removed_value_names, abbr_dict, sort)
     with open(output_bib_path, "w", encoding='utf8') as output_file:
         output_file.write(output_string)
     print("Written to:", output_bib_path)
@@ -153,6 +157,8 @@ def main():
                         type=bool, help="True to shorten the conference names.")
     parser.add_argument("-r", "--remove", default="",
                         type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
+    parser.add_argument("-st", "--sort", default=False,
+                        type=bool, help="True to sort the output BibTeX entries alphabetically by ID")
     args = parser.parse_args()
 
 
@@ -173,7 +179,7 @@ def main():
         abbr_dict = load_abbr_tsv(args.abbr_tsv)
     else:
         abbr_dict = {}
-    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names, abbr_dict)
+    normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names, abbr_dict, args.sort)
 
 
 if __name__ == "__main__":
