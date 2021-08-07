@@ -26,6 +26,8 @@ def load_bib_file(bibpath):
             # line = line.strip()
             if "@string" in line:
                 continue
+            if line.strip().startswith("%") or line.strip().startswith("#") or line.strip().startswith("//"):
+                continue
             if temp >= ind:
                 continue
             buffer = ""
@@ -49,7 +51,7 @@ def load_bib_file(bibpath):
                 bib_entry_buffer.append('}\n')
                 all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
-    # print(all_bib_entries)  
+    # print(all_bib_entries)
     return all_bib_entries
 
 def build_json(all_bib_entries):
