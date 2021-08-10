@@ -27,6 +27,8 @@ def load_bib_file(bibpath):
             if "@string" in line:
                 continue
             if line.strip().startswith("%") or line.strip().startswith("#") or line.strip().startswith("//"):
+                all_bib_entries.append([line])
+                bib_entry_buffer = []
                 continue
             if temp >= ind:
                 continue
@@ -53,6 +55,7 @@ def load_bib_file(bibpath):
                 bib_entry_buffer = []
     # print(all_bib_entries)
     return all_bib_entries
+
 
 def build_json(all_bib_entries):
     all_bib_dict = {}
