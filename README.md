@@ -11,6 +11,8 @@ You can also use [this google colab notebook](https://colab.research.google.com/
 
 ## Changelogs
 
+- **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences). We also updated the acl bib and json to the latest version.
+
 - **2021.05.30** 
 We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs.
 - **2021.02.08** 
@@ -108,7 +110,7 @@ The following conferences are supported and their bib/json files are in our `dat
 
 | Name | Years |
 | --- | ----------- |
-| ACL Anthology |  (until 2021-05) |
+| ACL Anthology |  (until 2021-09) |
 | AAAI | 2010 -- 2020 |
 | AISTATS | 2013 -- 2020 |
 | ALENEX | 2010 -- 2020 |
