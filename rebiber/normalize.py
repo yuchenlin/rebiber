@@ -110,6 +110,20 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
                 print(log_str)
                 output_bib_entries.append(found_bibitem)
         else:
+            arxiv_ids = set()
+            for line in bib_entry:
+                for match in re.finditer("arXiv:(.*?)}", line):
+                    arxiv_ids.add(match.group()[6:-1])
+                    
+            if len(arxiv_ids) == 1:
+                bib_entry = [line for line in bib_entry if not line.strip().startswith("url")]
+                bib_entry = bib_entry[:-1] + [f" url = {{https://arxiv.org/abs/{arxiv_ids.pop()}}},\n"] + bib_entry[-1:]
+                bib_entry = [line if not line.strip() else ((lambda x: x[:-1] if x[-1] == "," else x)(line.strip()) + ",\n") 
+                             for line in bib_entry[:-1]] + bib_entry[-1:]
+                log_str = "Added arxiv URL. ID: %s ; Title: %s" % (original_bibkey, original_title)
+                num_converted += 1
+                print(log_str)
+                
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
     # post-formatting
