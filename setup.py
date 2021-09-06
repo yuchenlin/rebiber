@@ -12,7 +12,7 @@ os.environ["PBR_VERSION"] = about["__version__"]
 setuptools.setup(
     name="rebiber", 
     version=about["__version__"],
-    author='Bill Yuchen Lin',
+    author='Bill Yuchen Lin and Yang Qiao',
     author_email='yuchen.lin@usc.edu',
     description="A tool for normalizing bibtex with official info.",
     long_description=long_description,
