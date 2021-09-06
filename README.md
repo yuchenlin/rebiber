@@ -143,6 +143,7 @@ The following conferences are supported and their bib/json files are in our `dat
 **Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
 
 <!-- 
+python bib2json.py -i data/acl.bib -o data/acl.json
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
 python bib2json.py -i data/iclr2019.bib -o data/iclr2019.json
 python bib2json.py -i data/iclr2018.bib -o data/iclr2018.json
