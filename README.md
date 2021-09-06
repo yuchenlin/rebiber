@@ -25,7 +25,7 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 ## Installation
 
 ```bash
-# pip install rebiber -U 
+# pip install rebiber -U # for the stable version
 pip install -e git+https://github.com/yuchenlin/rebiber.git#egg=rebiber -U
 rebiber --update  # update the bib data and the abbr. info  (using wget)
 ```
