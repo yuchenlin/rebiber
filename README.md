@@ -25,8 +25,9 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 ## Installation
 
 ```bash
-pip install rebiber -U
-rebiber --update  # update the bib data and the abbr. info 
+# pip install rebiber -U 
+pip install -e git+https://github.com/yuchenlin/rebiber.git#egg=rebiber
+rebiber --update  # update the bib data and the abbr. info  (using wget)
 ```
 
 OR
@@ -38,8 +39,8 @@ pip install -e .
 ```
 If you would like to use the latest github version with more bug fixes, please use the second installation method.
 
-## Usage（v1.1.2）
-Normalize your bibtex file with the official converence information:
+## Usage（v1.1.3）
+Normalize your bibtex file with the official conference information:
 
 ```bash 
 rebiber -i /path/to/input.bib -o /path/to/output.bib
@@ -50,12 +51,12 @@ You can find a pair of example input and output files in `rebiber/example_input.
 | ----------- | ----------- |
 | `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
 | `-o` | or `--output_bib`.  The path to the output bib file that you want to save. If you don't specify any `-o` then it will be the same as the `-i`. |
-| `-r` | or `--remove`. A comma-seperated list of value names that you want to remove, such as "-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi". Empty by __default__.  |
+| `-r` | or `--remove`. A comma-separated list of value names that you want to remove, such as "-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi". Empty by __default__.  |
 | `-s` | or `--shorten`. A bool argument that is `"False"` by __default__, used for replacing `booktitle` with abbreviation in `-a`. Used as `-s True`. |
 | `-d` | or `--deduplicate`. A bool argument that is `"True"` by __default__, used for removing the duplicate bib entries sharing the same key. Used as `-d True`. |
 | `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check [rebiber/bib_list.txt](rebiber/bib_list.txt) for the default file. Usually you don't need to set this argument. |
 | `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check [rebiber/abbr.tsv](rebiber/abbr.tsv) for the default file. Usually you don't need to set this argument. |
-| `-u` | or `--update`. Update the local bib-related data with the lateset Github version. |
+| `-u` | or `--update`. Update the local bib-related data with the latest Github version. |
 | `-v` | or `--version`. Print the version of current Rebiber. |
 | `-st` | or `--sort`. A bool argument that is `"False"` by __default__. used for keeping the original order of the bib entries of the input file. By setting it to be `"True"`, the bib entries are ordered alphabetically in the output file. Used as `-st True`. |
 
