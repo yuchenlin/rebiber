@@ -110,17 +110,31 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
                 print(log_str)
                 output_bib_entries.append(found_bibitem)
         else:
-            arxiv_ids = set()
+            bib_dict = {"arxiv_id": set()}
             for line in bib_entry:
-                for match in re.finditer("arXiv:(.*?)}", line):
-                    arxiv_ids.add(match.group()[6:-1])
+                line = line.strip()
+                if line.startswith("@"):
+                    bib_dict["bibkey"] = line[line.find("{")+1:line.find(",")]
+                else:
+                    bib_dict[line[:line.find("=")].strip()] = line[line.find("{")+1:line.rfind("}")].strip()
                     
-            if len(arxiv_ids) == 1:
-                bib_entry = [line for line in bib_entry if not line.strip().startswith("url")]
-                bib_entry = bib_entry[:-1] + [f" url = {{https://arxiv.org/abs/{arxiv_ids.pop()}}},\n"] + bib_entry[-1:]
-                bib_entry = [line if not line.strip() else ((lambda x: x[:-1] if x[-1] == "," else x)(line.strip()) + ",\n") 
-                             for line in bib_entry[:-1]] + bib_entry[-1:]
-                log_str = "Added arxiv URL. ID: %s ; Title: %s" % (original_bibkey, original_title)
+                for match in re.finditer(r"(arxiv:|abs/|pdf/)(([0-9]*).([0-9]*))", line.lower()):
+                    bib_dict["arxiv_id"].add(match.group(2))
+            
+            if len(bib_dict["arxiv_id"]) == 1:
+                bib_dict["arxiv_id"] = bib_dict["arxiv_id"].pop()
+                bib_dict["arxiv_year"] = "20" + bib_dict["arxiv_id"].split(".")[0][:2]
+                
+                bib_entry = [line + "\n" for line in f"""@article{{{bib_dict['bibkey']},
+                  title={{{bib_dict['title']}}},
+                  author={{{bib_dict['author']}}},
+                  journal={{ArXiv preprint}},
+                  volume={{abs/{bib_dict['arxiv_id']}}},
+                  year={{{bib_dict['arxiv_year']}}},
+                  url={{https://arxiv.org/abs/{bib_dict['arxiv_id']}}}
+                }}""".split("\n")]
+
+                log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
                 num_converted += 1
                 print(log_str)
                 
