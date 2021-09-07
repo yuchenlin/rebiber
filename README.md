@@ -11,7 +11,7 @@ You can also use [this google colab notebook](https://colab.research.google.com/
 
 ## Changelog
 
-- **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
+- **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences; thanks to [@nicola-decao](https://github.com/nicola-decao)). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
 
 - **2021.05.30** 
 We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs.
