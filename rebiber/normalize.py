@@ -59,7 +59,7 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
         for remove_name in removed_value_names:
             if remove_name in output_entry:
                 del output_entry[remove_name]
-        for short, pattern in abbr_dict.items():
+        for (short, pattern) in abbr_dict:
             for place in ["booktitle", "journal"]:
                 if place in output_entry:
                     if re.match(pattern, output_entry[place]):
@@ -71,7 +71,7 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
     return bibtexparser.dumps(parsed_entries, writer=writer)
 
 
-def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[], abbr_dict={}, sort=False):
+def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, removed_value_names=[], abbr_dict=[], sort=False):
     output_bib_entries = []
     num_converted = 0
     bib_keys = set()
@@ -147,12 +147,12 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
     print("Written to:", output_bib_path)
 
 def load_abbr_tsv(abbr_tsv_file):
-    abbr_dict = {}
+    abbr_dict = []
     with open(abbr_tsv_file) as f:
         for line in f.read().splitlines():
             ls = line.split("|")
             if len(ls) == 2:
-                abbr_dict[ls[0].strip()] = ls[1].strip()
+                abbr_dict.append((ls[0].strip(), ls[1].strip())) 
     return abbr_dict
 
 def update(filepath):
@@ -206,7 +206,7 @@ def main():
     if args.shorten:
         abbr_dict = load_abbr_tsv(args.abbr_tsv)
     else:
-        abbr_dict = {}
+        abbr_dict = []
     normalize_bib(bib_db, all_bib_entries, output_path, args.deduplicate, removed_value_names, abbr_dict, args.sort)
 
 
