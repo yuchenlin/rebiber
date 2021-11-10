@@ -110,33 +110,36 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
                 print(log_str)
                 output_bib_entries.append(found_bibitem)
         else:
-            bib_dict = {"arxiv_id": set()}
-            for line in bib_entry:
-                line = line.strip()
-                if line.startswith("@"):
-                    bib_dict["bibkey"] = line[line.find("{")+1:line.find(",")]
-                else:
-                    bib_dict[line[:line.find("=")].strip()] = line[line.find("{")+1:line.rfind("}")].strip()
-                    
-                for match in re.finditer(r"(arxiv:|abs/|pdf/)(([0-9]*).([0-9]*))", line.lower()):
-                    bib_dict["arxiv_id"].add(match.group(2))
-            
+            bib_dict = bib_entry_parsed.entries[0]
+            bib_dict["arxiv_id"] = set()
+            for match in re.finditer(
+                r"(arxiv:|abs/|pdf/)(([0-9]*).([0-9]*))", bib_entry_str.lower()
+            ):
+                bib_dict["arxiv_id"].add(match.group(2))
             if len(bib_dict["arxiv_id"]) == 1:
                 bib_dict["arxiv_id"] = bib_dict["arxiv_id"].pop()
                 bib_dict["arxiv_year"] = "20" + bib_dict["arxiv_id"].split(".")[0][:2]
-                
-                bib_entry = [line + "\n" for line in f"""@article{{{bib_dict['bibkey']},
+                bib_entry = [
+                    line + "\n"
+                    for line in f"""@{bib_dict['ENTRYTYPE']}{{{bib_dict['ID']},
                   title={{{bib_dict['title']}}},
                   author={{{bib_dict['author']}}},
                   journal={{ArXiv preprint}},
                   volume={{abs/{bib_dict['arxiv_id']}}},
                   year={{{bib_dict['arxiv_year']}}},
                   url={{https://arxiv.org/abs/{bib_dict['arxiv_id']}}}
-                }}""".split("\n")]
+                }}""".split(
+                        "\n"
+                    )
+                ]
 
-                log_str = "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
+                log_str = "Converted arXiv entry. ID: %s ; Title: %s" % (
+                    original_bibkey,
+                    original_title,
+                )
                 num_converted += 1
                 print(log_str)
+
                 
             output_bib_entries.append(bib_entry)
     print("Num of converted items:", num_converted)
