@@ -113,9 +113,10 @@ def normalize_bib(bib_db, all_bib_entries, output_bib_path, deduplicate=True, re
             bib_dict = bib_entry_parsed.entries[0]
             bib_dict["arxiv_id"] = set()
             for match in re.finditer(
-                r"(arxiv:|abs/|pdf/)(([0-9]*).([0-9]*))", bib_entry_str.lower()
+                r"(arxiv:|arxiv.org\/abs\/|arxiv.org\/pdf\/)([0-9]{4}).([0-9]{5})", bib_entry_str.lower()
             ):
-                bib_dict["arxiv_id"].add(match.group(2))
+                bib_dict["arxiv_id"].add(f"{match.group(2)}.{match.group(3)}")
+                
             if len(bib_dict["arxiv_id"]) == 1:
                 bib_dict["arxiv_id"] = bib_dict["arxiv_id"].pop()
                 bib_dict["arxiv_year"] = "20" + bib_dict["arxiv_id"].split(".")[0][:2]
