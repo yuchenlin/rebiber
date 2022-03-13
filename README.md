@@ -112,7 +112,7 @@ The following conferences are supported and their bib/json files are in our `dat
 
 | Name | Years |
 | --- | ----------- |
-| ACL Anthology |  (until 2021-09) |
+| ACL Anthology |  (until 2022-03) |
 | AAAI | 2010 -- 2020 |
 | AISTATS | 2013 -- 2020 |
 | ALENEX | 2010 -- 2020 |
