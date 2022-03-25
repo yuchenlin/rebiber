@@ -348,3 +348,9 @@ data/mm2019.bib.json
 data/mm2018.bib.json
 data/mm2017.bib.json
 data/mm2016.bib.json
+data/interspeech2016.bib.json
+data/interspeech2017.bib.json
+data/interspeech2018.bib.json
+data/interspeech2019.bib.json
+data/interspeech2020.bib.json
+data/interspeech2021.bib.json

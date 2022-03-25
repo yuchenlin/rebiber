@@ -129,6 +129,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | ICLR | 2013 -- 2020 |
 | ICML | 2000 -- 2020 |
 | IJCAI | 2011 -- 2020 |
+| INTERSPEECH | 2016 -- 2021 |
 | KDD | 2010 -- 2020 |
 | MLSys | 2019 -- 2020 |
 | MM | 2016 -- 2020 |
