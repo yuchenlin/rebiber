@@ -114,7 +114,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | --- | ----------- |
 | ACL Anthology |  (until 2022-03) |
 | AAAI | 2010 -- 2020 |
-| AISTATS | 2013 -- 2020 |
+| AISTATS | 2013 -- 2022 |
 | ALENEX | 2010 -- 2020 |
 | ASONAM | 2010 -- 2019 |
 | BigDataConf | 2013 -- 2019 |
@@ -122,25 +122,25 @@ The following conferences are supported and their bib/json files are in our `dat
 | CHI | 2010 -- 2020 |
 | CIDR | 2009 -- 2020 |
 | CIKM | 2010 -- 2020 |
-| COLT | 2000 -- 2020 |
+| COLT | 2000 -- 2022 |
 | CVPR | 2000 -- 2020 |
 | ICASSP | 2015 -- 2020 |
 | ICCV | 2003 -- 2019 |
-| ICLR | 2013 -- 2020 |
-| ICML | 2000 -- 2020 |
+| ICLR | 2013 -- 2022 |
+| ICML | 2000 -- 2022 |
 | IJCAI | 2011 -- 2020 |
 | INTERSPEECH | 2016 -- 2021 |
 | KDD | 2010 -- 2020 |
-| MLSys | 2019 -- 2020 |
+| MLSys | 2019 -- 2022 |
 | MM | 2016 -- 2020 |
-| NeurIPS | 2000 -- 2020 |
+| NeurIPS | 2000 -- 2021 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
 | SIGIR | 2010 -- 2020 |
 | SIGMOD | 2010 -- 2020 |
 | SODA | 2010 -- 2020 |
 | STOC | 2010 -- 2020 |
-| UAI | 2010 -- 2020 |
+| UAI | 2010 -- 2021 |
 | WSDM | 2008 -- 2020 |
 | WWW (The Web Conf) | 2001 -- 2020 |
 
