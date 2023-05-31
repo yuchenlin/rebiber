@@ -6,7 +6,9 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 
 
-***Web demo:*** [https://rebiber.herokuapp.com/](https://rebiber.herokuapp.com/) (recommended).
+<!-- ***Web demo:*** [https://rebiber.herokuapp.com/](https://rebiber.herokuapp.com/) (recommended). -->
+
+***Demo on Huggingface Space [https://huggingface.co/spaces/yuchenlin/Rebiber](https://huggingface.co/spaces/yuchenlin/Rebiber) (recommended) ***
 
 ***Colab notebook:*** [here](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) 
 
