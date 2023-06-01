@@ -17,7 +17,7 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 - **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences; thanks to [@nicola-decao](https://github.com/nicola-decao)). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
 
 - **2021.05.30** 
-We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs.
+We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs. (It is not working anymore. Please use the new huggingface space demo.)
 - **2021.02.08** 
 We now support multiple useful features: 1) turning off some certain values, e.g., "-r url,pages,address" for removing the values from the output, 2) using abbr. to shorten the booktitle values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
 - **2021.01.30** 
@@ -152,7 +152,6 @@ The following conferences are supported and their bib/json files are in our `dat
 **Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
 
 <!-- 
-python bib2json.py -i data/acl.bib -o data/acl.json
 python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
 python bib2json.py -i data/iclr2019.bib -o data/iclr2019.json
 python bib2json.py -i data/iclr2018.bib -o data/iclr2018.json
@@ -171,6 +170,11 @@ Take ICLR2020 and ICLR2019 as an example:
 - Step 3: Run script
 ```bash
 bash add_conf.sh iclr 2019 2020
+```
+
+Particularly, to update *CL conference, we can 
+```bash 
+python bib2json.py -i raw_data/anthology.bib -o data/acl.json
 ```
 
 ## Contact
