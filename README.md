@@ -1,5 +1,20 @@
 # Rebiber: A tool for normalizing bibtex with official info.
 
+<p>
+<a href="https://huggingface.co/spaces/yuchenlin/Rebiber">
+    <img src="https://img.shields.io/badge/🤗 Web%20Demo--red?style=flat_square">
+  </a>
+
+<a href="https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing">
+    <img src="https://img.shields.io/badge/Colab%20Notebook--green?style=flat_square&logo=googlecolab">
+     <!-- <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/, width=150, height=150/></a> -->
+  </a>
+
+<a href="https://twitter.com/billyuchenlin/status/1353850378438070272?s=20">
+    <img src="https://img.shields.io/badge/Tweet--blue?style=flat_square&logo=twitter">
+  </a>
+</p>
+
 We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
 We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is based on the official conference information from the [DBLP](https://dblp.org/) or [the ACL anthology](https://www.aclweb.org/anthology/) (for NLP conferences)! You can check the list of supported conferences [here](#supported-conferences).
 Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citations in a unified way (DBLP-style), supporting abbreviation and value selection.
