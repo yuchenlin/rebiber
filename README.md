@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2023.06.01** New demo ready to use on Huggingface's Space via Gradio. Also, a few conferences are added.
+
 - **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences; thanks to [@nicola-decao](https://github.com/nicola-decao)). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
 
 - **2021.05.30** 
