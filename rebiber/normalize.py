@@ -188,7 +188,7 @@ def main():
     parser.add_argument("-s", "--shorten", default=False,
                         type=bool, help="True to shorten the conference names.")
     parser.add_argument("-r", "--remove", default="",
-                        type=str, help="A comma-seperated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
+                        type=str, help="A comma-separated list of values you want to remove, such as '--remove url,biburl,address,publisher'.")
     parser.add_argument("-st", "--sort", default=False,
                         type=bool, help="True to sort the output BibTeX entries alphabetically by ID")
     args = parser.parse_args()
