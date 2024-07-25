@@ -194,6 +194,10 @@ Particularly, to update *CL conference, we can
 python bib2json.py -i raw_data/anthology.bib -o data/acl.json
 ```
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yuchenlin/rebiber&type=Date)](https://star-history.com/#yuchenlin/rebiber&Date)
+
 ## Contact
 
 Please email yuchen.lin@usc.edu or create Github issues here if you have any questions or suggestions. 
