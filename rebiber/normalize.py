@@ -62,7 +62,7 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
         for (short, pattern) in abbr_dict:
             for place in ["booktitle", "journal"]:
                 if place in output_entry:
-                    if re.match(pattern, output_entry[place]):
+                    if re.match(pattern, output_entry[place], flags=re.DOTALL):
                         output_entry[place] = short
 
     writer = BibTexWriter()

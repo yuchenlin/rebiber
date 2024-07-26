@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2024.7** Version 1.2.0. added automatic script to download bib files for recent conferences from dblp. 
+
 - **2023.06.01** New demo ready to use on Huggingface's Space via Gradio. Also, a few conferences are added.
 
 - **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences; thanks to [@nicola-decao](https://github.com/nicola-decao)). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
@@ -59,7 +61,7 @@ pip install -e .
 ```
 If you would like to use the latest github version with more bug fixes, please use the second installation method.
 
-## Usage（v1.1.3）
+## Usage（v1.1.3 and v1.2.0）
 Normalize your bibtex file with the official conference information:
 
 ```bash 
@@ -133,37 +135,37 @@ The following conferences are supported and their bib/json files are in our `dat
 
 | Name | Years |
 | --- | ----------- |
-| ACL Anthology |  (until 2023-06) |
-| AAAI | 2010 -- 2020 |
-| AISTATS | 2013 -- 2020 |
+| ACL Anthology |  (until 2024-07) |
+| AAAI | 2010 -- 2024 |
+| AISTATS | 2013 -- 2024 |
 | ALENEX | 2010 -- 2020 |
 | ASONAM | 2010 -- 2019 |
 | BigDataConf | 2013 -- 2019 |
-| BMVC | 2010 -- 2020 |
-| CHI | 2010 -- 2020 |
+| BMVC | 2010 -- 2023 |
+| CHI | 2010 -- 2024 |
 | CIDR | 2009 -- 2020 |
 | CIKM | 2010 -- 2020 |
 | COLT | 2000 -- 2020 |
-| CVPR | 2000 -- 2020 |
-| ICASSP | 2015 -- 2020 |
-| ICCV | 2003 -- 2019 |
-| ICLR | 2013 -- 2020 |
-| ICML | 2000 -- 2020 |
-| IJCAI | 2011 -- 2020 |
-| INTERSPEECH | 2016 -- 2021 |
-| KDD | 2010 -- 2020 |
+| CVPR | 2000 -- 2023 |
+| ICASSP | 2015 -- 2023 |
+| ICCV | 2003 -- 2023 |
+| ICLR | 2013 -- 2023 |
+| ICML | 2000 -- 2023 |
+| IJCAI | 2011 -- 2023 |
+| INTERSPEECH | 2016 -- 2023 |
+| KDD | 2010 -- 2023 |
 | MLSys | 2019 -- 2020 |
 | MM | 2016 -- 2020 |
-| NeurIPS | 2000 -- 2020 |
+| NeurIPS | 2000 -- 2023 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
-| SIGIR | 2010 -- 2020 |
-| SIGMOD | 2010 -- 2020 |
+| SIGIR | 2010 -- 2023 |
+| SIGMOD | 2010 -- 2022 (2023 and after changed to journal) |
 | SODA | 2010 -- 2020 |
 | STOC | 2010 -- 2020 |
-| UAI | 2010 -- 2020 |
+| UAI | 2010 -- 2023 |
 | WSDM | 2008 -- 2020 |
-| WWW (The Web Conf) | 2001 -- 2020 |
+| WWW (The Web Conf) | 2001 -- 2024 |
 
 
 **Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
@@ -178,13 +180,19 @@ python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
 
 ## Adding a new conference
 
-You can manually add any conferences from DBLP by downloading their bib files to our `raw_data` folder, and run a prepared script `add_conf.sh`.
+- Step 1, obtain the bib files for the conferences
 
+You may download the bib files of recent conferences from dblp by running the code:
+```bash
+python download_dblp.py
+```
+Notice that ECCV and ECML does not work for the automatic download. 
+
+Alternatively, you can manually add any conferences from DBLP by downloading their bib files to our `raw_data` folder, and run a prepared script `add_conf.sh`.
 Take ICLR2020 and ICLR2019 as an example:
+- Go to [DBLP](https://dblp.org/db/conf/iclr/iclr2020.html) and Download the bib files, and put them here as `raw_data/iclr2020.bib` and `raw_data/iclr2019.bib` (name should be in the format as {conf_name}{year}.bib)
 
-- Step 1: Go to [DBLP](https://dblp.org/db/conf/iclr/iclr2020.html) 
-- Step 2: Download the bib files, and put them here as `raw_data/iclr2020.bib` and `raw_data/iclr2019.bib` (name should be in the format as {conf_name}{year}.bib)
-- Step 3: Run script
+- Step 2: Run script to add the conferences
 ```bash
 bash add_conf.sh iclr 2019 2020
 ```

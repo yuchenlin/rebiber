@@ -3,9 +3,10 @@ Proc. of NAACL-HLT | Proceedings of the .* Conference of the North {A}merican Ch
 Proc. of EMNLP | Proceedings of the .* Conference on Empirical Methods in Natural Language Processing
 Proc. of ACL | Proceedings of the .* Annual Meeting of the Association for Computational Linguistics
 Proc. of WWW | {WWW} '.*: The Web Conference .*
-Proc. of ICLR | .* International Conference on Learning Representations,
-Proc. of ICML | Proceedings of the .* International Conference on Machine Learning.*
+Proc. of ICLR | .*International Conference on Learning Representations
+Proc. of ICML | .*International Conference on Machine Learning
 Proc. of ICML | Machine Learning, Proceedings of the .* International Conference
+Proc. of NeurIPS | .*Neural Information Processing Systems
 Proc. of AAAI | Proceedings of the .*AAAI.* Conference on Artificial Intelligence
 Proc. of KDD | The .* {ACM} {SIGKDD} International Conference on Knowledge Discovery
 Proc. of CVPR | .*IEEE Computer Society Conference on Computer Vision and Pattern Recognition.*
