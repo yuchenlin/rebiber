@@ -414,3 +414,12 @@ data/www2021.bib.json
 data/www2022.bib.json
 data/www2023.bib.json
 data/www2024.bib.json
+data/cvpr2024.bib.json
+data/cvpr2024.bib.json
+data/icassp2024.bib.json
+data/iclr2024.bib.json
+data/icml2024.bib.json
+data/ijcai2024.bib.json
+data/kdd2024.bib.json
+data/neurips2024.bib.json
+data/sigir2024.bib.json
