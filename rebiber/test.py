@@ -9,7 +9,6 @@ bib_db = rebiber.construct_bib_db(bib_list_path, start_dir=filepath)
 
 
 
-
 def process(input_bib):
     random_id = uuid.uuid4().hex
     with open(f"/tmp/input_{random_id}.bib", "w") as f:
@@ -34,3 +33,58 @@ input_bib = """
 """
 
 print(process(input_bib))
+
+# New test case for arXiv reformatting
+input_bib_arxiv = """
+@article{ArxivTest2023,
+  author={Test Author},
+  title={A Test Article on ArXiv},
+  journal={ArXiv},
+  year={2023},
+  volume={abs/2301.01234},
+  url={https://arxiv.org/abs/2301.01234v2},
+  note={Some notes here}
+}
+
+@article{ArxivTestOldStyle,
+  author={Old Style Author},
+  title={An Old Style ArXiv Article},
+  eprint={math/0309136},
+  archivePrefix={arXiv},
+  primaryClass={math},
+  url={https://arxiv.org/abs/math/0309136}
+}
+
+@article{ArxivTestWithCategory,
+  author={Category Author},
+  title={A Category Specific ArXiv Article},
+  url={https://arxiv.org/abs/cs.CL/2305.05678},
+  note={Another note}
+}
+"""
+
+output_bib_arxiv = process(input_bib_arxiv)
+print("\n--- ArXiv Test Output ---")
+print(output_bib_arxiv)
+
+# Assertions for the new arXiv test case
+assert "archivePrefix = {arXiv}" in output_bib_arxiv
+assert "eprint = {2301.01234}" in output_bib_arxiv
+# For ArxivTest2023, primaryClass is not expected as it's not in the URL
+# assert "primaryClass = {cs.CL}" in output_bib_arxiv # Removed this assertion
+
+# Assertions for ArxivTestOldStyle
+assert "eprint = {math/0309136}" in output_bib_arxiv
+assert "primaryclass = {math}" in output_bib_arxiv # Expecting 'math' as primaryClass
+
+# Assertions for ArxivTestWithCategory
+assert "eprint = {2305.05678}" in output_bib_arxiv
+assert "primaryclass = {cs.cl}" in output_bib_arxiv # Expecting 'cs.CL' as primaryClass
+
+# Check for removal of redundant fields
+assert "journal={ArXiv}" not in output_bib_arxiv
+assert "volume={abs/2301.01234}" not in output_bib_arxiv
+assert "url={https://arxiv.org/abs/2301.01234v2}" not in output_bib_arxiv
+assert "url={https://arxiv.org/abs/math/0309136}" not in output_bib_arxiv
+
+print("\nArXiv test cases passed!")
