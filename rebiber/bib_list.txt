@@ -438,6 +438,9 @@ data/uai2024.bib.json
 data/uai2025.bib.json
 data/www2025.bib.json
 data/aaai2026.bib.json
+data/chi2026.bib.json
+data/iccv2025.bib.json
+data/www2026.bib.json
 data/acl_1.json
 data/acl_2.json
 data/acl_3.json
