@@ -442,6 +442,7 @@ data/chi2026.bib.json
 data/iccv2025.bib.json
 data/www2026.bib.json
 data/neurips2025.bib.json
+data/sigir2026.bib.json
 data/acl_1.json
 data/acl_2.json
 data/acl_3.json
