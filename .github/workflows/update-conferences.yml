@@ -1,0 +1,80 @@
+name: Update Conference Data
+
+on:
+  schedule:
+    - cron: "0 3 1 * *" # first day of every month at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-conferences:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests bibtexparser tqdm
+
+      - name: Download recent conference data from DBLP
+        run: |
+          mkdir -p rebiber/raw_data
+          YEAR=$(date +%Y)
+          PREV=$((YEAR - 1))
+          # Past years (once 2024 is no longer current): skip anything already converted.
+          if [[ "$PREV" -ge 2024 ]]; then
+            python rebiber/download_dblp.py --start-year 2024 --end-year "$PREV"
+          fi
+          # Current year: re-fetch so late-added papers are picked up.
+          python rebiber/download_dblp.py --start-year "$YEAR" --end-year "$YEAR" --force
+
+      - name: Convert leftover bib files
+        run: |
+          shopt -s nullglob
+          for bibfile in rebiber/raw_data/*.bib; do
+            base=$(basename "$bibfile" .bib)
+            # anthology.bib is handled in the ACL step
+            if [[ "$base" == "anthology" ]]; then
+              continue
+            fi
+            jsonfile="rebiber/data/${base}.bib.json"
+            entry="data/${base}.bib.json"
+            if [[ ! -f "$jsonfile" ]]; then
+              echo "Converting $bibfile -> $jsonfile"
+              python rebiber/bib2json.py -i "$bibfile" -o "$jsonfile"
+              if ! grep -qxF "$entry" rebiber/bib_list.txt; then
+                echo "$entry" >> rebiber/bib_list.txt
+              fi
+            fi
+          done
+
+      - name: Update ACL Anthology data
+        run: |
+          mkdir -p rebiber/raw_data
+          echo "Downloading ACL Anthology bib file..."
+          curl -fSL https://aclanthology.org/anthology.bib.gz -o rebiber/raw_data/anthology.bib.gz
+          gunzip -f rebiber/raw_data/anthology.bib.gz
+          echo "Converting ACL Anthology bib to JSON..."
+          python rebiber/bib2json.py -i rebiber/raw_data/anthology.bib -o rebiber/data/acl.json
+          echo "Splitting acl.json and refreshing bib_list.txt..."
+          python scripts/refresh_bib_list.py --split-acl --chunk-size 50000
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rebiber/data/ rebiber/bib_list.txt
+          if git diff --staged --quiet; then
+            echo "No new conference data found"
+          else
+            git commit -m "chore: update conference data from DBLP and ACL Anthology"
+            git push
+          fi

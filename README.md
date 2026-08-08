@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Version **1.3.0**. Safer title matching (author-overlap guard so a "Deep Learning" book/Nature paper is not replaced by an unrelated KDD talk); official arXiv fields (`eprint`, `archivePrefix`, `primaryClass`); do not rewrite already-published papers just because an abstract mentions arXiv; do not silently drop unparsed entries; `--format-only` / `--dry-run` / `--no-check-authors`; batch inputs (`rebiber -i *.bib`); conference data through 2025–2026 (AAAI, ICLR, ICML, NeurIPS, CVPR, ICCV, CHI, WWW, SIGIR, IJCAI, KDD, Interspeech, ICASSP, AISTATS, UAI, BMVC, ACL Anthology); monthly GitHub Action to refresh DBLP + ACL anthology; more `booktitle` abbreviations (COLM, WACV, ECCV, ICCV, NAACL, Findings, TACL, JMLR).
+
 - **2024.7** Version 1.2.0. added automatic script to download bib files for recent conferences from dblp. 
 
 - **2023.06.01** New demo ready to use on Huggingface's Space via Gradio. Also, a few conferences are added.
@@ -47,55 +49,97 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 ## Installation
 
 ```bash
-# pip install rebiber -U # for the stable version
-pip install -e git+https://github.com/yuchenlin/rebiber.git#egg=rebiber -U
-# rebiber --update  # (optional) update the bib data and the abbr. info  (using wget)
+git clone https://github.com/yuchenlin/rebiber.git
+cd rebiber/
+pip install -e .
+# optional: pip install -e ".[dev]"   # pytest
 ```
 
 OR
 
 ```bash
-git clone https://github.com/yuchenlin/rebiber.git
-cd rebiber/
-pip install -e .
-```
-
-OR 
-
-```bash
 uv tool install https://github.com/yuchenlin/rebiber
 ```
 
-If you would like to use the latest github version with more bug fixes, please use the second installation method.
+OR from a local checkout with uv:
 
-## Usage（v1.1.3 and v1.2.0）
-Normalize your bibtex file with the official conference information:
-
-```bash 
-rebiber -i /path/to/input.bib -o /path/to/output.bib
+```bash
+uv tool install .
 ```
-You can find a pair of example input and output files in `rebiber/example_input.bib` and `rebiber/example_output.bib`.
+
+The editable / GitHub install is recommended if you want the latest conference data and bug fixes.
+
+## Usage (v1.3.0)
+
+Normalize your bibtex file(s) with the official conference information:
+
+```bash
+rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
+```
+
+Examples:
+
+```bash
+# single file (writes back to input.bib if -o is omitted)
+rebiber -i examples/input.bib -o examples/output.bib
+
+# batch: multiple files or a glob; -o can be a directory
+rebiber -i *.bib
+rebiber -i paper1.bib paper2.bib -o ./normalized/
+
+# pretty-print only (no official-info replacement; useful for diffs)
+rebiber -i input.bib -o pretty.bib --format-only
+
+# report what would change without writing
+rebiber -i input.bib --dry-run
+```
+
+You can find a pair of example input and output files in [`examples/input.bib`](examples/input.bib) and [`examples/output.bib`](examples/output.bib).
+
+```
+rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
+  -r/--remove comma fields
+  -s/--shorten True|False   (default False)
+  -d/--deduplicate True|False (default True)
+  -st/--sort True|False (default False)
+  --format-only   # pretty-print only, for diffs (issue 66)
+  --dry-run       # report without writing
+  --no-check-authors  # disable author-overlap guard (issue 50)
+  -u/--update
+  -v/--version
+  -l/--bib_list
+  -a/--abbr_tsv
+```
 
 | argument | usage|
 | ----------- | ----------- |
-| `-i` | or `--input_bib`.  The path to the input bib file that you want to update |
-| `-o` | or `--output_bib`.  The path to the output bib file that you want to save. If you don't specify any `-o` then it will be the same as the `-i`. |
-| `-r` | or `--remove`. A comma-separated list of value names that you want to remove, such as "-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi". Empty by __default__.  |
-| `-s` | or `--shorten`. A bool argument that is `"False"` by __default__, used for replacing `booktitle` with abbreviation in `-a`. Used as `-s True`. |
-| `-d` | or `--deduplicate`. A bool argument that is `"True"` by __default__, used for removing the duplicate bib entries sharing the same key. Used as `-d True`. |
-| `-l` | or `--bib_list`. The path to the list of the bib json files to be loaded. Check [rebiber/bib_list.txt](rebiber/bib_list.txt) for the default file. Usually you don't need to set this argument. |
-| `-a` | or `--abbr_tsv`. The list of conference abbreviation data. Check [rebiber/abbr.tsv](rebiber/abbr.tsv) for the default file. Usually you don't need to set this argument. |
-| `-u` | or `--update`. Update the local bib-related data with the latest Github version. |
+| `-i` | or `--input_bib`. One or more input `.bib` files (shell globs like `*.bib` work). |
+| `-o` | or `--output_bib`. Output `.bib` path, or a directory when normalizing multiple files. If omitted, each input is overwritten in place. |
+| `-r` | or `--remove`. A comma-separated list of value names that you want to remove, such as `-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi`. Empty by __default__.  |
+| `-s` | or `--shorten`. `True`/`False`, **False** by default. Replace `booktitle`/`journal` with abbreviations from `-a`. Used as `-s True`. |
+| `-d` | or `--deduplicate`. `True`/`False`, **True** by default. Remove duplicate bib entries that share the same key. Used as `-d True`. |
+| `-st` | or `--sort`. `True`/`False`, **False** by default. Keep the input order unless set to `True` (then entries are ordered alphabetically). Used as `-st True`. |
+| `--format-only` | Pretty-print / normalize formatting only. Do not replace entries with official DBLP/ACL records. Handy for reviewing diffs. |
+| `--dry-run` | Report conversions and issues without writing output files. |
+| `--no-check-authors` | Disable the author-overlap guard (see below). |
+| `-l` | or `--bib_list`. The list of bib json files to load. Default: [rebiber/bib_list.txt](rebiber/bib_list.txt). |
+| `-a` | or `--abbr_tsv`. Conference abbreviation table. Default: [rebiber/abbr.tsv](rebiber/abbr.tsv). |
+| `-u` | or `--update`. Update the local bib-related data with the latest GitHub version. |
 | `-v` | or `--version`. Print the version of current Rebiber. |
-| `-st` | or `--sort`. A bool argument that is `"False"` by __default__. used for keeping the original order of the bib entries of the input file. By setting it to be `"True"`, the bib entries are ordered alphabetically in the output file. Used as `-st True`. |
 
-<!-- Or 
+### Matching behavior (v1.3.0)
+
+- **Author-overlap guard.** A title-only match is not enough when the candidate official record looks like a different paper. Rebiber will not replace a "Deep Learning" book or *Nature* article with an unrelated KDD talk that happens to share a short/generic title. Use `--no-check-authors` only if you want the old title-only behavior.
+- **ArXiv official fields.** Unofficial arXiv preprints are rewritten with standard fields (`eprint`, `archivePrefix`, `primaryClass`) instead of a free-form `journal = {arXiv preprint ...}` string.
+- **Published papers stay published.** Rebiber will not rewrite an already-published entry just because the abstract (or another field) mentions arXiv.
+- **Unparsed entries are kept.** Entries that fail to parse are not silently dropped from the output.
+
+Convert a raw BibTeX dump to the internal JSON index:
+
 ```bash
-python rebiber/normalize.py \
-  -i rebiber/example_input.bib \
-  -o rebiber/example_output.bib \
-  -l rebiber/bib_list.txt
-``` -->
+python -m rebiber.bib2json -i path/to/conf.bib -o path/to/conf.json
+# or: bib2json -i path/to/conf.bib -o path/to/conf.json
+```
 
 
 ## Example Input and Output
@@ -136,78 +180,72 @@ An example normalized output entry with the official information:
 The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full [ACL anthology](https://www.aclweb.org/anthology/), i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
 Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
 
-Note that to DBLP only allows you to download in batches of 1000 using &h=1000&f=0, where f=0|1000|2000 specifies the starting index. So we have to manually download the bib files of each conference and concatenate them together. `add_conf.sh` takes care of that, too.
+A monthly GitHub Action refreshes DBLP dumps and the ACL anthology automatically. You can also update a single conference locally (see [Adding a new conference](#adding-a-new-conference)).
 
 The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`. **Please feel free to create PR for adding new conferences following [this](#adding-a-new-conference)!** 
 
 | Name | Years |
 | --- | ----------- |
-| ACL Anthology |  (until 2024-07) |
-| AAAI | 2010 -- 2024 |
-| AISTATS | 2013 -- 2024 |
+| ACL Anthology | current (2026; split JSON files) |
+| AAAI | 2010 -- 2026 |
+| AISTATS | 2013 -- 2025 |
 | ALENEX | 2010 -- 2020 |
 | ASONAM | 2010 -- 2019 |
 | BigDataConf | 2013 -- 2019 |
-| BMVC | 2010 -- 2023 |
-| CHI | 2010 -- 2024 |
+| BMVC | 2010 -- 2024 |
+| CHI | 2010 -- 2026 |
 | CIDR | 2009 -- 2020 |
 | CIKM | 2010 -- 2020 |
 | COLT | 2000 -- 2020 |
-| CVPR | 2000 -- 2023 |
-| ICASSP | 2015 -- 2023 |
-| ICCV | 2003 -- 2023 |
-| ICLR | 2013 -- 2023 |
-| ICML | 2000 -- 2023 |
-| IJCAI | 2011 -- 2023 |
-| INTERSPEECH | 2016 -- 2023 |
-| KDD | 2010 -- 2023 |
+| CVPR | 2000 -- 2025 |
+| ICASSP | 2015 -- 2025 |
+| ICCV | 2003 -- 2025 |
+| ICLR | 2013 -- 2025 |
+| ICML | 2000 -- 2025 |
+| IJCAI | 2011 -- 2025 |
+| INTERSPEECH | 2016 -- 2025 |
+| KDD | 2010 -- 2024 |
 | MLSys | 2019 -- 2020 |
 | MM | 2016 -- 2020 |
-| NeurIPS | 2000 -- 2023 |
+| NeurIPS | 2000 -- 2025 |
 | RECSYS | 2010 -- 2020 |
 | SDM | 2010 -- 2020 |
-| SIGIR | 2010 -- 2023 |
+| SIGIR | 2010 -- 2026 |
 | SIGMOD | 2010 -- 2022 (2023 and after changed to journal) |
 | SODA | 2010 -- 2020 |
 | STOC | 2010 -- 2020 |
-| UAI | 2010 -- 2023 |
+| UAI | 2010 -- 2025 |
 | WSDM | 2008 -- 2020 |
-| WWW (The Web Conf) | 2001 -- 2024 |
+| WWW (The Web Conf) | 2001 -- 2026 |
 
 
 **Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
 
 <!-- 
-python bib2json.py -i data/iclr2020.bib -o data/iclr2020.json
-python bib2json.py -i data/iclr2019.bib -o data/iclr2019.json
-python bib2json.py -i data/iclr2018.bib -o data/iclr2018.json
-python bib2json.py -i data/aaai2020.bib -o data/aaai2020.json
+python -m rebiber.bib2json -i data/iclr2020.bib -o data/iclr2020.json
+python -m rebiber.bib2json -i data/iclr2019.bib -o data/iclr2019.json
+python -m rebiber.bib2json -i data/iclr2018.bib -o data/iclr2018.json
+python -m rebiber.bib2json -i data/aaai2020.bib -o data/aaai2020.json
  -->
 
 
 ## Adding a new conference
 
-- Step 1, obtain the bib files for the conferences
+A monthly GitHub Action refreshes DBLP + the ACL anthology. To add or update a conference yourself:
 
-You may download the bib files of recent conferences from dblp by running the code:
 ```bash
-python download_dblp.py
+python -m rebiber.download_dblp --confs iclr --start-year 2026
 ```
-Notice that ECCV and ECML does not work for the automatic download. 
 
-Alternatively, you can manually add any conferences from DBLP by downloading their bib files to our `raw_data` folder, and run a prepared script `add_conf.sh`.
-Take ICLR2020 and ICLR2019 as an example:
-- Go to [DBLP](https://dblp.org/db/conf/iclr/iclr2020.html) and Download the bib files, and put them here as `raw_data/iclr2020.bib` and `raw_data/iclr2019.bib` (name should be in the format as {conf_name}{year}.bib)
+`--confs` accepts a conference short name (DBLP key, e.g. `iclr`, `neurips`, `cvpr`). Repeat or pass a comma-separated list if the downloader supports multiple names. Then convert any remaining raw `.bib` files if needed:
 
-- Step 2: Run script to add the conferences
 ```bash
-bash add_conf.sh iclr 2019 2020
+python -m rebiber.bib2json -i raw_data/iclr2026.bib -o rebiber/data/iclr2026.bib.json
 ```
 
-Particularly, to update *CL conference, we can 
-```bash 
-python bib2json.py -i raw_data/anthology.bib -o data/acl.json
-```
+And add the new JSON path to `rebiber/bib_list.txt` if it is not already listed.
+
+Alternatively, you can still download bib files from DBLP by hand into `raw_data/` (name them `{conf}{year}.bib`) and run `bash scripts/add_conf.sh iclr 2019 2020`.
 
 ## Star History
 
@@ -215,4 +253,5 @@ python bib2json.py -i raw_data/anthology.bib -o data/acl.json
 
 ## Contact
 
-Please email yuchen.lin@usc.edu or create Github issues here if you have any questions or suggestions. 
+Please email [billyuchenlin@gmail.com](mailto:billyuchenlin@gmail.com) or [i@yuchenlin.xyz](mailto:i@yuchenlin.xyz), or open a [GitHub issue](https://github.com/yuchenlin/rebiber/issues) if you have any questions or suggestions.
+(USC: yuchen.lin@usc.edu)
