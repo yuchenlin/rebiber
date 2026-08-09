@@ -1,6 +1,6 @@
 import json
 import re
-import sys
+import unicodedata
 import bibtexparser
 import argparse
 from tqdm import tqdm
@@ -9,10 +9,30 @@ import os
 
 filepath = os.path.dirname(os.path.abspath(__file__)) + "/"
 
+_SKIP_ENTRY_PREFIXES = ("@string", "@comment", "@preamble")
+
 
 def normalize_title(title_str):
+    """Normalize a title to a lowercase letters-only key (DB-compatible).
+
+    Combining marks are dropped, then everything except ASCII letters is
+    stripped. Existing letter-only keys stay the same.
+    """
+    title_str = "".join(ch for ch in title_str if not unicodedata.combining(ch))
     title_str = re.sub(r"[^a-zA-Z]", r"", title_str)
     return title_str.lower().replace(" ", "").strip()
+
+
+def _is_comment_line(stripped):
+    return (
+        stripped.startswith("%")
+        or stripped.startswith("#")
+        or stripped.startswith("//")
+    )
+
+
+def _is_skip_entry(stripped_lower):
+    return any(stripped_lower.startswith(prefix) for prefix in _SKIP_ENTRY_PREFIXES)
 
 
 def load_bib_file(bibpath):
@@ -22,16 +42,27 @@ def load_bib_file(bibpath):
         lines = f.readlines() + ["\n"]
 
         brace_count = 0  # Keep track of opened and closed braces
+        # When skipping @string/@comment/@preamble, track remaining braces.
+        skip_brace_count = None
 
         for line in lines:
-            if "@string" in line:
+            stripped = line.strip()
+            stripped_lower = stripped.lower()
+
+            # Ignore comment lines only; do not wipe an in-progress entry.
+            if _is_comment_line(stripped):
                 continue
-            if (
-                line.strip().startswith("%")
-                or line.strip().startswith("#")
-                or line.strip().startswith("//")
-            ):
-                bib_entry_buffer = []
+
+            if skip_brace_count is not None:
+                skip_brace_count += line.count("{") - line.count("}")
+                if skip_brace_count <= 0:
+                    skip_brace_count = None
+                continue
+
+            if _is_skip_entry(stripped_lower):
+                skip_brace_count = line.count("{") - line.count("}")
+                if skip_brace_count <= 0:
+                    skip_brace_count = None
                 continue
 
             bib_entry_buffer.append(line)
@@ -50,7 +81,7 @@ def load_bib_file(bibpath):
 
 def build_json(all_bib_entries):
     all_bib_dict = {}
-    num_expections = 0
+    num_exceptions = 0
     for bib_entry in tqdm(all_bib_entries[:]):
         bib_entry_str = " ".join(
             [line for line in bib_entry if "month" not in line.lower()]
@@ -62,24 +93,28 @@ def build_json(all_bib_entries):
         except Exception as e:
             print(bib_entry)
             print(e)
-            num_expections += 1
+            num_exceptions += 1
 
+    print("Number of exceptions:", num_exceptions)
     return all_bib_dict
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        prog="bib2json",
+        description="Convert a BibTeX file into a title-keyed JSON dictionary.",
+    )
     parser.add_argument(
         "-i",
         "--input_bib",
-        default=filepath + "data/acl.bib",
+        default=os.path.join(filepath, "data", "acl.bib"),
         type=str,
         help="The input bib file",
     )
     parser.add_argument(
         "-o",
         "--output_json",
-        default=filepath + "data/acl.json",
+        default=os.path.join(filepath, "data", "acl.json"),
         type=str,
         help="The output json file",
     )
@@ -87,7 +122,7 @@ def main():
 
     all_bib_entries = load_bib_file(args.input_bib)
     all_bib_dict = build_json(all_bib_entries)
-    with open(args.output_json, "w") as f:
+    with open(args.output_json, "w", encoding="utf8") as f:
         json.dump(all_bib_dict, f, indent=2)
 
 

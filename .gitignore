@@ -1,6 +1,7 @@
 .vscode/
 .DS_Store
 uv.lock
+rebiber/raw_data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
