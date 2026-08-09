@@ -31,6 +31,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 - **2026.08** Opt-in `--live-lookup`: after a local-index miss, search DBLP by title and apply a hit only when title keys and authors overlap (same guard as local matches). Official replacements keep the input cite key and preserve an input arXiv/`eprint` when the published record lacks one. Default CLI stays local-only (no network). Please respect DBLP rate limits.
 
+- **2026.08** Added main-track DBLP dumps for **ECCV 2022/2024** (~1.7k / ~2.5k) and **MICCAI 2022–2025**. Workshop tocs are not included. COLM is still missing (empty DBLP toc; OpenReview API 403 from this network). RSS/CoRL 2025+, ICLR/ICML/CVPR/AISTATS/UAI 2026, BMVC 2025, and NeurIPS 2026 are not on DBLP yet.
+
 - **2026.08** Venue dumps: robotics main tracks (ICRA/IROS/RSS/CoRL), TMLR, WACV, JMLR 2023–26, MLSys 2022–25, KDD 2025, full NeurIPS 2025 (~5.8k). Downloader now paginates past DBLP's 100-hit cap, supports journal tocs and multi-volume KDD/MICCAI/ECCV. No workshop dumps.
 
 - **2026.08** Version **1.3.0**. Safer title matching (author-overlap guard so a "Deep Learning" book/Nature paper is not replaced by an unrelated KDD talk); official arXiv fields (`eprint`, `archivePrefix`, `primaryClass`); do not rewrite already-published papers just because an abstract mentions arXiv; do not silently drop unparsed entries; `--format-only` / `--dry-run` / `--no-check-authors`; batch inputs (`rebiber -i *.bib`); conference data through 2025–2026 (AAAI, ICLR, ICML, NeurIPS, CVPR, ICCV, CHI, WWW, SIGIR, IJCAI, KDD, Interspeech, ICASSP, AISTATS, UAI, BMVC, ACL Anthology); monthly GitHub Action to refresh DBLP + ACL anthology; more `booktitle` abbreviations (COLM, WACV, ECCV, ICCV, NAACL, Findings, TACL, JMLR).
@@ -220,6 +222,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | CIKM | 2010 -- 2020 |
 | COLT | 2000 -- 2020 |
 | CVPR | 2000 -- 2025 |
+| ECCV | 2022, 2024 (even years; main LNCS volumes) |
 | ICASSP | 2015 -- 2025 |
 | ICCV | 2003 -- 2025 |
 | ICLR | 2013 -- 2025 |
@@ -235,6 +238,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | TMLR | 2022 -- 2026 |
 | WACV | 2022 -- 2026 |
 | MLSys | 2019 -- 2025 |
+| MICCAI | 2022 -- 2025 (main LNCS volumes) |
 | MM | 2016 -- 2020 |
 | NeurIPS | 2000 -- 2025 |
 | RECSYS | 2010 -- 2020 |

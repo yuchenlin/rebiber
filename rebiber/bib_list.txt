@@ -165,6 +165,8 @@ data/cvpr2024.bib.json
 data/cvpr2025.bib.json
 data/cvprw2021.bib.json
 data/cvprw2022.bib.json
+data/eccv2022.bib.json
+data/eccv2024.bib.json
 data/icassp2015-2.bib.json
 data/icassp2015.bib.json
 data/icassp2016-2.bib.json
@@ -296,6 +298,10 @@ data/kdd2023.bib.json
 data/kdd2024.bib.json
 data/kdd2025.bib.json
 data/kdd2026.bib.json
+data/miccai2022.bib.json
+data/miccai2023.bib.json
+data/miccai2024.bib.json
+data/miccai2025.bib.json
 data/mlsys2019.json
 data/mlsys2020.json
 data/mlsys2022.bib.json
