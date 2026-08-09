@@ -11,7 +11,7 @@ permissions:
 jobs:
   update-conferences:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
 
     steps:
       - uses: actions/checkout@v4
@@ -29,12 +29,13 @@ jobs:
           mkdir -p rebiber/raw_data
           YEAR=$(date +%Y)
           PREV=$((YEAR - 1))
-          # Past years (once 2024 is no longer current): skip anything already converted.
-          if [[ "$PREV" -ge 2024 ]]; then
-            python rebiber/download_dblp.py --start-year 2024 --end-year "$PREV"
+          PAST_END=$((YEAR - 2))
+          # Older years: skip-existing (re-fetch only if the dump looks incomplete).
+          if [[ "$PAST_END" -ge 2024 ]]; then
+            python rebiber/download_dblp.py --start-year 2024 --end-year "$PAST_END"
           fi
-          # Current year: re-fetch so late-added papers are picked up.
-          python rebiber/download_dblp.py --start-year "$YEAR" --end-year "$YEAR" --force
+          # Current and previous year: re-fetch so late-added papers are picked up.
+          python rebiber/download_dblp.py --start-year "$PREV" --end-year "$YEAR" --force
 
       - name: Convert leftover bib files
         run: |

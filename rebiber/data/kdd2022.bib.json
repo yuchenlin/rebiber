@@ -19,7 +19,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539335},\n",
     "  doi          = {10.1145/3534678.3539335},\n",
-    "  timestamp    = {Mon, 28 Aug 2023 21:17:29 +0200},\n",
+    "  timestamp    = {Thu, 19 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/00010YWXR0K22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -44,7 +44,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539452},\n",
     "  doi          = {10.1145/3534678.3539452},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001GZMTLK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -65,7 +65,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542607},\n",
     "  doi          = {10.1145/3534678.3542607},\n",
-    "  timestamp    = {Tue, 29 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001H0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -87,7 +87,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539475},\n",
     "  doi          = {10.1145/3534678.3539475},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001L00K22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -107,7 +107,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539428},\n",
     "  doi          = {10.1145/3534678.3539428},\n",
-    "  timestamp    = {Wed, 07 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001LL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -156,7 +156,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thinternationalworkshopondatamininginbioinformaticsbiokdd": [
+  "21thinternationalworkshopondatamininginbioinformaticsbiokdd2022": [
     "@inproceedings{DBLP:conf/kdd/0001PGCZ22,\n",
     "  author       = {Da Yan and\n",
     "                  Catia Pesquita and\n",
@@ -174,7 +174,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542888},\n",
     "  doi          = {10.1145/3534678.3542888},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001PGCZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -195,7 +195,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542636},\n",
     "  doi          = {10.1145/3534678.3542636},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001W0Q22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -216,7 +216,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542606},\n",
     "  doi          = {10.1145/3534678.3542606},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 25 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001WJ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -241,7 +241,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539107},\n",
     "  doi          = {10.1145/3534678.3539107},\n",
-    "  timestamp    = {Sun, 30 Jul 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001XDGTXZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -266,7 +266,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "deepspatialtherdinternationalworkshopondeeplearningforspatiotemporaldataapplicationsandsystems": [
+  "deepspatial22the3rdinternationalworkshopondeeplearningforspatiotemporaldataapplicationsandsystems": [
     "@inproceedings{DBLP:conf/kdd/0001ZZSZSY22,\n",
     "  author       = {Zhe Jiang and\n",
     "                  Liang Zhao and\n",
@@ -286,7 +286,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542905},\n",
     "  doi          = {10.1145/3534678.3542905},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 02 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0001ZZSZSY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -315,7 +315,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539221},\n",
     "  doi          = {10.1145/3534678.3539221},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0002G0LLZ0ZYZDT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -339,7 +339,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539454},\n",
     "  doi          = {10.1145/3534678.3539454},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 07 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0002LS0KPC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -385,7 +385,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539416},\n",
     "  doi          = {10.1145/3534678.3539416},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 30 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/00030HG022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -412,7 +412,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539022},\n",
     "  doi          = {10.1145/3534678.3539022},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 19 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0003KDLTZKS022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -437,12 +437,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539446},\n",
     "  doi          = {10.1145/3534678.3539446},\n",
-    "  timestamp    = {Mon, 29 Jan 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 10 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0003YHXWG0Q22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "mlslearningcausalskeletonfromvicinalgraphs": [
+  "ml4slearningcausalskeletonfromvicinalgraphs": [
     "@inproceedings{DBLP:conf/kdd/00040DJWH022,\n",
     "  author       = {Pingchuan Ma and\n",
     "                  Rui Ding and\n",
@@ -461,7 +461,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539447},\n",
     "  doi          = {10.1145/3534678.3539447},\n",
-    "  timestamp    = {Tue, 29 Nov 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/00040DJWH022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -481,7 +481,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539449},\n",
     "  doi          = {10.1145/3534678.3539449},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0004YL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -579,7 +579,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "gnetageneralgeographyawarerepresentationnetworkforhotelsearchranking": [
+  "g2netageneralgeographyawarerepresentationnetworkforhotelsearchranking": [
     "@inproceedings{DBLP:conf/kdd/0005XCTLL22,\n",
     "  author       = {Jia Xu and\n",
     "                  Fei Xiong and\n",
@@ -620,7 +620,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542608},\n",
     "  doi          = {10.1145/3534678.3542608},\n",
-    "  timestamp    = {Mon, 24 Apr 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 16 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0006XWRT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -687,7 +687,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539303},\n",
     "  doi          = {10.1145/3534678.3539303},\n",
-    "  timestamp    = {Wed, 19 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 15 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0008Y000CZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -708,7 +708,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539455},\n",
     "  doi          = {10.1145/3534678.3539455},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 31 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0013DC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -727,7 +727,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539235},\n",
     "  doi          = {10.1145/3534678.3539235},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0019H22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -753,7 +753,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539058},\n",
     "  doi          = {10.1145/3534678.3539058},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/0026GLCXRYZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -777,7 +777,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539104},\n",
     "  doi          = {10.1145/3534678.3539104},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/01030Y0L022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -803,12 +803,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542906},\n",
     "  doi          = {10.1145/3534678.3542906},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 16 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/AbeBDEGHKY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "epidamikthethinternationalworkshoponepidemiologymeetsdataminingandknowledgediscovery": [
+  "epidamik50the5thinternationalworkshoponepidemiologymeetsdataminingandknowledgediscovery": [
     "@inproceedings{DBLP:conf/kdd/AdhikariYPSKRCV22,\n",
     "  author       = {Bijaya Adhikari and\n",
     "                  Amulya Yadav and\n",
@@ -856,7 +856,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539088},\n",
     "  doi          = {10.1145/3534678.3539088},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/AgarwalGHRDOMIC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -902,7 +902,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539220},\n",
     "  doi          = {10.1145/3534678.3539220},\n",
-    "  timestamp    = {Fri, 26 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/AminiZPZHL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -954,7 +954,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "adkdd": [
+  "adkdd2022": [
     "@inproceedings{DBLP:conf/kdd/BagherjeiranDGL22,\n",
     "  author       = {Abraham Bagherjeiran and\n",
     "                  Nemanja Djuric and\n",
@@ -1067,12 +1067,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539343},\n",
     "  doi          = {10.1145/3534678.3539343},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 07 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/BestaGMBKGKAGDH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "jointinternationalworkshoponmisinformationandmisbehaviorminingonthewebmakingacrediblewebfortomorrowmistruefact": [
+  "jointinternationalworkshoponmisinformationandmisbehaviorminingonthewebmakingacrediblewebfortomorrowmis2truefact": [
     "@inproceedings{DBLP:conf/kdd/BhattacharyaGJK22,\n",
     "  author       = {Pamela Bhattacharya and\n",
     "                  Jing Gao and\n",
@@ -1095,7 +1095,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542898},\n",
     "  doi          = {10.1145/3534678.3542898},\n",
-    "  timestamp    = {Fri, 25 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/BhattacharyaGJK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1119,7 +1119,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539129},\n",
     "  doi          = {10.1145/3534678.3539129},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/BiXSWSC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1182,7 +1182,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539287},\n",
     "  doi          = {10.1145/3534678.3539287},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Chakrabarti22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1202,7 +1202,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539386},\n",
     "  doi          = {10.1145/3534678.3539386},\n",
-    "  timestamp    = {Wed, 07 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChakrabortyK022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1248,7 +1248,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539178},\n",
     "  doi          = {10.1145/3534678.3539178},\n",
-    "  timestamp    = {Thu, 15 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 01 Jan 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Chen0YFMY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1276,7 +1276,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539053},\n",
     "  doi          = {10.1145/3534678.3539053},\n",
-    "  timestamp    = {Wed, 16 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 13 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenCZZHDXZZX22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1300,12 +1300,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539359},\n",
     "  doi          = {10.1145/3534678.3539359},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Fri, 04 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenFZZYLH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thefourthworkshoponadversariallearningmethodsformachinelearninganddataminingadvml": [
+  "thefourthworkshoponadversariallearningmethodsformachinelearninganddataminingadvml2022": [
     "@inproceedings{DBLP:conf/kdd/ChenHLL22,\n",
     "  author       = {Pin{-}Yu Chen and\n",
     "                  Cho{-}Jui Hsieh and\n",
@@ -1327,7 +1327,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "effectivesocialnetworkbasedallocationofcovidvaccines": [
+  "effectivesocialnetworkbasedallocationofcovid19vaccines": [
     "@inproceedings{DBLP:conf/kdd/ChenHMMLVHBAVSW22,\n",
     "  author       = {Jiangzhuo Chen and\n",
     "                  Stefan Hoops and\n",
@@ -1356,7 +1356,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542673},\n",
     "  doi          = {10.1145/3534678.3542673},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenHMMLVHBAVSW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1380,7 +1380,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539244},\n",
     "  doi          = {10.1145/3534678.3539244},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenL00WYC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1401,7 +1401,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539468},\n",
     "  doi          = {10.1145/3534678.3539468},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenLLS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1421,7 +1421,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539100},\n",
     "  doi          = {10.1145/3534678.3539100},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1443,7 +1443,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539282},\n",
     "  doi          = {10.1145/3534678.3539282},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 13 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenW0LY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1467,7 +1467,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539234},\n",
     "  doi          = {10.1145/3534678.3539234},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenWPWZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1491,7 +1491,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539215},\n",
     "  doi          = {10.1145/3534678.3539215},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenWYW0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1537,7 +1537,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539377},\n",
     "  doi          = {10.1145/3534678.3539377},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 10 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1557,7 +1557,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539384},\n",
     "  doi          = {10.1145/3534678.3539384},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 07 May 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChenZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1599,7 +1599,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539421},\n",
     "  doi          = {10.1145/3534678.3539421},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChengL0S22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1621,7 +1621,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539322},\n",
     "  doi          = {10.1145/3534678.3539322},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ChengSWY022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1696,7 +1696,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539158},\n",
     "  doi          = {10.1145/3534678.3539158},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Choudhary0SR22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1718,7 +1718,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542613},\n",
     "  doi          = {10.1145/3534678.3542613},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Choudhary0SSR22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1740,7 +1740,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539329},\n",
     "  doi          = {10.1145/3534678.3539329},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Chowdhury0S0H22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1809,12 +1809,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539267},\n",
     "  doi          = {10.1145/3534678.3539267},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 08 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/CongTHHCC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thworkshopondeeplearningpracticeandtheoryforhighdimensionalsparseandimbalanceddatawithkdd": [
+  "4thworkshopondeeplearningpracticeandtheoryforhighdimensionalsparseandimbalanceddatawithkdd2022": [
     "@inproceedings{DBLP:conf/kdd/CorizzoGBZBLJTZ22,\n",
     "  author       = {Roberto Corizzo and\n",
     "                  Junfeng Ge and\n",
@@ -1840,12 +1840,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542896},\n",
     "  doi          = {10.1145/3534678.3542896},\n",
-    "  timestamp    = {Thu, 06 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/CorizzoGBZBLJTZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "ndworkshopononlineandadaptiverecommendersystemsoars": [
+  "2ndworkshopononlineandadaptiverecommendersystemsoars": [
     "@inproceedings{DBLP:conf/kdd/CuiDSJKMYAK22,\n",
     "  author       = {Xiquan Cui and\n",
     "                  Vachik S. Dave and\n",
@@ -1866,7 +1866,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542893},\n",
     "  doi          = {10.1145/3534678.3542893},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/CuiDSJKMYAK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1889,7 +1889,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539237},\n",
     "  doi          = {10.1145/3534678.3539237},\n",
-    "  timestamp    = {Thu, 24 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 21 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/CuiLPCZW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1911,7 +1911,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539205},\n",
     "  doi          = {10.1145/3534678.3539205},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DaiHXK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -1937,7 +1937,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539270},\n",
     "  doi          = {10.1145/3534678.3539270},\n",
-    "  timestamp    = {Fri, 17 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 07 May 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DaiLWDZZZS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2065,7 +2065,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542899},\n",
     "  doi          = {10.1145/3534678.3542899},\n",
-    "  timestamp    = {Fri, 25 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DingSJBIAYYK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2090,7 +2090,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539240},\n",
     "  doi          = {10.1145/3534678.3539240},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 01 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DingWFW0L022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2112,7 +2112,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542602},\n",
     "  doi          = {10.1145/3534678.3542602},\n",
-    "  timestamp    = {Mon, 21 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DingZTC022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2134,7 +2134,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539319},\n",
     "  doi          = {10.1145/3534678.3539319},\n",
-    "  timestamp    = {Wed, 07 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 17 Jun 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DongWWDL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2152,7 +2152,7 @@
     "                  Tao Zhou and\n",
     "                  Nagashri Lakshminarayana and\n",
     "                  Son Tran and\n",
-    "                  Doug Gray},\n",
+    "                  Douglas Gray},\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
     "  title        = {Amazon Shop the Look: {A} Visual Search System for Fashion and Home},\n",
@@ -2163,7 +2163,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539071},\n",
     "  doi          = {10.1145/3534678.3539071},\n",
-    "  timestamp    = {Thu, 29 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 30 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/DuRCCWRLHZLT022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2206,7 +2206,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542598},\n",
     "  doi          = {10.1145/3534678.3542598},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/El-KishkyBXH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2235,7 +2235,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539080},\n",
     "  doi          = {10.1145/3534678.3539080},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/El-KishkyMPVKEM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2256,7 +2256,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542623},\n",
     "  doi          = {10.1145/3534678.3542623},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/EricksonLST22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2328,7 +2328,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thinternationalworkshoponminingandlearningwithgraphsmlg": [
+  "17thinternationalworkshoponminingandlearningwithgraphsmlg": [
     "@inproceedings{DBLP:conf/kdd/FakhraeiWSAVS22,\n",
     "  author       = {Shobeir Fakhraei and\n",
     "                  Tim Weninger and\n",
@@ -2346,7 +2346,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542913},\n",
     "  doi          = {10.1145/3534678.3542913},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 28 Aug 2023 21:17:29 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FakhraeiWSAVS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2396,7 +2396,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539375},\n",
     "  doi          = {10.1145/3534678.3539375},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Fang0ZHCGJ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2445,12 +2445,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539168},\n",
     "  doi          = {10.1145/3534678.3539168},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FarhadlooML0SMM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "rdiadssworkshopondatasciencestandardshiringassessingandupskillingdatasciencetalent": [
+  "3rdiadssworkshopondatasciencestandardshiringassessingandupskillingdatasciencetalent": [
     "@inproceedings{DBLP:conf/kdd/FayyadH22,\n",
     "  author       = {Usama M. Fayyad and\n",
     "                  Hamit Hamutcu},\n",
@@ -2490,7 +2490,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539066},\n",
     "  doi          = {10.1145/3534678.3539066},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FedorishinBMFSS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2511,7 +2511,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539320},\n",
     "  doi          = {10.1145/3534678.3539320},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 27 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FengL0W22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2535,7 +2535,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539195},\n",
     "  doi          = {10.1145/3534678.3539195},\n",
-    "  timestamp    = {Wed, 17 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FengXFWZL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2594,7 +2594,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539173},\n",
     "  doi          = {10.1145/3534678.3539173},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 01 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FitzGeraldAABBB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2615,7 +2615,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539113},\n",
     "  doi          = {10.1145/3534678.3539113},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 25 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FooHLT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2698,7 +2698,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542615},\n",
     "  doi          = {10.1145/3534678.3542615},\n",
-    "  timestamp    = {Fri, 05 May 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 25 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/FungHNJ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2767,7 +2767,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539180},\n",
     "  doi          = {10.1145/3534678.3539180},\n",
-    "  timestamp    = {Mon, 19 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 07 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GammelliYH0PP22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2791,7 +2791,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539331},\n",
     "  doi          = {10.1145/3534678.3539331},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GaoLW0W022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2837,7 +2837,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539467},\n",
     "  doi          = {10.1145/3534678.3539467},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 10 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GaoXZWLD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2863,7 +2863,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539035},\n",
     "  doi          = {10.1145/3534678.3539035},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GaoZZFRBHS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2889,7 +2889,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539453},\n",
     "  doi          = {10.1145/3534678.3539453},\n",
-    "  timestamp    = {Mon, 03 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GengCZXCPHXC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -2928,7 +2928,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539432},\n",
     "  doi          = {10.1145/3534678.3539432},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 01 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GholamiMA22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3002,7 +3002,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539139},\n",
     "  doi          = {10.1145/3534678.3539139},\n",
-    "  timestamp    = {Sat, 26 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GuoLZZZX22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3022,7 +3022,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539389},\n",
     "  doi          = {10.1145/3534678.3539389},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/GuoZS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3087,7 +3087,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "stworkshoponendendcustomerjourneyoptimization": [
+  "1stworkshoponendendcustomerjourneyoptimization": [
     "@inproceedings{DBLP:conf/kdd/GuptaZBXF22,\n",
     "  author       = {Neha Gupta and\n",
     "                  Zhenyu Zhao and\n",
@@ -3124,7 +3124,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539254},\n",
     "  doi          = {10.1145/3534678.3539254},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HahnJL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3145,7 +3145,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539141},\n",
     "  doi          = {10.1145/3534678.3539141},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HanLM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3170,7 +3170,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539273},\n",
     "  doi          = {10.1145/3534678.3539273},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 05 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HanMS0FL022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3190,7 +3190,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539117},\n",
     "  doi          = {10.1145/3534678.3539117},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HanW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3217,7 +3217,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "reinforcementlearningenhancestheexpertslargescalecovidvaccineallocationwithmultifactorcontactnetwork": [
+  "reinforcementlearningenhancestheexpertslargescalecovid19vaccineallocationwithmultifactorcontactnetwork": [
     "@inproceedings{DBLP:conf/kdd/HaoHXTL22,\n",
     "  author       = {Qianyue Hao and\n",
     "                  Wenzhen Huang and\n",
@@ -3235,7 +3235,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542679},\n",
     "  doi          = {10.1145/3534678.3542679},\n",
-    "  timestamp    = {Wed, 17 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HaoHXTL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3258,7 +3258,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539024},\n",
     "  doi          = {10.1145/3534678.3539024},\n",
-    "  timestamp    = {Wed, 02 Nov 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Wed, 06 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HaoLWWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3303,7 +3303,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542672},\n",
     "  doi          = {10.1145/3534678.3542672},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 01 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HeC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3366,7 +3366,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539261},\n",
     "  doi          = {10.1145/3534678.3539261},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HighamHT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3417,7 +3417,7 @@
   "greykitedeployingflexibleforecastingatscaleatlinkedin": [
     "@inproceedings{DBLP:conf/kdd/HosseiniCYPSOTA22,\n",
     "  author       = {Reza Hosseini and\n",
-    "                  Albert Chen and\n",
+    "                  Albert C. Chen and\n",
     "                  Kaixu Yang and\n",
     "                  Sayan Patra and\n",
     "                  Yi Su and\n",
@@ -3434,7 +3434,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539165},\n",
     "  doi          = {10.1145/3534678.3539165},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 03 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HosseiniCYPSOTA22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3505,7 +3505,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539194},\n",
     "  doi          = {10.1145/3534678.3539194},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HuBC0SL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3551,7 +3551,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539021},\n",
     "  doi          = {10.1145/3534678.3539021},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Huang0SSHZF22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3593,7 +3593,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539030},\n",
     "  doi          = {10.1145/3534678.3539030},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HuangWDW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3613,7 +3613,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539339},\n",
     "  doi          = {10.1145/3534678.3539339},\n",
-    "  timestamp    = {Sat, 25 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/HuetNR22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3694,7 +3694,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539350},\n",
     "  doi          = {10.1145/3534678.3539350},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/IyerB0S22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3717,7 +3717,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539065},\n",
     "  doi          = {10.1145/3534678.3539065},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JagermanWZQBN22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3737,7 +3737,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539153},\n",
     "  doi          = {10.1145/3534678.3539153},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JanakarajanBM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3762,7 +3762,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542624},\n",
     "  doi          = {10.1145/3534678.3542624},\n",
-    "  timestamp    = {Thu, 31 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 14 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JiLLLWXXY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3786,7 +3786,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539028},\n",
     "  doi          = {10.1145/3534678.3539028},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 02 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JiW0HZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3809,7 +3809,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539252},\n",
     "  doi          = {10.1145/3534678.3539252},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 08 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JiZTSZY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3832,7 +3832,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539106},\n",
     "  doi          = {10.1145/3534678.3539106},\n",
-    "  timestamp    = {Fri, 25 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 06 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JiaLYHW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3853,7 +3853,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539075},\n",
     "  doi          = {10.1145/3534678.3539075},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JianKM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3877,7 +3877,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539096},\n",
     "  doi          = {10.1145/3534678.3539096},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 27 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JiangHLOWF022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3898,7 +3898,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539250},\n",
     "  doi          = {10.1145/3534678.3539250},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Jin0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3944,7 +3944,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539429},\n",
     "  doi          = {10.1145/3534678.3539429},\n",
-    "  timestamp    = {Wed, 01 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 22 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JinTJLZTY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -3965,7 +3965,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539433},\n",
     "  doi          = {10.1145/3534678.3539433},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 31 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/JinTLZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4027,7 +4027,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542599},\n",
     "  doi          = {10.1145/3534678.3542599},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 10 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KangT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4071,7 +4071,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539286},\n",
     "  doi          = {10.1145/3534678.3539286},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 10 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KangZT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4161,7 +4161,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "exmeshcnnanexplainableconvolutionalneuralnetworkarchitecturefordshapeanalysis": [
+  "exmeshcnnanexplainableconvolutionalneuralnetworkarchitecturefor3dshapeanalysis": [
     "@inproceedings{DBLP:conf/kdd/KimC22,\n",
     "  author       = {Seonggyeom Kim and\n",
     "                  Dong{-}Kyu Chae},\n",
@@ -4176,7 +4176,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539463},\n",
     "  doi          = {10.1145/3534678.3539463},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KimC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4266,7 +4266,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539260},\n",
     "  doi          = {10.1145/3534678.3539260},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 04 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KimSTGKHK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4287,7 +4287,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539078},\n",
     "  doi          = {10.1145/3534678.3539078},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KimuraMKS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4307,7 +4307,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539406},\n",
     "  doi          = {10.1145/3534678.3539406},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KocayusufogluSS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4329,7 +4329,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542887},\n",
     "  doi          = {10.1145/3534678.3542887},\n",
-    "  timestamp    = {Sat, 22 Apr 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KochWLHW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4374,7 +4374,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539137},\n",
     "  doi          = {10.1145/3534678.3539137},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KongK0G0XB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4397,7 +4397,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539091},\n",
     "  doi          = {10.1145/3534678.3539091},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 01 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KouZZLZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4421,7 +4421,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542908},\n",
     "  doi          = {10.1145/3534678.3542908},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 01 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/KumarACNNFM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4443,12 +4443,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539283},\n",
     "  doi          = {10.1145/3534678.3539283},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LaoYWY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thekddworkshoponcausaldiscoverycd": [
+  "thekdd2022workshoponcausaldiscoverycd2022": [
     "@inproceedings{DBLP:conf/kdd/LeLKTL22,\n",
     "  author       = {Thuc Duy Le and\n",
     "                  Lin Liu and\n",
@@ -4490,7 +4490,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539147},\n",
     "  doi          = {10.1145/3534678.3539147},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 22 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Lees0TSGMV22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4511,7 +4511,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539236},\n",
     "  doi          = {10.1145/3534678.3539236},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 02 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LeiMSW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4533,7 +4533,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539407},\n",
     "  doi          = {10.1145/3534678.3539407},\n",
-    "  timestamp    = {Tue, 30 Jan 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LeiberBNPB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4578,7 +4578,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542631},\n",
     "  doi          = {10.1145/3534678.3542631},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 19 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiDZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4606,7 +4606,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539118},\n",
     "  doi          = {10.1145/3534678.3539118},\n",
-    "  timestamp    = {Tue, 22 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 22 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiFWXXCWCSXQ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4630,7 +4630,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539122},\n",
     "  doi          = {10.1145/3534678.3539122},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiGDWLJL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4652,7 +4652,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539408},\n",
     "  doi          = {10.1145/3534678.3539408},\n",
-    "  timestamp    = {Thu, 26 Jan 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiJDSL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4697,7 +4697,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539328},\n",
     "  doi          = {10.1145/3534678.3539328},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 19 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiPH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4721,7 +4721,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539369},\n",
     "  doi          = {10.1145/3534678.3539369},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 11 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiSJBZZC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4745,7 +4745,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539255},\n",
     "  doi          = {10.1145/3534678.3539255},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 11 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiSJZ00022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4793,7 +4793,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539486},\n",
     "  doi          = {10.1145/3534678.3539486},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiW00HHC0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4817,7 +4817,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539390},\n",
     "  doi          = {10.1145/3534678.3539390},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 19 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiWDDLZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4864,7 +4864,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539422},\n",
     "  doi          = {10.1145/3534678.3539422},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 05 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiZJTW022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4886,7 +4886,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539048},\n",
     "  doi          = {10.1145/3534678.3539048},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiZWT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4911,7 +4911,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539083},\n",
     "  doi          = {10.1145/3534678.3539083},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiZXHCCX22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -4932,12 +4932,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539426},\n",
     "  doi          = {10.1145/3534678.3539426},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 21 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiZZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "persiaanopenhybridsystemscalingdeeplearningbasedrecommendersuptotrillionparameters": [
+  "persiaanopenhybridsystemscalingdeeplearningbasedrecommendersupto100trillionparameters": [
     "@inproceedings{DBLP:conf/kdd/LianYZWHWSLLDLL22,\n",
     "  author       = {Xiangru Lian and\n",
     "                  Binhang Yuan and\n",
@@ -4977,7 +4977,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539070},\n",
     "  doi          = {10.1145/3534678.3539070},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 02 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LianYZWHWSLLDLL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5022,7 +5022,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539082},\n",
     "  doi          = {10.1145/3534678.3539082},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LinLHWCZWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5043,7 +5043,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539301},\n",
     "  doi          = {10.1145/3534678.3539301},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LinTGS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5067,7 +5067,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539209},\n",
     "  doi          = {10.1145/3534678.3539209},\n",
-    "  timestamp    = {Mon, 13 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Wed, 22 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LinWHSSL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5092,7 +5092,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539130},\n",
     "  doi          = {10.1145/3534678.3539130},\n",
-    "  timestamp    = {Mon, 27 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 02 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LinWMZWJW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5114,7 +5114,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539204},\n",
     "  doi          = {10.1145/3534678.3539204},\n",
-    "  timestamp    = {Tue, 09 Jul 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LinZW0W22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5157,7 +5157,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539288},\n",
     "  doi          = {10.1145/3534678.3539288},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Wed, 17 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LingJW022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5269,7 +5269,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539167},\n",
     "  doi          = {10.1145/3534678.3539167},\n",
-    "  timestamp    = {Thu, 19 Oct 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 10 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuD00Z22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5291,12 +5291,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539289},\n",
     "  doi          = {10.1145/3534678.3539289},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuDXXT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "rlacallforsimultaneousrepresentationlearningandrulelearningforgraphstreams": [
+  "rl2acallforsimultaneousrepresentationlearningandrulelearningforgraphstreams": [
     "@inproceedings{DBLP:conf/kdd/LiuG22,\n",
     "  author       = {Qu Liu and\n",
     "                  Tingjian Ge},\n",
@@ -5311,7 +5311,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539309},\n",
     "  doi          = {10.1145/3534678.3539309},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5339,7 +5339,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539200},\n",
     "  doi          = {10.1145/3534678.3539200},\n",
-    "  timestamp    = {Fri, 25 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 30 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuGLLLLCXDZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5362,7 +5362,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539126},\n",
     "  doi          = {10.1145/3534678.3539126},\n",
-    "  timestamp    = {Wed, 02 Nov 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuGSFY022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5389,7 +5389,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539114},\n",
     "  doi          = {10.1145/3534678.3539114},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 26 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuGYBLDSLJL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5411,7 +5411,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539294},\n",
     "  doi          = {10.1145/3534678.3539294},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuH0W22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5436,7 +5436,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539458},\n",
     "  doi          = {10.1145/3534678.3539458},\n",
-    "  timestamp    = {Sun, 03 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuHLLWZP022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5484,7 +5484,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539302},\n",
     "  doi          = {10.1145/3534678.3539302},\n",
-    "  timestamp    = {Thu, 29 Sep 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 16 Jun 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuLY0MXT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5509,7 +5509,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539086},\n",
     "  doi          = {10.1145/3534678.3539086},\n",
-    "  timestamp    = {Mon, 21 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 20 May 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuWWWL0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5532,7 +5532,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539295},\n",
     "  doi          = {10.1145/3534678.3539295},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuYYSYL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5589,7 +5589,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539176},\n",
     "  doi          = {10.1145/3534678.3539176},\n",
-    "  timestamp    = {Wed, 20 Mar 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuYZMWZLLYWZWD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5615,7 +5615,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539210},\n",
     "  doi          = {10.1145/3534678.3539210},\n",
-    "  timestamp    = {Thu, 01 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 23 Jun 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuYZZZYDT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5640,7 +5640,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539340},\n",
     "  doi          = {10.1145/3534678.3539340},\n",
-    "  timestamp    = {Wed, 03 Apr 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 04 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuZ0ZS0Z22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5667,7 +5667,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539472},\n",
     "  doi          = {10.1145/3534678.3539472},\n",
-    "  timestamp    = {Mon, 04 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 14 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuZSCQZ0DT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5689,7 +5689,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539347},\n",
     "  doi          = {10.1145/3534678.3539347},\n",
-    "  timestamp    = {Fri, 30 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LiuZXL022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5734,7 +5734,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539271},\n",
     "  doi          = {10.1145/3534678.3539271},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Lu00ZK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5757,7 +5757,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539033},\n",
     "  doi          = {10.1145/3534678.3539033},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Lu0Y0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5780,12 +5780,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539245},\n",
     "  doi          = {10.1145/3534678.3539245},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 16 Jun 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Luo0LLZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "srldowereallyneedtoperceiveallstatesindeepmultiagentreinforcementlearning": [
+  "s2rldowereallyneedtoperceiveallstatesindeepmultiagentreinforcementlearning": [
     "@inproceedings{DBLP:conf/kdd/LuoL0KLSW22,\n",
     "  author       = {Shuang Luo and\n",
     "                  Yinchuan Li and\n",
@@ -5805,7 +5805,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539481},\n",
     "  doi          = {10.1145/3534678.3539481},\n",
-    "  timestamp    = {Thu, 27 Jul 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/LuoL0KLSW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5896,7 +5896,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539229},\n",
     "  doi          = {10.1145/3534678.3539229},\n",
-    "  timestamp    = {Fri, 14 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 06 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MaHZWC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5945,7 +5945,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539299},\n",
     "  doi          = {10.1145/3534678.3539299},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Wed, 29 Oct 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MaWYLHT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5973,7 +5973,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539164},\n",
     "  doi          = {10.1145/3534678.3539164},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 19 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MagnaniLCYSPC0K22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -5998,7 +5998,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "berbertbasedearlyexitusingexpertrouting": [
+  "be3rbertbasedearlyexitusingexpertrouting": [
     "@inproceedings{DBLP:conf/kdd/MangrulkarSS22,\n",
     "  author       = {Sourab Mangrulkar and\n",
     "                  Ankith M. S and\n",
@@ -6049,7 +6049,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539059},\n",
     "  doi          = {10.1145/3534678.3539059},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 04 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MarkovWKSGHYTWG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6139,7 +6139,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thethinternationalworkshoponurbancomputing": [
+  "the11thinternationalworkshoponurbancomputing": [
     "@inproceedings{DBLP:conf/kdd/MengLZYYYW22,\n",
     "  author       = {Chuishi Meng and\n",
     "                  Yanhua Li and\n",
@@ -6181,7 +6181,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539085},\n",
     "  doi          = {10.1145/3534678.3539085},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MengWMLLZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6204,7 +6204,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539038},\n",
     "  doi          = {10.1145/3534678.3539038},\n",
-    "  timestamp    = {Fri, 14 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MinWHXSH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6248,7 +6248,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539371},\n",
     "  doi          = {10.1145/3534678.3539371},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MizutaniSS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6311,7 +6311,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539471},\n",
     "  doi          = {10.1145/3534678.3539471},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 26 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Montazeralghaem22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6333,7 +6333,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542600},\n",
     "  doi          = {10.1145/3534678.3542600},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 25 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MontielNNB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6359,7 +6359,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539032},\n",
     "  doi          = {10.1145/3534678.3539032},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/MoomtaheenKOGMG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6444,7 +6444,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539326},\n",
     "  doi          = {10.1145/3534678.3539326},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/NaP22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6465,7 +6465,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539110},\n",
     "  doi          = {10.1145/3534678.3539110},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/NagpalGDD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6495,7 +6495,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "dithethirddocumentintelligenceworkshop": [
+  "di2022thethirddocumentintelligenceworkshop": [
     "@inproceedings{DBLP:conf/kdd/NenkovaBH0TT22,\n",
     "  author       = {Ani Nenkova and\n",
     "                  Douglas Burdick and\n",
@@ -6545,7 +6545,7 @@
   "amazonsagemakermodelmonitorasystemforrealtimeinsightsintodeployedmachinelearningmodels": [
     "@inproceedings{DBLP:conf/kdd/NigendaKZRTDK22,\n",
     "  author       = {David Nigenda and\n",
-    "                  Zohar Karnin and\n",
+    "                  Zohar S. Karnin and\n",
     "                  Muhammad Bilal Zafar and\n",
     "                  Raghu Ramesha and\n",
     "                  Alan Tan and\n",
@@ -6562,14 +6562,14 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539145},\n",
     "  doi          = {10.1145/3534678.3539145},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 11 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/NigendaKZRTDK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
   "humaninthelooplargescalepredictivemaintenanceofworkstations": [
     "@inproceedings{DBLP:conf/kdd/NikitinK22,\n",
-    "  author       = {Alexander V. Nikitin and\n",
+    "  author       = {Alexander Nikitin and\n",
     "                  Samuel Kaski},\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
@@ -6581,7 +6581,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539196},\n",
     "  doi          = {10.1145/3534678.3539196},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/NikitinK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6707,7 +6707,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539308},\n",
     "  doi          = {10.1145/3534678.3539308},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 15 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PanZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6741,7 +6741,7 @@
     "                  Xue Li and\n",
     "                  Moumita Bhattacharya and\n",
     "                  Xianjing Liu and\n",
-    "                  Stephen Guo},\n",
+    "                  Stephen D. Guo},\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
     "  title        = {Deep Search Relevance Ranking in Practice},\n",
@@ -6752,7 +6752,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542632},\n",
     "  doi          = {10.1145/3534678.3542632},\n",
-    "  timestamp    = {Sat, 25 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 14 Nov 2024 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PangLCLBLG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6774,7 +6774,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542910},\n",
     "  doi          = {10.1145/3534678.3542910},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PangLHCD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6801,7 +6801,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539128},\n",
     "  doi          = {10.1145/3534678.3539128},\n",
-    "  timestamp    = {Mon, 17 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PangLLL0SDXZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6820,7 +6820,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539272},\n",
     "  doi          = {10.1145/3534678.3539272},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PapachristouK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6847,7 +6847,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539159},\n",
     "  doi          = {10.1145/3534678.3539159},\n",
-    "  timestamp    = {Tue, 06 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ParkDDPSOBFPC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6870,7 +6870,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539031},\n",
     "  doi          = {10.1145/3534678.3539031},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 21 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ParkSNZMC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6894,7 +6894,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542604},\n",
     "  doi          = {10.1145/3534678.3542604},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 04 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PatelGMMBM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6940,7 +6940,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539276},\n",
     "  doi          = {10.1145/3534678.3539276},\n",
-    "  timestamp    = {Tue, 12 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PengFCLXGT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6965,7 +6965,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539376},\n",
     "  doi          = {10.1145/3534678.3539376},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 27 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PengLZLYL022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -6992,7 +6992,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "visualizationindatasciencevdskdd": [
+  "visualizationindatasciencevdskdd2022": [
     "@inproceedings{DBLP:conf/kdd/PlantHSOGMPLC22,\n",
     "  author       = {Claudia Plant and\n",
     "                  Nina C. Hubig and\n",
@@ -7013,7 +7013,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542903},\n",
     "  doi          = {10.1145/3534678.3542903},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/PlantHSOGMPLC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7041,7 +7041,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thsigkddinternationalworkshoponminingandlearningfromtimeseriesdeepforecastingmodelsinterpretabilityandapplications": [
+  "8thsigkddinternationalworkshoponminingandlearningfromtimeseriesdeepforecastingmodelsinterpretabilityandapplications": [
     "@inproceedings{DBLP:conf/kdd/PurushothamHSS022,\n",
     "  author       = {Sanjay Purushotham and\n",
     "                  Jun Huan and\n",
@@ -7106,12 +7106,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539233},\n",
     "  doi          = {10.1145/3534678.3539233},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 10 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QiZH022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "repvecrepositoryembeddingviaheterogeneousgraphadversarialcontrastivelearning": [
+  "rep2vecrepositoryembeddingviaheterogeneousgraphadversarialcontrastivelearning": [
     "@inproceedings{DBLP:conf/kdd/Qian0WYZ22,\n",
     "  author       = {Yiyue Qian and\n",
     "                  Yiming Zhang and\n",
@@ -7150,7 +7150,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539134},\n",
     "  doi          = {10.1145/3534678.3539134},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 14 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QianTM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7176,7 +7176,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539123},\n",
     "  doi          = {10.1145/3534678.3539123},\n",
-    "  timestamp    = {Thu, 01 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Fri, 14 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QianXLZJLZC022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7201,7 +7201,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542895},\n",
     "  doi          = {10.1145/3534678.3542895},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QinH0ZKLJ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7246,7 +7246,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539424},\n",
     "  doi          = {10.1145/3534678.3539424},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QiuD0WL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7269,7 +7269,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539266},\n",
     "  doi          = {10.1145/3534678.3539266},\n",
-    "  timestamp    = {Thu, 30 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 25 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QuO0WSM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7292,7 +7292,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539268},\n",
     "  doi          = {10.1145/3534678.3539268},\n",
-    "  timestamp    = {Thu, 30 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 25 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QuWGSOM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7333,7 +7333,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539136},\n",
     "  doi          = {10.1145/3534678.3539136},\n",
-    "  timestamp    = {Wed, 17 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/QuinnTC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7374,7 +7374,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539259},\n",
     "  doi          = {10.1145/3534678.3539259},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RahmanP22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7418,7 +7418,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539042},\n",
     "  doi          = {10.1145/3534678.3539042},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 09 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Rangadurai0MLMS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7441,7 +7441,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539383},\n",
     "  doi          = {10.1145/3534678.3539383},\n",
-    "  timestamp    = {Tue, 12 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 10 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RaoCLSYH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7475,7 +7475,7 @@
     "                  Joe Eaton and\n",
     "                  Onur Yilmaz and\n",
     "                  Rick Ratzel and\n",
-    "                  Dominque LaSalle},\n",
+    "                  Dominique LaSalle},\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
     "  title        = {Accelerated {GNN} Training with {DGL} and {RAPIDS} cuGraph in a Fraud\n",
@@ -7487,7 +7487,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542603},\n",
     "  doi          = {10.1145/3534678.3542603},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 04 Sep 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Rees0EYRL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7535,7 +7535,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539405},\n",
     "  doi          = {10.1145/3534678.3539405},\n",
-    "  timestamp    = {Thu, 29 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RenDDCZLS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7556,7 +7556,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539450},\n",
     "  doi          = {10.1145/3534678.3539450},\n",
-    "  timestamp    = {Tue, 16 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RenKLL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7599,7 +7599,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539020},\n",
     "  doi          = {10.1145/3534678.3539020},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RenWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7648,7 +7648,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539023},\n",
     "  doi          = {10.1145/3534678.3539023},\n",
-    "  timestamp    = {Mon, 28 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RozemberczkiHGG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7674,7 +7674,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539027},\n",
     "  doi          = {10.1145/3534678.3539027},\n",
-    "  timestamp    = {Thu, 02 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/RuanLM0HLCWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7737,7 +7737,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "acmkddaicybermlhatworkshoponaienabledcybersecurityanalyticsanddeployabledefense": [
+  "acmkddai4cybermlhatworkshoponaienabledcybersecurityanalyticsanddeployabledefense": [
     "@inproceedings{DBLP:conf/kdd/SamtaniWACYC22,\n",
     "  author       = {Sagar Samtani and\n",
     "                  Gang Wang and\n",
@@ -7819,7 +7819,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539162},\n",
     "  doi          = {10.1145/3534678.3539162},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SarkarDAAM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7871,7 +7871,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539133},\n",
     "  doi          = {10.1145/3534678.3539133},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 20 May 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShaGFLLSSSVWWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7881,7 +7881,7 @@
     "  author       = {Jie{-}Jing Shao and\n",
     "                  Yunlu Xu and\n",
     "                  Zhanzhan Cheng and\n",
-    "                  Yu{-}Feng Li},\n",
+    "                  Yufeng Li},\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
     "  title        = {Active Model Adaptation Under Unknown Shift},\n",
@@ -7892,7 +7892,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539262},\n",
     "  doi          = {10.1145/3534678.3539262},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 22 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShaoXCL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7914,7 +7914,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539396},\n",
     "  doi          = {10.1145/3534678.3539396},\n",
-    "  timestamp    = {Thu, 03 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 31 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShaoZWX22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7961,7 +7961,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539103},\n",
     "  doi          = {10.1145/3534678.3539103},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 16 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShiJGZOXSWWG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -7982,7 +7982,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539362},\n",
     "  doi          = {10.1145/3534678.3539362},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 14 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShiSD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8026,7 +8026,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539199},\n",
     "  doi          = {10.1145/3534678.3539199},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ShinLLSL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8047,12 +8047,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539166},\n",
     "  doi          = {10.1145/3534678.3539166},\n",
-    "  timestamp    = {Tue, 22 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SiddiqueeSB022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "seqeventlearningthelanguageofsoccerusingtransformerbasedmatcheventprediction": [
+  "seq2eventlearningthelanguageofsoccerusingtransformerbasedmatcheventprediction": [
     "@inproceedings{DBLP:conf/kdd/SimpsonBLN22,\n",
     "  author       = {Ian Simpson and\n",
     "                  Ryan J. Beal and\n",
@@ -8069,7 +8069,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539138},\n",
     "  doi          = {10.1145/3534678.3539138},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SimpsonBLN22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8111,7 +8111,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539346},\n",
     "  doi          = {10.1145/3534678.3539346},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 23 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SongDLL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8133,7 +8133,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542675},\n",
     "  doi          = {10.1145/3534678.3542675},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SongHVBL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8156,7 +8156,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539192},\n",
     "  doi          = {10.1145/3534678.3539192},\n",
-    "  timestamp    = {Thu, 29 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SongLHW0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8218,12 +8218,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539330},\n",
     "  doi          = {10.1145/3534678.3539330},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 06 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SongZWJ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "conceptcodedeepreinforcementlearningforconversationalai": [
+  "concept2codedeepreinforcementlearningforconversationalai": [
     "@inproceedings{DBLP:conf/kdd/SonieCM22,\n",
     "  author       = {Omprakash Sonie and\n",
     "                  Abir Chakraborty and\n",
@@ -8238,7 +8238,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542635},\n",
     "  doi          = {10.1145/3534678.3542635},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 03 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SonieCM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8282,7 +8282,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539067},\n",
     "  doi          = {10.1145/3534678.3539067},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/StoilosPVB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8352,7 +8352,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539157},\n",
     "  doi          = {10.1145/3534678.3539157},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 14 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SuYCLBZWZTD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8375,7 +8375,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539238},\n",
     "  doi          = {10.1145/3534678.3539238},\n",
-    "  timestamp    = {Tue, 28 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SuZEGZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8420,7 +8420,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539298},\n",
     "  doi          = {10.1145/3534678.3539298},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 02 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SunHJZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8443,7 +8443,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539060},\n",
     "  doi          = {10.1145/3534678.3539060},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 17 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SunJYSW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8465,7 +8465,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539256},\n",
     "  doi          = {10.1145/3534678.3539256},\n",
-    "  timestamp    = {Tue, 16 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SunWDH022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8512,7 +8512,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539249},\n",
     "  doi          = {10.1145/3534678.3539249},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/SunZHWW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8584,7 +8584,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "sdrugsymptombasedsettosetsmallandsafedrugrecommendation": [
+  "4sdrugsymptombasedsettosetsmallandsafedrugrecommendation": [
     "@inproceedings{DBLP:conf/kdd/TanKY00ZHY22,\n",
     "  author       = {Yanchao Tan and\n",
     "                  Chengjun Kong and\n",
@@ -8604,7 +8604,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539089},\n",
     "  doi          = {10.1145/3534678.3539089},\n",
-    "  timestamp    = {Thu, 15 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sat, 06 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/TanKY00ZHY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8645,7 +8645,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539487},\n",
     "  doi          = {10.1145/3534678.3539487},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ThejaswiGOO22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8671,7 +8671,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539399},\n",
     "  doi          = {10.1145/3534678.3539399},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 30 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/TongLHHWLHCZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8716,7 +8716,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539026},\n",
     "  doi          = {10.1145/3534678.3539026},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/TranLL0LZW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8760,7 +8760,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539154},\n",
     "  doi          = {10.1145/3534678.3539154},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 04 Jul 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WahlTSD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8808,7 +8808,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539211},\n",
     "  doi          = {10.1145/3534678.3539211},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 20 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangDFY0WZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8830,7 +8830,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539265},\n",
     "  doi          = {10.1145/3534678.3539265},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangDZCL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8853,7 +8853,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539278},\n",
     "  doi          = {10.1145/3534678.3539278},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangF0LS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8875,7 +8875,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539480},\n",
     "  doi          = {10.1145/3534678.3539480},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 26 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangFZL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8901,7 +8901,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539392},\n",
     "  doi          = {10.1145/3534678.3539392},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 08 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangH0RCLRR22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8923,7 +8923,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539079},\n",
     "  doi          = {10.1145/3534678.3539079},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Fri, 15 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangHBCA22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8969,7 +8969,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542628},\n",
     "  doi          = {10.1145/3534678.3542628},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 12 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangIRABLN22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -8996,7 +8996,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539074},\n",
     "  doi          = {10.1145/3534678.3539074},\n",
-    "  timestamp    = {Fri, 10 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangKNSNCVV022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9021,7 +9021,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539112},\n",
     "  doi          = {10.1145/3534678.3539112},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 10 Apr 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangKXYLDZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9044,7 +9044,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542916},\n",
     "  doi          = {10.1145/3534678.3542916},\n",
-    "  timestamp    = {Fri, 17 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 23 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangLZW0M22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9071,7 +9071,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539354},\n",
     "  doi          = {10.1145/3534678.3539354},\n",
-    "  timestamp    = {Tue, 13 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 04 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangMLLZLLJM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9100,7 +9100,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539305},\n",
     "  doi          = {10.1145/3534678.3539305},\n",
-    "  timestamp    = {Sat, 26 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 22 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangQHLYWLSHSL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9122,7 +9122,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539417},\n",
     "  doi          = {10.1145/3534678.3539417},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sat, 18 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangSFSH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9148,14 +9148,14 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539073},\n",
     "  doi          = {10.1145/3534678.3539073},\n",
-    "  timestamp    = {Wed, 16 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 01 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangSXBSRCCC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
   "confluxarequestlevelfusionframeworkforimpressionallocationviacascadedistillation": [
     "@inproceedings{DBLP:conf/kdd/WangTGYHXFZ022,\n",
-    "  author       = {Xiao{-}Yu Wang and\n",
+    "  author       = {XiaoYu Wang and\n",
     "                  Bin Tan and\n",
     "                  Yonghui Guo and\n",
     "                  Tao Yang and\n",
@@ -9175,7 +9175,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539044},\n",
     "  doi          = {10.1145/3534678.3539044},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 27 Oct 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangTGYHXFZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9200,30 +9200,8 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539047},\n",
     "  doi          = {10.1145/3534678.3539047},\n",
-    "  timestamp    = {Tue, 07 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 10 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangTZRXWL22.bib},\n",
-    "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
-    "}\n"
-  ],
-  "graphneuralnetworkswithnodewisearchitecture": [
-    "@inproceedings{DBLP:conf/kdd/WangWLKD22,\n",
-    "  author       = {Zhen Wang and\n",
-    "                  Zhewei Wei and\n",
-    "                  Yaliang Li and\n",
-    "                  Weirui Kuang and\n",
-    "                  Bolin Ding},\n",
-    "  editor       = {Aidong Zhang and\n",
-    "                  Huzefa Rangwala},\n",
-    "  title        = {Graph Neural Networks with Node-wise Architecture},\n",
-    "  booktitle    = {{KDD} '22: The 28th {ACM} {SIGKDD} Conference on Knowledge Discovery\n",
-    "                  and Data Mining, Washington, DC, USA, August 14 - 18, 2022},\n",
-    "  pages        = {1949--1958},\n",
-    "  publisher    = {{ACM}},\n",
-    "  year         = {2022},\n",
-    "  url          = {https://doi.org/10.1145/3534678.3539387},\n",
-    "  doi          = {10.1145/3534678.3539387},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
-    "  biburl       = {https://dblp.org/rec/conf/kdd/WangWLKD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
@@ -9246,7 +9224,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539191},\n",
     "  doi          = {10.1145/3534678.3539191},\n",
-    "  timestamp    = {Tue, 02 May 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 28 Aug 2023 21:17:29 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangWWZCZZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9294,7 +9272,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539185},\n",
     "  doi          = {10.1145/3534678.3539185},\n",
-    "  timestamp    = {Wed, 17 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 04 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangYSZLL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9337,7 +9315,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539363},\n",
     "  doi          = {10.1145/3534678.3539363},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 30 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9361,12 +9339,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539404},\n",
     "  doi          = {10.1145/3534678.3539404},\n",
-    "  timestamp    = {Wed, 07 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZDCLD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "nenyacascadereinforcementlearningforcostawarefailuremitigationatmicrosoft": [
+  "nenyacascadereinforcementlearningforcostawarefailuremitigationatmicrosoft365": [
     "@inproceedings{DBLP:conf/kdd/WangZDLSYLLWDZR22,\n",
     "  author       = {Lu Wang and\n",
     "                  Pu Zhao and\n",
@@ -9392,7 +9370,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539127},\n",
     "  doi          = {10.1145/3534678.3539127},\n",
-    "  timestamp    = {Wed, 20 Mar 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZDLSYLLWDZR22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9413,7 +9391,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539336},\n",
     "  doi          = {10.1145/3534678.3539336},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZSW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9435,7 +9413,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539382},\n",
     "  doi          = {10.1145/3534678.3539382},\n",
-    "  timestamp    = {Sat, 06 Jan 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Fri, 14 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9460,7 +9438,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539049},\n",
     "  doi          = {10.1145/3534678.3539049},\n",
-    "  timestamp    = {Sun, 20 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 14 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WangZZTXWC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9499,7 +9477,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539304},\n",
     "  doi          = {10.1145/3534678.3539304},\n",
-    "  timestamp    = {Tue, 13 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WeiL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9521,7 +9499,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539290},\n",
     "  doi          = {10.1145/3534678.3539290},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 27 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WeiWZLG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9544,12 +9522,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539213},\n",
     "  doi          = {10.1145/3534678.3539213},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 26 Nov 2024 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WenD00XT22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "graphrouteadynamicspatialtemporalgraphneuralnetworkforpickupanddeliveryrouteprediction": [
+  "graph2routeadynamicspatialtemporalgraphneuralnetworkforpickupanddeliveryrouteprediction": [
     "@inproceedings{DBLP:conf/kdd/WenLMWZWZWHW22,\n",
     "  author       = {Haomin Wen and\n",
     "                  Youfang Lin and\n",
@@ -9572,7 +9550,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539084},\n",
     "  doi          = {10.1145/3534678.3539084},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 19 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WenLMWZWZWHW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9617,7 +9595,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542612},\n",
     "  doi          = {10.1145/3534678.3542612},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 25 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WenYZS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9692,7 +9670,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542597},\n",
     "  doi          = {10.1145/3534678.3542597},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuBZLY00H22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9714,7 +9692,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542609},\n",
     "  doi          = {10.1145/3534678.3542609},\n",
-    "  timestamp    = {Fri, 07 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 28 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuCPZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9760,7 +9738,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "deeplearningongraphsmethodsandapplicationsdlgkdd": [
+  "deeplearningongraphsmethodsandapplicationsdlgkdd2022": [
     "@inproceedings{DBLP:conf/kdd/WuPTX022,\n",
     "  author       = {Lingfei Wu and\n",
     "                  Jian Pei and\n",
@@ -9777,7 +9755,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542907},\n",
     "  doi          = {10.1145/3534678.3542907},\n",
-    "  timestamp    = {Fri, 07 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 28 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuPTX022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9801,7 +9779,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539436},\n",
     "  doi          = {10.1145/3534678.3539436},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 07 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuS0C0Z22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9828,7 +9806,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539175},\n",
     "  doi          = {10.1145/3534678.3539175},\n",
-    "  timestamp    = {Sat, 19 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 02 Jun 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuTLGODSWJB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9856,7 +9834,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539202},\n",
     "  doi          = {10.1145/3534678.3539202},\n",
-    "  timestamp    = {Mon, 12 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sat, 18 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuWHZSYNRHHS22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9879,7 +9857,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539119},\n",
     "  doi          = {10.1145/3534678.3539119},\n",
-    "  timestamp    = {Thu, 29 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuWQH022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9907,7 +9885,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539045},\n",
     "  doi          = {10.1145/3534678.3539045},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 31 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuWZYCSJHML22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9954,7 +9932,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539325},\n",
     "  doi          = {10.1145/3534678.3539325},\n",
-    "  timestamp    = {Thu, 04 Apr 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 11 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/WuZZZW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -9999,7 +9977,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539318},\n",
     "  doi          = {10.1145/3534678.3539318},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 27 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XiaSGWGWL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10047,7 +10025,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539120},\n",
     "  doi          = {10.1145/3534678.3539120},\n",
-    "  timestamp    = {Fri, 21 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XiaoLSDMWX22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10115,7 +10093,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539333},\n",
     "  doi          = {10.1145/3534678.3539333},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 21 Jan 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XiongZNXP0S22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10140,7 +10118,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539116},\n",
     "  doi          = {10.1145/3534678.3539116},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 16 Jan 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Xu0HZ0WM22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10165,7 +10143,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539360},\n",
     "  doi          = {10.1145/3534678.3539360},\n",
-    "  timestamp    = {Wed, 19 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 30 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Xu0ZZ0Z022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10211,7 +10189,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542901},\n",
     "  doi          = {10.1145/3534678.3542901},\n",
-    "  timestamp    = {Wed, 21 Dec 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 07 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XuWCHS0YG022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10235,7 +10213,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539062},\n",
     "  doi          = {10.1145/3534678.3539062},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 01 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XuZLXZZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10292,12 +10270,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539063},\n",
     "  doi          = {10.1145/3534678.3539063},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 20 May 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XueQSLZTMWWH0ZL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "multiwavecovidpredictionfromsocialawarenessusingwebsearchandmobilitydata": [
+  "multiwavecovid19predictionfromsocialawarenessusingwebsearchandmobilitydata": [
     "@inproceedings{DBLP:conf/kdd/XueYTMU22,\n",
     "  author       = {Jiawei Xue and\n",
     "                  Takahiro Yabe and\n",
@@ -10315,7 +10293,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539172},\n",
     "  doi          = {10.1145/3534678.3539172},\n",
-    "  timestamp    = {Mon, 26 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 10 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/XueYTMU22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10342,7 +10320,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539334},\n",
     "  doi          = {10.1145/3534678.3539334},\n",
-    "  timestamp    = {Thu, 10 Nov 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 01 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YanLCQFLMRZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10415,7 +10393,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539109},\n",
     "  doi          = {10.1145/3534678.3539109},\n",
-    "  timestamp    = {Wed, 12 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 21 Jul 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YanSYXLQTZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10436,7 +10414,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539327},\n",
     "  doi          = {10.1145/3534678.3539327},\n",
-    "  timestamp    = {Thu, 31 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 30 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YanTY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10460,7 +10438,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542680},\n",
     "  doi          = {10.1145/3534678.3542680},\n",
-    "  timestamp    = {Thu, 15 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 20 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/Yang0CK0GY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10480,7 +10458,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539460},\n",
     "  doi          = {10.1145/3534678.3539460},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangC022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10507,7 +10485,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539077},\n",
     "  doi          = {10.1145/3534678.3539077},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 11 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangGLYWLKNW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10552,7 +10530,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539342},\n",
     "  doi          = {10.1145/3534678.3539342},\n",
-    "  timestamp    = {Thu, 18 Apr 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 15 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangHXLYL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10662,7 +10640,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539391},\n",
     "  doi          = {10.1145/3534678.3539391},\n",
-    "  timestamp    = {Sun, 30 Apr 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 13 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangWGYJLW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10685,7 +10663,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539277},\n",
     "  doi          = {10.1145/3534678.3539277},\n",
-    "  timestamp    = {Mon, 13 May 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangWJLL022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10710,7 +10688,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539029},\n",
     "  doi          = {10.1145/3534678.3539029},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YangYWGWXH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10733,7 +10711,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539108},\n",
     "  doi          = {10.1145/3534678.3539108},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 22 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YaoGZCB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10757,7 +10735,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539358},\n",
     "  doi          = {10.1145/3534678.3539358},\n",
-    "  timestamp    = {Thu, 01 Jun 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YaoHDCHB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10767,7 +10745,7 @@
     "  author       = {Shaowei Yao and\n",
     "                  Jiwei Tan and\n",
     "                  Xi Chen and\n",
-    "                  Juhao Zhang and\n",
+    "                  Junhao Zhang and\n",
     "                  Xiaoyi Zeng and\n",
     "                  Keping Yang},\n",
     "  editor       = {Aidong Zhang and\n",
@@ -10781,7 +10759,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539090},\n",
     "  doi          = {10.1145/3534678.3539090},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 07 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YaoTCZZY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10805,7 +10783,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539181},\n",
     "  doi          = {10.1145/3534678.3539181},\n",
-    "  timestamp    = {Mon, 01 May 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 07 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YaoWDCHZY22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10849,7 +10827,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539189},\n",
     "  doi          = {10.1145/3534678.3539189},\n",
-    "  timestamp    = {Wed, 17 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YeBOATPA22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10897,7 +10875,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539274},\n",
     "  doi          = {10.1145/3534678.3539274},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 03 Jun 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YeL0SLF022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -10945,7 +10923,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539068},\n",
     "  doi          = {10.1145/3534678.3539068},\n",
-    "  timestamp    = {Wed, 03 Jul 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YehGZCEZWW022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11011,7 +10989,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539423},\n",
     "  doi          = {10.1145/3534678.3539423},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 21 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YinZNFKV22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11075,7 +11053,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539300},\n",
     "  doi          = {10.1145/3534678.3539300},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 06 Oct 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YouDL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11099,7 +11077,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539186},\n",
     "  doi          = {10.1145/3534678.3539186},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 06 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuAYZWL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11147,12 +11125,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539482},\n",
     "  doi          = {10.1145/3534678.3539482},\n",
-    "  timestamp    = {Fri, 04 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 04 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuFYHZD22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "mdpforestaconstrainedcontinuousmultidimensionalpolicyoptimizationapproachforshortvideorecommendation": [
+  "mdp2forestaconstrainedcontinuousmultidimensionalpolicyoptimizationapproachforshortvideorecommendation": [
     "@inproceedings{DBLP:conf/kdd/YuLWZLZ22,\n",
     "  author       = {Sizhe Yu and\n",
     "                  Ziyi Liu and\n",
@@ -11171,7 +11149,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539341},\n",
     "  doi          = {10.1145/3534678.3539341},\n",
-    "  timestamp    = {Mon, 31 Oct 2022 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuLWZLZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11195,7 +11173,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539061},\n",
     "  doi          = {10.1145/3534678.3539061},\n",
-    "  timestamp    = {Tue, 07 Feb 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuLYLFL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11240,7 +11218,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542629},\n",
     "  doi          = {10.1145/3534678.3542629},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 04 Dec 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuZCJLH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11267,7 +11245,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539135},\n",
     "  doi          = {10.1145/3534678.3539135},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Fri, 13 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuZXLGZ0L022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11289,7 +11267,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542671},\n",
     "  doi          = {10.1145/3534678.3542671},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YuanDWJ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11331,7 +11309,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539316},\n",
     "  doi          = {10.1145/3534678.3539316},\n",
-    "  timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 30 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YueLCB22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11352,7 +11330,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539098},\n",
     "  doi          = {10.1145/3534678.3539098},\n",
-    "  timestamp    = {Fri, 01 Dec 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/YueXL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11427,12 +11405,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539231},\n",
     "  doi          = {10.1145/3534678.3539231},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 07 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangCJG22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "mcarelearningwithmissingmodalitiesinmultimodalhealthcaredata": [
+  "m3carelearningwithmissingmodalitiesinmultimodalhealthcaredata": [
     "@inproceedings{DBLP:conf/kdd/ZhangCMZWWZ22,\n",
     "  author       = {Chaohe Zhang and\n",
     "                  Xu Chu and\n",
@@ -11452,7 +11430,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539388},\n",
     "  doi          = {10.1145/3534678.3539388},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Dec 2024 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangCMZWWZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11476,7 +11454,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539393},\n",
     "  doi          = {10.1145/3534678.3539393},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangDXDDW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11498,7 +11476,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539415},\n",
     "  doi          = {10.1145/3534678.3539415},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 19 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangGPH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11519,7 +11497,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539395},\n",
     "  doi          = {10.1145/3534678.3539395},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 29 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangGS022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11538,7 +11516,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539310},\n",
     "  doi          = {10.1145/3534678.3539310},\n",
-    "  timestamp    = {Sun, 02 Oct 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11594,7 +11572,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539212},\n",
     "  doi          = {10.1145/3534678.3539212},\n",
-    "  timestamp    = {Fri, 21 Jun 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 14 Oct 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangLHXZSSZSDZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11619,7 +11597,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539248},\n",
     "  doi          = {10.1145/3534678.3539248},\n",
-    "  timestamp    = {Fri, 03 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 06 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangLYZHYL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11643,7 +11621,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539155},\n",
     "  doi          = {10.1145/3534678.3539155},\n",
-    "  timestamp    = {Tue, 14 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangLZCC022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11666,7 +11644,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539239},\n",
     "  doi          = {10.1145/3534678.3539239},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 24 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangM0D022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11674,7 +11652,7 @@
   "adaptivelearningforweaklylabeledstreams": [
     "@inproceedings{DBLP:conf/kdd/ZhangQZJZ22,\n",
     "  author       = {Zhen{-}Yu Zhang and\n",
-    "                  Yuyang Qian and\n",
+    "                  Yu{-}Yang Qian and\n",
     "                  Yu{-}Jie Zhang and\n",
     "                  Yuan Jiang and\n",
     "                  Zhi{-}Hua Zhou},\n",
@@ -11688,7 +11666,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539351},\n",
     "  doi          = {10.1145/3534678.3539351},\n",
-    "  timestamp    = {Sun, 05 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 26 Aug 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangQZJZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11736,12 +11714,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539374},\n",
     "  doi          = {10.1145/3534678.3539374},\n",
-    "  timestamp    = {Wed, 01 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangSYJXGY022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "thethartificialintelligenceofthingsaiotworkshop": [
+  "the5thartificialintelligenceofthingsaiotworkshop": [
     "@inproceedings{DBLP:conf/kdd/ZhangT00YWNSJB22,\n",
     "  author       = {Jian Zhang and\n",
     "                  Jian Tang and\n",
@@ -11783,7 +11761,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539076},\n",
     "  doi          = {10.1145/3534678.3539076},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangUA22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11832,7 +11810,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539050},\n",
     "  doi          = {10.1145/3534678.3539050},\n",
-    "  timestamp    = {Tue, 07 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangWCZMMACZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11854,7 +11832,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539431},\n",
     "  doi          = {10.1145/3534678.3539431},\n",
-    "  timestamp    = {Fri, 03 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangWYZ022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11878,7 +11856,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539039},\n",
     "  doi          = {10.1145/3534678.3539039},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangWZZYJ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11899,7 +11877,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539440},\n",
     "  doi          = {10.1145/3534678.3539440},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Thu, 06 Aug 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangYJL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11925,7 +11903,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539121},\n",
     "  doi          = {10.1145/3534678.3539121},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhangYS0OLT0022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11953,7 +11931,7 @@
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "stacmsigkddworkshoponethicalartificialintelligencemethodsandapplicationseaikdd": [
+  "1stacmsigkddworkshoponethicalartificialintelligencemethodsandapplicationseaikdd22": [
     "@inproceedings{DBLP:conf/kdd/ZhaoCWFH22,\n",
     "  author       = {Chen Zhao and\n",
     "                  Feng Chen and\n",
@@ -11971,7 +11949,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542912},\n",
     "  doi          = {10.1145/3534678.3542912},\n",
-    "  timestamp    = {Tue, 16 May 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhaoCWFH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -11995,7 +11973,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539314},\n",
     "  doi          = {10.1145/3534678.3539314},\n",
-    "  timestamp    = {Mon, 30 Jan 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhaoDYMXW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12020,7 +11998,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3542674},\n",
     "  doi          = {10.1145/3534678.3542674},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Wed, 19 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhaoLWHC0D022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12043,7 +12021,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539420},\n",
     "  doi          = {10.1145/3534678.3539420},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 30 Sep 2025 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhaoMWJK022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12071,7 +12049,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539131},\n",
     "  doi          = {10.1145/3534678.3539131},\n",
-    "  timestamp    = {Sat, 06 Jan 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Thu, 16 Jul 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhaoZGZZS0WLW22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12095,7 +12073,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539201},\n",
     "  doi          = {10.1145/3534678.3539201},\n",
-    "  timestamp    = {Tue, 09 Jul 2024 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhengQ0W0CZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12118,7 +12096,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539177},\n",
     "  doi          = {10.1145/3534678.3539177},\n",
-    "  timestamp    = {Mon, 26 Feb 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Mon, 03 Nov 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhengSYLK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12140,7 +12118,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539352},\n",
     "  doi          = {10.1145/3534678.3539352},\n",
-    "  timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Tue, 12 May 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhengWWL022.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12161,7 +12139,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539311},\n",
     "  doi          = {10.1145/3534678.3539311},\n",
-    "  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},\n",
+    "  timestamp    = {Sun, 04 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhengXZH22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12186,7 +12164,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539198},\n",
     "  doi          = {10.1145/3534678.3539198},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Tue, 24 Mar 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhongXRLYYC22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12209,7 +12187,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539101},\n",
     "  doi          = {10.1145/3534678.3539101},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 25 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuD00C22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12233,7 +12211,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539102},\n",
     "  doi          = {10.1145/3534678.3539102},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Sat, 25 Apr 2026 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuDZ00C22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12256,12 +12234,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539418},\n",
     "  doi          = {10.1145/3534678.3539418},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 03 Mar 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuJLSK22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "unifieddanddpretrainingofmolecularrepresentations": [
+  "unified2dand3dpretrainingofmolecularrepresentations": [
     "@inproceedings{DBLP:conf/kdd/ZhuXW0QZLL22,\n",
     "  author       = {Jinhua Zhu and\n",
     "                  Yingce Xia and\n",
@@ -12281,7 +12259,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539368},\n",
     "  doi          = {10.1145/3534678.3539368},\n",
-    "  timestamp    = {Mon, 29 Jan 2024 00:00:00 +0100},\n",
+    "  timestamp    = {Wed, 26 Feb 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuXW0QZLL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12301,7 +12279,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539469},\n",
     "  doi          = {10.1145/3534678.3539469},\n",
-    "  timestamp    = {Sun, 06 Aug 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Sun, 19 Jan 2025 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12323,7 +12301,7 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539093},\n",
     "  doi          = {10.1145/3534678.3539093},\n",
-    "  timestamp    = {Mon, 15 Aug 2022 01:00:00 +0200},\n",
+    "  timestamp    = {Mon, 09 Feb 2026 00:00:00 +0100},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZhuangWKZ22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
@@ -12346,12 +12324,12 @@
     "  year         = {2022},\n",
     "  url          = {https://doi.org/10.1145/3534678.3539037},\n",
     "  doi          = {10.1145/3534678.3539037},\n",
-    "  timestamp    = {Sat, 30 Sep 2023 01:00:00 +0200},\n",
+    "  timestamp    = {Fri, 30 Aug 2024 01:00:00 +0200},\n",
     "  biburl       = {https://dblp.org/rec/conf/kdd/ZongWWZL22.bib},\n",
     "  bibsource    = {dblp computer science bibliography, https://dblp.org}\n",
     "}\n"
   ],
-  "kddthethacmsigkddconferenceonknowledgediscoveryanddataminingwashingtondcusaaugust": [
+  "kdd22the28thacmsigkddconferenceonknowledgediscoveryanddataminingwashingtondcusaaugust14182022": [
     "@proceedings{DBLP:conf/kdd/2022,\n",
     "  editor       = {Aidong Zhang and\n",
     "                  Huzefa Rangwala},\n",
