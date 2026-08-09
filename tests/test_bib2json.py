@@ -40,6 +40,21 @@ def test_normalize_title_strips_punctuation_lowercases_letters_only():
     # combining marks are dropped; ASCII letters remain
     assert normalize_title("naive") == "naive"
     assert normalize_title("naive\u0301") == "naive"
+    # default keep_digits=False drops digits
+    assert normalize_title("A 16x16 Network") == "axnetwork"
+    assert normalize_title("A 16x16 Network", keep_digits=False) == "axnetwork"
+
+
+def test_normalize_title_keep_digits_distinguishes_16x16_and_32x32():
+    t16 = "A 16x16 Network"
+    t32 = "A 32x32 Network"
+    assert normalize_title(t16, keep_digits=False) == "axnetwork"
+    assert normalize_title(t32, keep_digits=False) == "axnetwork"
+    assert normalize_title(t16, keep_digits=True) == "a16x16network"
+    assert normalize_title(t32, keep_digits=True) == "a32x32network"
+    assert normalize_title(t16, keep_digits=True) != normalize_title(
+        t32, keep_digits=True
+    )
 
 
 def test_load_bib_file_parses_two_entries_ignores_comments():
@@ -165,5 +180,75 @@ def test_build_json_keys_by_normalize_title():
         assert key_hello in db
         assert db[key_birds] == entries[0]
         assert db[key_hello] == entries[1]
+    finally:
+        os.unlink(path)
+
+
+def test_build_json_uses_keep_digits_keys():
+    path = _write_bib(
+        """
+@article{a,
+  title={A 16x16 Network},
+  year={2020}
+}
+@article{b,
+  title={A 32x32 Network},
+  year={2021}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        db = build_json(entries)
+        key16 = normalize_title("A 16x16 Network", keep_digits=True)
+        key32 = normalize_title("A 32x32 Network", keep_digits=True)
+        key_old = normalize_title("A 16x16 Network", keep_digits=False)
+        assert key16 == "a16x16network"
+        assert key32 == "a32x32network"
+        assert key_old == "axnetwork"
+        assert key16 in db
+        assert key32 in db
+        assert key_old not in db
+        assert db[key16] == entries[0]
+        assert db[key32] == entries[1]
+    finally:
+        os.unlink(path)
+
+
+def test_build_json_keeps_title_containing_month():
+    path = _write_bib(
+        """
+@article{m,
+  title={A Month of Sundays},
+  author={Alice},
+  month={jan},
+  year={2020}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        db = build_json(entries)
+        key = normalize_title("A Month of Sundays", keep_digits=True)
+        assert key == "amonthofsundays"
+        assert key in db
+        assert "A Month of Sundays" in "".join(db[key])
+    finally:
+        os.unlink(path)
+
+
+def test_load_bib_file_keeps_unclosed_entry():
+    path = _write_bib(
+        """@article{broken,
+  title={Unclosed Title},
+  author={Alice}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        assert len(entries) == 1
+        joined = "".join(entries[0])
+        assert "Unclosed Title" in joined
+        assert "broken" in joined
     finally:
         os.unlink(path)

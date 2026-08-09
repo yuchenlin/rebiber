@@ -14,6 +14,7 @@ from rebiber.normalize import (
     extract_last_names,
     looks_published,
     normalize_bib,
+    post_processing,
     str2bool,
 )
 
@@ -187,9 +188,30 @@ class TestAuthorLastNames(unittest.TestCase):
         self.assertIn("dollar", names)
         self.assertIn("lin", names)
 
-    def test_overlap_unknown_when_missing(self):
-        self.assertTrue(authors_overlap("", "Ada Lovelace"))
-        self.assertTrue(authors_overlap("Ada Lovelace", None))
+    def test_et_al_stripped_before_last_token(self):
+        self.assertEqual(extract_last_names("De-An Huang et al."), {"huang"})
+        self.assertEqual(extract_last_names("De-An Huang, et al."), {"huang"})
+        self.assertEqual(extract_last_names("Huang, De-An et al."), {"huang"})
+        self.assertEqual(extract_last_names("De-An Huang and others"), {"huang"})
+        self.assertEqual(
+            extract_last_names("De-An Huang et al. and Yann LeCun"),
+            {"huang", "lecun"},
+        )
+        # Exact et al / others parts are still skipped.
+        self.assertEqual(
+            extract_last_names("Huang, De-An and et al."),
+            {"huang"},
+        )
+        self.assertEqual(
+            extract_last_names("Huang, De-An and others"),
+            {"huang"},
+        )
+        self.assertTrue(authors_overlap("De-An Huang et al.", "Huang, De-An"))
+
+    def test_overlap_empty_is_false(self):
+        self.assertFalse(authors_overlap("", "Ada Lovelace"))
+        self.assertFalse(authors_overlap("Ada Lovelace", None))
+        self.assertFalse(authors_overlap("", None))
 
 
 class TestIssue50AuthorCheck(unittest.TestCase):
@@ -370,6 +392,99 @@ class TestConstructBibDb(unittest.TestCase):
             db = construct_bib_db(list_path, start_dir=tmp)
             self.assertIn("hello", db)
             self.assertEqual(len(db), 1)
+
+
+PREFACE_EDITOR_ONLY = """@inproceedings{preface,
+  title={Preface},
+  editor={Someone Editor},
+  booktitle={Proceedings of Something},
+  year={2020}
+}
+"""
+
+JANE_DOE_PREFACE = """@article{janedoe,
+  title={Preface},
+  author={Jane Doe},
+  year={2020}
+}
+"""
+
+
+class TestFailClosedAuthorOverlap(unittest.TestCase):
+    def test_preface_editor_only_does_not_convert_jane_doe(self):
+        key = normalize_title("Preface")
+        db = {key: _db_entry_lines(PREFACE_EDITOR_ONLY)}
+        output, stats = run_normalize(
+            JANE_DOE_PREFACE, db, check_authors=True
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "janedoe")
+        self.assertIn("doe", extract_last_names(entry.get("author", "")))
+        self.assertNotIn("booktitle", entry)
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["skipped_author_mismatch"], 1)
+
+
+class TestDigitTitleKeys(unittest.TestCase):
+    def test_16x16_matches_16x16_not_32x32(self):
+        title_16 = "A 16x16 Convolution Network"
+        title_32 = "A 32x32 Convolution Network"
+        key_16 = normalize_title(title_16, keep_digits=True)
+        key_32 = normalize_title(title_32, keep_digits=True)
+        self.assertNotEqual(key_16, key_32)
+        self.assertEqual(
+            normalize_title(title_16, keep_digits=False),
+            normalize_title(title_32, keep_digits=False),
+        )
+        entry_16 = """@inproceedings{n16,
+  title={A 16x16 Convolution Network Official},
+  author={Ada Lovelace},
+  booktitle={TMLR},
+  year={2024}
+}
+"""
+        entry_32 = """@inproceedings{n32,
+  title={A 32x32 Convolution Network Official},
+  author={Ada Lovelace},
+  booktitle={COLM},
+  year={2024}
+}
+"""
+        db = {
+            key_16: _db_entry_lines(entry_16),
+            key_32: _db_entry_lines(entry_32),
+        }
+        input_bib = """@article{mine,
+  title={A 16x16 Convolution Network},
+  author={Ada Lovelace},
+  year={2024}
+}
+"""
+        output, stats = run_normalize(input_bib, db, check_authors=True)
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(stats["converted"], 1)
+        self.assertIn("16x16", entry.get("title", ""))
+        self.assertNotIn("32x32", entry.get("title", ""))
+        self.assertEqual(entry.get("booktitle"), "TMLR")
+
+
+class TestPostProcessingCount(unittest.TestCase):
+    def test_count_mismatch_dumps_raw(self):
+        good = _db_entry_lines(
+            """@article{ok,
+  title={Ok},
+  author={Ada},
+  year={2020}
+}
+"""
+        )
+        bad = ["@article{broken,\n", "  title={No closing\n"]
+        output = post_processing([good, bad], [], [], sort=False)
+        self.assertIn("@article{ok", output.replace(" ", ""))
+        self.assertIn("broken", output)
+        self.assertIn("No closing", output)
 
 
 class TestBatchOutputPaths(unittest.TestCase):
