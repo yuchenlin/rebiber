@@ -7,6 +7,8 @@ import bibtexparser
 
 from rebiber.bib2json import load_bib_file, normalize_title
 from rebiber.normalize import (
+    DBLP_API,
+    REBIBER_USER_AGENT,
     authors_overlap,
     build_parser,
     construct_bib_db,
@@ -19,7 +21,11 @@ from rebiber.normalize import (
     looks_published,
     main,
     normalize_bib,
+    parse_bib_entry,
     post_processing,
+    preserve_eprint,
+    search_dblp_by_title,
+    select_dblp_hit,
     str2bool,
 )
 
@@ -805,6 +811,272 @@ class TestUsedInFilter(unittest.TestCase):
         entry = parse_first_entry(output)
         self.assertEqual(entry.get("eprint"), "2005.00683")
         self.assertEqual(stats["arxiv_normalized"], 1)
+
+
+LIVE_UNIQUE_TITLE = "A Completely Unique Live Lookup Title That Is Not In Any Dump"
+LIVE_PREPRINT_INPUT = """@article{mylivekey,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  journal={arXiv preprint arXiv:2101.01234},
+  year={2021},
+  eprint={2101.01234},
+  archivePrefix={arXiv}
+}
+"""
+LIVE_WORKSHOP_INPUT = """@article{mylivekey,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  journal={Some Workshop Notes},
+  year={2021}
+}
+"""
+
+
+def live_official_lines(with_eprint=False):
+    extra = ""
+    year_comma = ""
+    if with_eprint:
+        year_comma = ","
+        extra = "  archivePrefix={arXiv},\n  eprint={9999.99999},\n"
+    entry = """@inproceedings{dblpkey,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  booktitle={Proceedings of the 38th International Conference on Machine Learning},
+  year={2021}%s
+%s}
+""" % (year_comma, extra)
+    return _db_entry_lines(entry)
+
+
+class TestLiveDblpLookup(unittest.TestCase):
+    def test_local_miss_converts_from_mock_dblp(self):
+        calls = []
+
+        def mock_search(title, timeout=10, opener=None):
+            calls.append(title)
+            return [live_official_lines()]
+
+        output, stats = run_normalize(
+            LIVE_PREPRINT_INPUT,
+            {},
+            live_lookup=True,
+            dblp_search=mock_search,
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "mylivekey")
+        self.assertIn(
+            "International Conference on Machine Learning",
+            entry.get("booktitle", ""),
+        )
+        self.assertIn("lovelace", extract_last_names(entry.get("author", "")))
+        self.assertEqual(stats["converted"], 1)
+        self.assertEqual(stats["arxiv_normalized"], 0)
+        self.assertEqual(len(calls), 1)
+        self.assertIn("Unique Live Lookup", calls[0])
+        rows = stats["changes"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["cite_key"], "mylivekey")
+        self.assertEqual(rows[0]["reason"], "converted_live")
+        self.assertIn("machine learning", rows[0]["after_venue"].lower())
+
+    def test_empty_hits_keep_original(self):
+        def mock_search(title, timeout=10, opener=None):
+            return []
+
+        output, stats = run_normalize(
+            LIVE_WORKSHOP_INPUT,
+            {},
+            live_lookup=True,
+            dblp_search=mock_search,
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "mylivekey")
+        self.assertEqual(entry.get("journal"), "Some Workshop Notes")
+        self.assertNotIn("booktitle", entry)
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["unchanged"], 1)
+
+    def test_raising_dblp_search_keeps_original(self):
+        def boom(title, timeout=10, opener=None):
+            raise RuntimeError("simulated network failure")
+
+        output, stats = run_normalize(
+            LIVE_WORKSHOP_INPUT,
+            {},
+            live_lookup=True,
+            dblp_search=boom,
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry.get("journal"), "Some Workshop Notes")
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["unchanged"], 1)
+
+    def test_search_dblp_by_title_opener_timeout_returns_empty(self):
+        def boom(request, timeout=None):
+            raise TimeoutError("simulated timeout")
+
+        self.assertEqual(
+            search_dblp_by_title(LIVE_UNIQUE_TITLE, opener=boom), []
+        )
+
+    def test_search_dblp_by_title_uses_api_and_user_agent(self):
+        captured = {}
+
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return (
+                    b"@inproceedings{x,\n"
+                    b"  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},\n"
+                    b"  author={Ada Lovelace},\n"
+                    b"  booktitle={ICML},\n"
+                    b"  year={2021}\n"
+                    b"}\n"
+                )
+
+        def fake_open(request, timeout=None):
+            captured["url"] = request.full_url
+            captured["ua"] = request.get_header("User-agent") or request.headers.get(
+                "User-Agent"
+            )
+            captured["timeout"] = timeout
+            return FakeResp()
+
+        hits = search_dblp_by_title(LIVE_UNIQUE_TITLE, opener=fake_open)
+        self.assertTrue(hits)
+        self.assertIn(DBLP_API, captured["url"])
+        self.assertIn("format=bibtex", captured["url"])
+        self.assertIn("h=5", captured["url"])
+        self.assertEqual(captured["ua"], REBIBER_USER_AGENT)
+        parsed, _warning = parse_bib_entry(hits[0])
+        self.assertEqual(parsed.get("booktitle"), "ICML")
+
+    def test_eprint_preserved_when_official_lacks_it(self):
+        def mock_search(title, timeout=10, opener=None):
+            return [live_official_lines(with_eprint=False)]
+
+        output, stats = run_normalize(
+            LIVE_PREPRINT_INPUT,
+            {},
+            live_lookup=True,
+            dblp_search=mock_search,
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "mylivekey")
+        self.assertIn(
+            "International Conference on Machine Learning",
+            entry.get("booktitle", ""),
+        )
+        self.assertEqual(entry.get("eprint"), "2101.01234")
+        self.assertEqual(entry.get("archiveprefix"), "arXiv")
+        self.assertEqual(stats["converted"], 1)
+        # Direct helper: official already has eprint -> leave it.
+        kept = preserve_eprint(
+            live_official_lines(with_eprint=True),
+            {
+                "title": LIVE_UNIQUE_TITLE,
+                "eprint": "2101.01234",
+                "journal": "arXiv preprint arXiv:2101.01234",
+            },
+        )
+        parsed_kept = parse_first_entry("".join(kept))
+        self.assertEqual(parsed_kept.get("eprint"), "9999.99999")
+
+    def test_default_live_lookup_false_never_calls_spy(self):
+        calls = []
+
+        def spy(title, timeout=10, opener=None):
+            calls.append(title)
+            raise AssertionError("dblp_search must not be invoked by default")
+
+        output, stats = run_normalize(
+            LIVE_WORKSHOP_INPUT, {}, dblp_search=spy
+        )
+        self.assertEqual(calls, [])
+        entry = parse_first_entry(output)
+        self.assertEqual(entry.get("journal"), "Some Workshop Notes")
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["unchanged"], 1)
+
+        output_false, stats_false = run_normalize(
+            LIVE_WORKSHOP_INPUT,
+            {},
+            live_lookup=False,
+            dblp_search=spy,
+        )
+        self.assertEqual(calls, [])
+        self.assertEqual(
+            parse_first_entry(output_false).get("journal"), "Some Workshop Notes"
+        )
+        self.assertEqual(stats_false["converted"], 0)
+
+    def test_author_mismatch_does_not_apply_live_hit(self):
+        def mock_search(title, timeout=10, opener=None):
+            return [
+                _db_entry_lines(
+                    """@inproceedings{other,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Someone Else},
+  booktitle={Proceedings of ICML},
+  year={2021}
+}
+"""
+                )
+            ]
+
+        output, stats = run_normalize(
+            LIVE_WORKSHOP_INPUT,
+            {},
+            check_authors=True,
+            live_lookup=True,
+            dblp_search=mock_search,
+        )
+        entry = parse_first_entry(output)
+        self.assertEqual(entry.get("journal"), "Some Workshop Notes")
+        self.assertNotIn("booktitle", entry)
+        self.assertEqual(stats["converted"], 0)
+        selected = select_dblp_hit(
+            {"title": LIVE_UNIQUE_TITLE, "author": "Ada Lovelace"},
+            mock_search(LIVE_UNIQUE_TITLE),
+            check_authors=True,
+        )
+        self.assertIsNone(selected)
+
+    def test_local_hit_skips_live_search(self):
+        calls = []
+
+        def spy(title, timeout=10, opener=None):
+            calls.append(title)
+            return [live_official_lines()]
+
+        output, stats = run_normalize(
+            SHARED_AUTHOR_DEEP_LEARNING,
+            deep_learning_db(),
+            live_lookup=True,
+            dblp_search=spy,
+            check_authors=True,
+        )
+        self.assertEqual(calls, [])
+        entry = parse_first_entry(output)
+        self.assertEqual(entry["ID"], "mydeeplearning")
+        self.assertIn("booktitle", entry)
+        self.assertEqual(stats["converted"], 1)
+
+    def test_cli_live_lookup_flag_default_off(self):
+        parser = build_parser()
+        args = parser.parse_args(["-i", "a.bib"])
+        self.assertFalse(args.live_lookup)
+        args = parser.parse_args(["-i", "a.bib", "--live-lookup"])
+        self.assertTrue(args.live_lookup)
 
 
 if __name__ == "__main__":
