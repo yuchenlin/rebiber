@@ -12,14 +12,18 @@ filepath = os.path.dirname(os.path.abspath(__file__)) + "/"
 _SKIP_ENTRY_PREFIXES = ("@string", "@comment", "@preamble")
 
 
-def normalize_title(title_str):
-    """Normalize a title to a lowercase letters-only key (DB-compatible).
+def normalize_title(title_str, keep_digits=False):
+    """Normalize a title to a lowercase key.
 
-    Combining marks are dropped, then everything except ASCII letters is
-    stripped. Existing letter-only keys stay the same.
+    Combining marks are dropped, then non-letter characters are stripped.
+    By default only ASCII letters are kept (compatible with existing dumps).
+    Pass ``keep_digits=True`` to also keep ASCII digits (new dumps).
     """
     title_str = "".join(ch for ch in title_str if not unicodedata.combining(ch))
-    title_str = re.sub(r"[^a-zA-Z]", r"", title_str)
+    if keep_digits:
+        title_str = re.sub(r"[^a-zA-Z0-9]", r"", title_str)
+    else:
+        title_str = re.sub(r"[^a-zA-Z]", r"", title_str)
     return title_str.lower().replace(" ", "").strip()
 
 
@@ -75,7 +79,13 @@ def load_bib_file(bibpath):
                     all_bib_entries.append(bib_entry_buffer)
                 bib_entry_buffer = []
 
-    # print(all_bib_entries)
+    if bib_entry_buffer and bib_entry_buffer not in (["\n"], [""]):
+        print(
+            "WARNING: unclosed braces at end of %s; keeping leftover buffer."
+            % bibpath
+        )
+        all_bib_entries.append(bib_entry_buffer)
+
     return all_bib_entries
 
 
@@ -84,11 +94,17 @@ def build_json(all_bib_entries):
     num_exceptions = 0
     for bib_entry in tqdm(all_bib_entries[:]):
         bib_entry_str = " ".join(
-            [line for line in bib_entry if "month" not in line.lower()]
+            [
+                line
+                for line in bib_entry
+                if not re.search(r"month\s*=", line, flags=re.IGNORECASE)
+            ]
         ).lower()
         try:
             bib_entry_parsed = bibtexparser.loads(bib_entry_str)
-            bib_key = normalize_title(bib_entry_parsed.entries[0]["title"])
+            bib_key = normalize_title(
+                bib_entry_parsed.entries[0]["title"], keep_digits=True
+            )
             all_bib_dict[bib_key] = bib_entry
         except Exception as e:
             print(bib_entry)

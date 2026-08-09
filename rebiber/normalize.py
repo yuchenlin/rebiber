@@ -108,11 +108,11 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
             bib_entry_str += line
         bib_entry_str += "\n"
     parsed_entries = bibtexparser.loads(bib_entry_str, bibparser)
-    if len(parsed_entries.entries) < len(output_bib_entries) - 5 or (
+    if len(parsed_entries.entries) != len(output_bib_entries) or (
         len(parsed_entries.entries) == 0 and len(output_bib_entries) > 0
     ):
         print(
-            "Warning: len(parsed_entries.entries) < len(output_bib_entries) -5 -->",
+            "Warning: len(parsed_entries.entries) != len(output_bib_entries) -->",
             len(parsed_entries.entries),
             len(output_bib_entries),
         )
@@ -170,6 +170,10 @@ def extract_last_names(author_field):
     for part in parts:
         part = strip_latex_markup(part)
         part = re.sub(r"\s+", " ", part).strip(" ,")
+        # Strip trailing "et al." / "and others" before taking the last token.
+        part = re.sub(r",?\s+et\s+al\.?\s*$", "", part, flags=re.IGNORECASE)
+        part = re.sub(r",?\s+and\s+others\s*$", "", part, flags=re.IGNORECASE)
+        part = part.strip(" ,")
         if not part:
             continue
         if part.lower() in ("others", "et al", "et al.", "etal"):
@@ -188,11 +192,11 @@ def extract_last_names(author_field):
 
 
 def authors_overlap(input_authors, db_authors):
-    """True if last names overlap, or if either side has no authors (unknown)."""
+    """True if last names overlap. Empty on either side is not a match."""
     input_names = extract_last_names(input_authors)
     db_names = extract_last_names(db_authors)
     if not input_names or not db_names:
-        return True
+        return False
     return bool(input_names & db_names)
 
 
@@ -449,7 +453,12 @@ def normalize_bib(
             stats["unchanged"] += 1
             continue
 
-        title = normalize_title(original_title) if original_title else ""
+        if original_title:
+            key_new = normalize_title(original_title, keep_digits=True)
+            key_old = normalize_title(original_title, keep_digits=False)
+            title = key_new if key_new in bib_db else key_old
+        else:
+            title = ""
         if title and title in bib_db:
             db_item = bib_db[title]
             db_authors = parse_db_authors(db_item)

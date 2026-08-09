@@ -131,7 +131,9 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 
 ### Matching behavior (v1.3.0)
 
-- **Author-overlap guard.** A title-only match is not enough when the candidate official record looks like a different paper. Rebiber will not replace a "Deep Learning" book or *Nature* article with an unrelated KDD talk that happens to share a short/generic title. Use `--no-check-authors` only if you want the old title-only behavior.
+- **Author-overlap guard.** A title-only match is not enough when the candidate official record looks like a different paper. Rebiber will not replace a "Deep Learning" book or *Nature* article with an unrelated KDD talk that happens to share a short/generic title. Use `--no-check-authors` only if you want the old title-only behavior. Empty or missing authors on either side is **not** treated as a match (fail-closed), so editor-only front-matter such as a "Preface" will not replace a paper by that title. Trailing `et al.` / `and others` is stripped before last-name compare.
+- **Digit-preserving title keys.** Lookup first tries a key that keeps digits (`16x16` ≠ `32x32`) and falls back to the letters-only key used by older dumps.
+- **Unclosed braces.** A leftover buffer at end-of-file is kept with a warning instead of being dropped.
 - **ArXiv official fields.** Unofficial arXiv preprints are rewritten with standard fields (`eprint`, `archivePrefix`, `primaryClass`) instead of a free-form `journal = {arXiv preprint ...}` string.
 - **Published papers stay published.** Rebiber will not rewrite an already-published entry just because the abstract (or another field) mentions arXiv.
 - **Unparsed entries are kept.** Entries that fail to parse are not silently dropped from the output.
