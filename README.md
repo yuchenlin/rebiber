@@ -94,6 +94,9 @@ rebiber -i input.bib -o pretty.bib --format-only
 
 # report what would change without writing
 rebiber -i input.bib --dry-run
+
+# also write the change report to a file (always printed to stdout)
+rebiber -i input.bib --dry-run --report changes.txt
 ```
 
 You can find a pair of example input and output files in [`examples/input.bib`](examples/input.bib) and [`examples/output.bib`](examples/output.bib).
@@ -106,6 +109,7 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
   -st/--sort True|False (default False)
   --format-only   # pretty-print only, for diffs (issue 66)
   --dry-run       # report without writing
+  --report PATH   # also write the change report to PATH
   --no-check-authors  # disable author-overlap guard (issue 50)
   -u/--update
   -v/--version
@@ -123,6 +127,7 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 | `-st` | or `--sort`. `True`/`False`, **False** by default. Keep the input order unless set to `True` (then entries are ordered alphabetically). Used as `-st True`. |
 | `--format-only` | Pretty-print / normalize formatting only. Do not replace entries with official DBLP/ACL records. Handy for reviewing diffs. |
 | `--dry-run` | Report conversions and issues without writing output files. |
+| `--report` | Optional path. Also write the human-readable change report (cite key, before/after venue, reason) to this file. The report is always printed to stdout. |
 | `--no-check-authors` | Disable the author-overlap guard (see below). |
 | `-l` | or `--bib_list`. The list of bib json files to load. Default: [rebiber/bib_list.txt](rebiber/bib_list.txt). |
 | `-a` | or `--abbr_tsv`. Conference abbreviation table. Default: [rebiber/abbr.tsv](rebiber/abbr.tsv). |

@@ -218,6 +218,57 @@ def looks_published(entry):
     return False
 
 
+def entry_venue(entry_dict):
+    """Return journal or booktitle (first meaningful value), else empty string."""
+    if not entry_dict:
+        return ""
+    for field in ("journal", "booktitle"):
+        value = entry_dict.get(field)
+        if _meaningful_venue(value):
+            return str(value).strip()
+    return ""
+
+
+def format_change_report(rows):
+    """Format change rows as human-readable text. Pure: no I/O."""
+    lines = ["===== Changes ====="]
+    if not rows:
+        lines.append("(none)")
+        return "\n".join(lines) + "\n"
+    for row in rows:
+        cite_key = (row.get("cite_key") if row else None) or "<unknown>"
+        reason = (row.get("reason") if row else None) or ""
+        before = (row.get("before_venue") if row else None) or ""
+        after = (row.get("after_venue") if row else None) or ""
+        if after:
+            venue_part = "%s -> %s" % (before or "-", after)
+        elif before:
+            venue_part = before
+        else:
+            venue_part = "-"
+        if reason:
+            lines.append("%s: %s (%s)" % (cite_key, venue_part, reason))
+        else:
+            lines.append("%s: %s" % (cite_key, venue_part))
+    return "\n".join(lines) + "\n"
+
+
+def _change_row(cite_key, before_venue, after_venue, reason):
+    return {
+        "cite_key": cite_key or "",
+        "before_venue": before_venue or "",
+        "after_venue": after_venue or "",
+        "reason": reason or "",
+    }
+
+
+def _venue_from_lines(entry_lines):
+    parsed, _warning = parse_bib_entry(entry_lines)
+    if not parsed:
+        return ""
+    return entry_venue(parsed)
+
+
 def _normalize_arxiv_id(year_part, num_part):
     return "%s.%s" % (year_part, num_part)
 
@@ -410,6 +461,7 @@ def normalize_bib(
 
     output_bib_entries = []
     bib_keys = set()
+    changes = []
     stats = {
         "converted": 0,
         "skipped_author_mismatch": 0,
@@ -475,6 +527,14 @@ def normalize_bib(
                     )
                 )
                 stats["skipped_author_mismatch"] += 1
+                changes.append(
+                    _change_row(
+                        original_bibkey,
+                        entry_venue(parsed_entry),
+                        "",
+                        "author_mismatch",
+                    )
+                )
                 output_bib_entries.append(bib_entry)
                 continue
 
@@ -483,6 +543,14 @@ def normalize_bib(
                 "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
             )
             stats["converted"] += 1
+            changes.append(
+                _change_row(
+                    original_bibkey,
+                    entry_venue(parsed_entry),
+                    _venue_from_lines(found_bibitem),
+                    "converted",
+                )
+            )
             output_bib_entries.append(found_bibitem)
             continue
 
@@ -505,13 +573,24 @@ def normalize_bib(
                 % (original_bibkey, original_title)
             )
             stats["arxiv_normalized"] += 1
+            changes.append(
+                _change_row(
+                    original_bibkey,
+                    entry_venue(parsed_entry),
+                    _venue_from_lines(bib_entry),
+                    "arxiv_normalized",
+                )
+            )
             output_bib_entries.append(bib_entry)
             continue
 
         output_bib_entries.append(bib_entry)
         stats["unchanged"] += 1
 
+    stats["changes"] = changes
+    stats["report"] = format_change_report(changes)
     print_summary(stats)
+    print(stats["report"], end="")
     output_string = post_processing(
         output_bib_entries, removed_value_names, abbr_dict, sort
     )
@@ -672,6 +751,13 @@ def build_parser(filepath=None):
         action="store_true",
         help="Print the conversion report but do not write output files.",
     )
+    parser.add_argument(
+        "--report",
+        metavar="PATH",
+        default=None,
+        type=str,
+        help="Optional file to also write the human-readable change report.",
+    )
     return parser
 
 
@@ -716,11 +802,12 @@ def main(argv=None):
     else:
         abbr_dict = []
 
+    reports = []
     for input_path, output_path in zip(input_paths, output_paths):
         if len(input_paths) > 1:
             print("----- Processing:", input_path, "->", output_path, "-----")
         all_bib_entries = load_bib_file(input_path)
-        normalize_bib(
+        stats = normalize_bib(
             bib_db,
             all_bib_entries,
             output_path,
@@ -732,6 +819,15 @@ def main(argv=None):
             format_only=args.format_only,
             dry_run=args.dry_run,
         )
+        reports.append(stats.get("report") or "")
+
+    if args.report:
+        report_dir = os.path.dirname(args.report)
+        if report_dir:
+            os.makedirs(report_dir, exist_ok=True)
+        with open(args.report, "w", encoding="utf8") as report_file:
+            report_file.write("".join(reports))
+        print("Report written to:", args.report)
 
 
 if __name__ == "__main__":
