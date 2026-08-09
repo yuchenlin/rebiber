@@ -12,6 +12,8 @@ from rebiber.normalize import (
     construct_bib_db,
     entry_venue,
     extract_arxiv_ids,
+    extract_cite_keys_from_tex,
+    extract_cite_keys_from_tex_files,
     extract_last_names,
     format_change_report,
     looks_published,
@@ -637,6 +639,172 @@ class TestChangeReport(unittest.TestCase):
             with open(report_path, encoding="utf8") as handle:
                 text = handle.read()
             self.assertIn("Changes", text)
+
+
+TWO_PAPER_INPUT = """@article{alpha,
+  title={Alpha Unique Title},
+  author={Ada Lovelace},
+  journal={arXiv preprint arXiv:2001.00001},
+  year={2020}
+}
+
+@article{beta,
+  title={Beta Unique Title},
+  author={Alan Turing},
+  journal={arXiv preprint arXiv:2002.00002},
+  year={2020}
+}
+"""
+
+
+def two_paper_db():
+    entry_a = """@inproceedings{p1,
+  title={Alpha Unique Title},
+  author={Ada Lovelace},
+  booktitle={ICML},
+  year={2020}
+}
+"""
+    entry_b = """@inproceedings{p2,
+  title={Beta Unique Title},
+  author={Alan Turing},
+  booktitle={NeurIPS},
+  year={2020}
+}
+"""
+    return {
+        normalize_title("Alpha Unique Title"): _db_entry_lines(entry_a),
+        normalize_title("Beta Unique Title"): _db_entry_lines(entry_b),
+    }
+
+
+class TestExtractCiteKeys(unittest.TestCase):
+    def test_cite_comma_list(self):
+        self.assertEqual(extract_cite_keys_from_tex(r"\cite{a,b}"), {"a", "b"})
+        self.assertEqual(extract_cite_keys_from_tex(r"\cite{a, b, c}"), {"a", "b", "c"})
+
+    def test_citep_optional_arg(self):
+        self.assertEqual(extract_cite_keys_from_tex(r"\citep[p.1]{c}"), {"c"})
+        self.assertEqual(
+            extract_cite_keys_from_tex(r"\citep[see][p.1]{opt}"), {"opt"}
+        )
+
+    def test_starred_and_other_macros(self):
+        text = r"\cite*{starred} \citet{d} \citealp{e} \citeyear{f}"
+        self.assertEqual(
+            extract_cite_keys_from_tex(text), {"starred", "d", "e", "f"}
+        )
+
+    def test_nocite_star_ignored(self):
+        self.assertEqual(extract_cite_keys_from_tex(r"\nocite{*}"), set())
+        self.assertEqual(
+            extract_cite_keys_from_tex(r"\nocite{keepme} \nocite{*}"),
+            {"keepme"},
+        )
+
+    def test_extract_from_tex_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "paper.tex")
+            with open(path, "w", encoding="utf8") as handle:
+                handle.write(r"See \cite{a,b} and \citep[p.1]{c}." + "\n")
+            extra = os.path.join(tmp, "app.tex")
+            with open(extra, "w", encoding="utf8") as handle:
+                handle.write(r"\citet{d}" + "\n")
+            self.assertEqual(
+                extract_cite_keys_from_tex_files([path, extra]),
+                {"a", "b", "c", "d"},
+            )
+
+
+class TestUsedInFilter(unittest.TestCase):
+    def test_unused_entries_stay_unchanged(self):
+        output, stats = run_normalize(
+            TWO_PAPER_INPUT,
+            two_paper_db(),
+            check_authors=True,
+            used_keys={"alpha"},
+        )
+        parsed = bibtexparser.loads(output)
+        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
+        self.assertIn("lovelace", extract_last_names(by_id["alpha"].get("author", "")))
+        self.assertEqual(
+            by_id["beta"].get("journal"), "arXiv preprint arXiv:2002.00002"
+        )
+        self.assertIn("turing", extract_last_names(by_id["beta"].get("author", "")))
+        self.assertNotIn("booktitle", by_id["beta"])
+        self.assertEqual(stats["converted"], 1)
+        self.assertEqual(stats["unchanged"], 1)
+
+    def test_used_entries_still_convert(self):
+        output, stats = run_normalize(
+            TWO_PAPER_INPUT,
+            two_paper_db(),
+            check_authors=True,
+            used_keys={"alpha", "beta"},
+        )
+        parsed = bibtexparser.loads(output)
+        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
+        self.assertEqual(by_id["beta"].get("booktitle"), "NeurIPS")
+        self.assertEqual(stats["converted"], 2)
+        self.assertEqual(stats["unchanged"], 0)
+
+    def test_empty_used_keys_converts_nothing(self):
+        output, stats = run_normalize(
+            TWO_PAPER_INPUT,
+            two_paper_db(),
+            check_authors=True,
+            used_keys=set(),
+        )
+        parsed = bibtexparser.loads(output)
+        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        self.assertEqual(
+            by_id["alpha"].get("journal"), "arXiv preprint arXiv:2001.00001"
+        )
+        self.assertEqual(
+            by_id["beta"].get("journal"), "arXiv preprint arXiv:2002.00002"
+        )
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["arxiv_normalized"], 0)
+        self.assertEqual(stats["unchanged"], 2)
+
+    def test_none_used_keys_keeps_current_behavior(self):
+        output, stats = run_normalize(
+            TWO_PAPER_INPUT,
+            two_paper_db(),
+            check_authors=True,
+            used_keys=None,
+        )
+        self.assertEqual(stats["converted"], 2)
+
+    def test_cli_used_in_flag(self):
+        parser = build_parser()
+        args = parser.parse_args(
+            ["-i", "a.bib", "--used-in", "paper.tex", "extra.tex"]
+        )
+        self.assertEqual(args.used_in, ["paper.tex", "extra.tex"])
+
+    @patch("rebiber.normalize.fetch_arxiv_metadata", return_value={})
+    def test_unused_arxiv_not_normalized(self, mock_fetch):
+        output, stats = run_normalize(
+            ARXIV_PREPRINT, {}, used_keys={"someoneelse"}
+        )
+        entry = parse_first_entry(output)
+        self.assertEqual(entry.get("journal"), "arXiv preprint arXiv:2005.00683")
+        self.assertNotIn("eprint", entry)
+        self.assertEqual(stats["arxiv_normalized"], 0)
+        self.assertEqual(stats["unchanged"], 1)
+        mock_fetch.assert_not_called()
+
+    @patch("rebiber.normalize.fetch_arxiv_metadata", return_value={})
+    def test_used_arxiv_still_normalized(self, _mock):
+        output, stats = run_normalize(
+            ARXIV_PREPRINT, {}, used_keys={"lin2020birds"}
+        )
+        entry = parse_first_entry(output)
+        self.assertEqual(entry.get("eprint"), "2005.00683")
+        self.assertEqual(stats["arxiv_normalized"], 1)
 
 
 if __name__ == "__main__":
