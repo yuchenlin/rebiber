@@ -8,6 +8,7 @@ import re
 import shutil
 import tempfile
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
@@ -38,6 +39,8 @@ CITEKEY_ARXIV_RE = re.compile(
 )
 ARXIV_VENUE_RE = re.compile(r"arxiv|\bcorr\b|preprint", re.IGNORECASE)
 PLACEHOLDER_VENUE_RE = re.compile(r"^[\s~\-{}]*$")
+DBLP_API = "https://dblp.org/search/publ/api"
+REBIBER_USER_AGENT = "rebiber/1.3.0 (+https://github.com/yuchenlin/rebiber)"
 
 
 def str2bool(value):
@@ -306,6 +309,162 @@ def extract_cite_keys_from_tex_files(paths):
     return keys
 
 
+def _split_bib_entries_from_text(text):
+    """Split concatenated BibTeX into list-of-lines entries (DBLP-style)."""
+    if not text:
+        return []
+    if isinstance(text, bytes):
+        text = text.decode("utf-8", errors="replace")
+    entries = []
+    buffer = []
+    brace_count = 0
+    started = False
+    for raw_line in text.splitlines(True):
+        line = raw_line if raw_line.endswith("\n") else raw_line + "\n"
+        stripped = line.lstrip()
+        if not started:
+            if stripped.startswith("@"):
+                started = True
+            else:
+                continue
+        buffer.append(line)
+        brace_count += line.count("{") - line.count("}")
+        if started and brace_count <= 0 and buffer:
+            entries.append(buffer)
+            buffer = []
+            started = False
+            brace_count = 0
+    if buffer:
+        entries.append(buffer)
+    return entries
+
+
+def _as_entry_lines(hit):
+    if hit is None:
+        return []
+    if isinstance(hit, list):
+        return list(hit)
+    return _split_bib_entries_from_text(str(hit))[:1] or [
+        line if line.endswith("\n") else line + "\n"
+        for line in str(hit).splitlines(True)
+    ]
+
+
+def search_dblp_by_title(title, timeout=10, opener=None):
+    """Query DBLP for ``title``. Returns a list of entry line-lists. Never raises."""
+    if not title or not str(title).strip():
+        return []
+    query = "%s?q=%s&format=bibtex&h=5" % (
+        DBLP_API,
+        urllib.parse.quote(str(title).strip()),
+    )
+    try:
+        request = urllib.request.Request(
+            query, headers={"User-Agent": REBIBER_USER_AGENT}
+        )
+        open_fn = opener or urllib.request.urlopen
+        with open_fn(request, timeout=timeout) as response:
+            payload = response.read()
+        return _split_bib_entries_from_text(payload)
+    except Exception as exc:
+        print(
+            "WARNING: DBLP search failed for %r (%s); continuing without live lookup."
+            % (title, exc)
+        )
+        return []
+
+
+def select_dblp_hit(input_entry, hit_entries, check_authors=True):
+    """Pick the first DBLP hit whose title key and authors match.
+
+    Title match tries the digit-preserving key first, then letters-only.
+    Returns chosen hit entry lines or None.
+    """
+    if not input_entry or not hit_entries:
+        return None
+    if isinstance(hit_entries, str):
+        hit_entries = [hit_entries]
+    input_title = input_entry.get("title") or ""
+    if not input_title:
+        return None
+    key_new = normalize_title(input_title, keep_digits=True)
+    key_old = normalize_title(input_title, keep_digits=False)
+    input_authors = input_entry.get("author")
+    for hit in hit_entries:
+        lines = _as_entry_lines(hit)
+        if not lines:
+            continue
+        parsed, _warning = parse_bib_entry(lines)
+        if not parsed or "title" not in parsed:
+            continue
+        hit_new = normalize_title(parsed["title"], keep_digits=True)
+        hit_old = normalize_title(parsed["title"], keep_digits=False)
+        if key_new and key_new == hit_new:
+            title_match = True
+        elif key_old and key_old == hit_old:
+            title_match = True
+        else:
+            title_match = False
+        if not title_match:
+            continue
+        if check_authors and not authors_overlap(input_authors, parsed.get("author")):
+            continue
+        return lines
+    return None
+
+
+def preserve_eprint(output_lines, input_entry):
+    """Copy input arXiv eprint onto an official record that lacks one."""
+    if not output_lines or not input_entry:
+        return list(output_lines) if output_lines else output_lines
+    arxiv_ids = extract_arxiv_ids(input_entry)
+    arxiv_id = None
+    if len(arxiv_ids) == 1:
+        arxiv_id = next(iter(arxiv_ids))
+    elif input_entry.get("eprint"):
+        eprint_text = str(input_entry.get("eprint")).strip()
+        bare = BARE_ARXIV_ID_RE.match(eprint_text)
+        if bare:
+            arxiv_id = bare.group(1)
+    if not arxiv_id:
+        return list(output_lines)
+
+    parsed, _warning = parse_bib_entry(output_lines)
+    if parsed and parsed.get("eprint"):
+        return list(output_lines)
+    for line in output_lines:
+        if re.match(r"\s*eprint\s*=", line, flags=re.IGNORECASE):
+            return list(output_lines)
+
+    has_archive = bool(parsed and parsed.get("archiveprefix"))
+    if not has_archive:
+        for line in output_lines:
+            if re.match(r"\s*archiveprefix\s*=", line, flags=re.IGNORECASE):
+                has_archive = True
+                break
+    insert = []
+    if not has_archive:
+        insert.append("  archivePrefix={arXiv},\n")
+    insert.append("  eprint={%s},\n" % arxiv_id)
+
+    new_lines = list(output_lines)
+    for idx in range(len(new_lines) - 1, -1, -1):
+        if "}" in new_lines[idx]:
+            if idx > 0:
+                prev = new_lines[idx - 1]
+                stripped = prev.rstrip("\n")
+                if (
+                    stripped
+                    and not stripped.rstrip().endswith(",")
+                    and not stripped.lstrip().startswith("@")
+                ):
+                    new_lines[idx - 1] = stripped + ",\n"
+            new_lines[idx:idx] = insert
+            return new_lines
+    new_lines.extend(insert)
+    return new_lines
+
+
 def _normalize_arxiv_id(year_part, num_part):
     return "%s.%s" % (year_part, num_part)
 
@@ -345,7 +504,7 @@ def fetch_arxiv_metadata(arxiv_id, timeout=5):
     url = "http://export.arxiv.org/api/query?id_list=%s&max_results=1" % arxiv_id
     try:
         request = urllib.request.Request(
-            url, headers={"User-Agent": "rebiber/1.3.0 (+https://github.com/yuchenlin/rebiber)"}
+            url, headers={"User-Agent": REBIBER_USER_AGENT}
         )
         with urllib.request.urlopen(request, timeout=timeout) as response:
             payload = response.read()
@@ -491,6 +650,8 @@ def normalize_bib(
     format_only=False,
     dry_run=False,
     used_keys=None,
+    live_lookup=False,
+    dblp_search=None,
 ):
     removed_value_names = list(removed_value_names or [])
     abbr_dict = list(abbr_dict or [])
@@ -596,6 +757,38 @@ def normalize_bib(
             )
             output_bib_entries.append(found_bibitem)
             continue
+
+        if live_lookup:
+            search_fn = dblp_search or search_dblp_by_title
+            try:
+                hits = search_fn(original_title)
+            except Exception as exc:
+                print(
+                    "WARNING: DBLP search failed for %r (%s); continuing without live lookup."
+                    % (original_title, exc)
+                )
+                hits = []
+            hit_lines = select_dblp_hit(
+                parsed_entry, hits, check_authors=check_authors
+            )
+            if hit_lines:
+                hit_lines = preserve_eprint(hit_lines, parsed_entry)
+                found_bibitem = replace_citation_key(hit_lines, original_bibkey)
+                print(
+                    "Converted (live DBLP). ID: %s ; Title: %s"
+                    % (original_bibkey, original_title)
+                )
+                stats["converted"] += 1
+                changes.append(
+                    _change_row(
+                        original_bibkey,
+                        entry_venue(parsed_entry),
+                        _venue_from_lines(found_bibitem),
+                        "converted_live",
+                    )
+                )
+                output_bib_entries.append(found_bibitem)
+                continue
 
         arxiv_ids = extract_arxiv_ids(parsed_entry)
         if len(arxiv_ids) > 1:
@@ -809,6 +1002,12 @@ def build_parser(filepath=None):
         help="Only convert or arXiv-normalize entries whose cite keys appear "
         "in these .tex files. Unused bib keys are left unchanged.",
     )
+    parser.add_argument(
+        "--live-lookup",
+        action="store_true",
+        help="On local-index miss, search DBLP by title (opt-in; uses network). "
+        "Respect DBLP rate limits; default is local-only / offline.",
+    )
     return parser
 
 
@@ -874,6 +1073,7 @@ def main(argv=None):
             format_only=args.format_only,
             dry_run=args.dry_run,
             used_keys=used_keys,
+            live_lookup=args.live_lookup,
         )
         reports.append(stats.get("report") or "")
 

@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Opt-in `--live-lookup`: after a local-index miss, search DBLP by title and apply a hit only when title keys and authors overlap (same guard as local matches). Official replacements keep the input cite key and preserve an input arXiv/`eprint` when the published record lacks one. Default CLI stays local-only (no network). Please respect DBLP rate limits.
+
 - **2026.08** Venue dumps: robotics main tracks (ICRA/IROS/RSS/CoRL), TMLR, WACV, JMLR 2023–26, MLSys 2022–25, KDD 2025, full NeurIPS 2025 (~5.8k). Downloader now paginates past DBLP's 100-hit cap, supports journal tocs and multi-volume KDD/MICCAI/ECCV. No workshop dumps.
 
 - **2026.08** Version **1.3.0**. Safer title matching (author-overlap guard so a "Deep Learning" book/Nature paper is not replaced by an unrelated KDD talk); official arXiv fields (`eprint`, `archivePrefix`, `primaryClass`); do not rewrite already-published papers just because an abstract mentions arXiv; do not silently drop unparsed entries; `--format-only` / `--dry-run` / `--no-check-authors`; batch inputs (`rebiber -i *.bib`); conference data through 2025–2026 (AAAI, ICLR, ICML, NeurIPS, CVPR, ICCV, CHI, WWW, SIGIR, IJCAI, KDD, Interspeech, ICASSP, AISTATS, UAI, BMVC, ACL Anthology); monthly GitHub Action to refresh DBLP + ACL anthology; more `booktitle` abbreviations (COLM, WACV, ECCV, ICCV, NAACL, Findings, TACL, JMLR).
@@ -100,6 +102,9 @@ rebiber -i input.bib --dry-run --report changes.txt
 
 # only convert entries cited in these .tex files (others stay unchanged)
 rebiber -i input.bib --used-in paper.tex appendix.tex
+
+# opt-in live DBLP search for local-index misses (uses network; rate-limited)
+rebiber -i input.bib --live-lookup
 ```
 
 You can find a pair of example input and output files in [`examples/input.bib`](examples/input.bib) and [`examples/output.bib`](examples/output.bib).
@@ -114,6 +119,7 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
   --dry-run       # report without writing
   --report PATH   # also write the change report to PATH
   --used-in FILE [FILE ...]  # only convert keys cited in these .tex files
+  --live-lookup   # opt-in DBLP title search on local misses (uses network)
   --no-check-authors  # disable author-overlap guard (issue 50)
   -u/--update
   -v/--version
@@ -133,6 +139,7 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 | `--dry-run` | Report conversions and issues without writing output files. |
 | `--report` | Optional path. Also write the human-readable change report (cite key, before/after venue, reason) to this file. The report is always printed to stdout. |
 | `--used-in` | One or more `.tex` files. Only convert or arXiv-normalize bib entries whose cite keys appear in `\\cite` / `\\citep` / `\\citet` / `\\citealp` / `\\citeyear` / `\\nocite` (starred and optional-arg forms included). Unused keys are left unchanged. |
+| `--live-lookup` | Opt-in. After a local-index miss, query DBLP's publication search by title and replace the entry if the title key and authors overlap. Timeout / HTTP errors / no hit keep the original entry. **Off by default** (no network). Please respect [DBLP's rate limits](https://dblp.org/faq/How+to+use+the+dblp+search+API.html); do not run this on huge bib files in a tight loop. |
 | `--no-check-authors` | Disable the author-overlap guard (see below). |
 | `-l` | or `--bib_list`. The list of bib json files to load. Default: [rebiber/bib_list.txt](rebiber/bib_list.txt). |
 | `-a` | or `--abbr_tsv`. Conference abbreviation table. Default: [rebiber/abbr.tsv](rebiber/abbr.tsv). |
@@ -143,6 +150,7 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 
 - **Author-overlap guard.** A title-only match is not enough when the candidate official record looks like a different paper. Rebiber will not replace a "Deep Learning" book or *Nature* article with an unrelated KDD talk that happens to share a short/generic title. Use `--no-check-authors` only if you want the old title-only behavior. Empty or missing authors on either side is **not** treated as a match (fail-closed), so editor-only front-matter such as a "Preface" will not replace a paper by that title. Trailing `et al.` / `and others` is stripped before last-name compare.
 - **Digit-preserving title keys.** Lookup first tries a key that keeps digits (`16x16` ≠ `32x32`) and falls back to the letters-only key used by older dumps.
+- **Opt-in live DBLP fallback.** With `--live-lookup`, a local miss does one DBLP title search (max 5 hits). A hit is applied only when the title key matches (digit key, then letters-only) **and** authors overlap. The user's cite key is kept. If the input was an arXiv preprint and the official record has no `eprint`, the input arXiv id is copied onto the published entry. Network failures do not crash the run. Default remains offline.
 - **Unclosed braces.** A leftover buffer at end-of-file is kept with a warning instead of being dropped.
 - **ArXiv official fields.** Unofficial arXiv preprints are rewritten with standard fields (`eprint`, `archivePrefix`, `primaryClass`) instead of a free-form `journal = {arXiv preprint ...}` string.
 - **Published papers stay published.** Rebiber will not rewrite an already-published entry just because the abstract (or another field) mentions arXiv.
