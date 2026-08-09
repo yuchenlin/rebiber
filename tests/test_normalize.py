@@ -10,9 +10,12 @@ from rebiber.normalize import (
     authors_overlap,
     build_parser,
     construct_bib_db,
+    entry_venue,
     extract_arxiv_ids,
     extract_last_names,
+    format_change_report,
     looks_published,
+    main,
     normalize_bib,
     post_processing,
     str2bool,
@@ -502,6 +505,138 @@ class TestBatchOutputPaths(unittest.TestCase):
         self.assertEqual(
             resolve_output_path("a.bib", "same", num_inputs=2), "a.bib"
         )
+
+
+class TestChangeReport(unittest.TestCase):
+    def test_entry_venue_prefers_journal_then_booktitle(self):
+        self.assertEqual(entry_venue({"journal": "Nature"}), "Nature")
+        self.assertEqual(
+            entry_venue({"booktitle": "Proceedings of EMNLP"}),
+            "Proceedings of EMNLP",
+        )
+        self.assertEqual(
+            entry_venue({"journal": "Nature", "booktitle": "KDD"}),
+            "Nature",
+        )
+        self.assertEqual(entry_venue({"journal": " ~ "}), "")
+        self.assertEqual(entry_venue({}), "")
+        self.assertEqual(entry_venue(None), "")
+
+    def test_format_change_report_is_pure_and_readable(self):
+        text = format_change_report(
+            [
+                {
+                    "cite_key": "abc",
+                    "before_venue": "arXiv preprint",
+                    "after_venue": "EMNLP",
+                    "reason": "converted",
+                }
+            ]
+        )
+        self.assertIn("abc", text)
+        self.assertIn("arXiv preprint", text)
+        self.assertIn("EMNLP", text)
+        self.assertIn("converted", text)
+        empty = format_change_report([])
+        self.assertIn("Changes", empty)
+        self.assertIn("(none)", empty)
+
+    def test_converted_row_names_cite_key_and_venues(self):
+        output, stats = run_normalize(
+            SHARED_AUTHOR_DEEP_LEARNING, deep_learning_db(), check_authors=True
+        )
+        entry = parse_first_entry(output)
+        self.assertEqual(entry["ID"], "mydeeplearning")
+        self.assertEqual(stats["converted"], 1)
+        rows = stats["changes"]
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["cite_key"], "mydeeplearning")
+        self.assertEqual(row["reason"], "converted")
+        self.assertIn("arxiv", row["before_venue"].lower())
+        self.assertTrue(row["after_venue"])
+        self.assertIn("kdd", row["after_venue"].lower())
+        self.assertIn("mydeeplearning", stats["report"])
+        self.assertIn(row["before_venue"], stats["report"])
+        self.assertIn(row["after_venue"], stats["report"])
+
+    def test_author_mismatch_row(self):
+        output, stats = run_normalize(
+            NATURE_DEEP_LEARNING, deep_learning_db(), check_authors=True
+        )
+        entry = parse_first_entry(output)
+        self.assertEqual(entry.get("journal", "").lower(), "nature")
+        self.assertEqual(stats["skipped_author_mismatch"], 1)
+        rows = stats["changes"]
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["cite_key"], "deeplearning")
+        self.assertEqual(row["reason"], "author_mismatch")
+        self.assertEqual(row["before_venue"].lower(), "nature")
+        self.assertFalse(row["after_venue"])
+        self.assertIn("deeplearning", stats["report"])
+        self.assertIn("author_mismatch", stats["report"])
+
+    @patch("rebiber.normalize.fetch_arxiv_metadata", return_value={})
+    def test_arxiv_normalized_row(self, _mock):
+        output, stats = run_normalize(ARXIV_PREPRINT, {})
+        entry = parse_first_entry(output)
+        self.assertEqual(entry["ID"], "lin2020birds")
+        self.assertEqual(entry.get("eprint"), "2005.00683")
+        self.assertEqual(stats["arxiv_normalized"], 1)
+        rows = stats["changes"]
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["cite_key"], "lin2020birds")
+        self.assertEqual(row["reason"], "arxiv_normalized")
+        self.assertIn("arxiv", row["before_venue"].lower())
+        self.assertIn("lin2020birds", stats["report"])
+        self.assertIn("arxiv_normalized", stats["report"])
+
+    def test_dry_run_does_not_create_output_bib(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            entries, _inp = write_and_load(tmp, SHARED_AUTHOR_DEEP_LEARNING)
+            out_path = os.path.join(tmp, "out.bib")
+            stats = normalize_bib(
+                deep_learning_db(),
+                entries,
+                out_path,
+                check_authors=True,
+                dry_run=True,
+            )
+            self.assertFalse(os.path.isfile(out_path))
+            self.assertEqual(stats["converted"], 1)
+            self.assertTrue(stats["changes"])
+            self.assertIn("mydeeplearning", stats["report"])
+            self.assertIn("output", stats)
+
+    def test_cli_report_flag_and_file(self):
+        parser = build_parser()
+        args = parser.parse_args(["-i", "a.bib", "--report", "changes.txt"])
+        self.assertEqual(args.report, "changes.txt")
+        with tempfile.TemporaryDirectory() as tmp:
+            in_path = os.path.join(tmp, "in.bib")
+            with open(in_path, "w", encoding="utf8") as handle:
+                handle.write(NATURE_DEEP_LEARNING)
+            report_path = os.path.join(tmp, "subdir", "report.txt")
+            out_path = os.path.join(tmp, "out.bib")
+            main(
+                [
+                    "-i",
+                    in_path,
+                    "-o",
+                    out_path,
+                    "--format-only",
+                    "--dry-run",
+                    "--report",
+                    report_path,
+                ]
+            )
+            self.assertFalse(os.path.isfile(out_path))
+            self.assertTrue(os.path.isfile(report_path))
+            with open(report_path, encoding="utf8") as handle:
+                text = handle.read()
+            self.assertIn("Changes", text)
 
 
 if __name__ == "__main__":
