@@ -1,0 +1,22 @@
+{
+  "notes": [
+    {
+      "id": "NoteAAA",
+      "content": {
+        "title": {"value": "First COLM Paper"},
+        "authors": {"value": ["Ada Lovelace", "Alan Turing"]},
+        "venue": {"value": "COLM 2024"},
+        "venueid": {"value": "colmweb.org/COLM/2024/Conference"}
+      }
+    },
+    {
+      "id": "NoteBBB",
+      "forum": "NoteBBB",
+      "content": {
+        "title": "Second COLM Paper",
+        "authors": ["Grace Hopper"],
+        "venue": "COLM 2024 Accept"
+      }
+    }
+  ]
+}

@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Venue dumps: robotics main tracks (ICRA/IROS/RSS/CoRL), TMLR, WACV, JMLR 2023–26, MLSys 2022–25, KDD 2025, full NeurIPS 2025 (~5.8k). Downloader now paginates past DBLP's 100-hit cap, supports journal tocs and multi-volume KDD/MICCAI/ECCV. No workshop dumps.
+
 - **2026.08** Version **1.3.0**. Safer title matching (author-overlap guard so a "Deep Learning" book/Nature paper is not replaced by an unrelated KDD talk); official arXiv fields (`eprint`, `archivePrefix`, `primaryClass`); do not rewrite already-published papers just because an abstract mentions arXiv; do not silently drop unparsed entries; `--format-only` / `--dry-run` / `--no-check-authors`; batch inputs (`rebiber -i *.bib`); conference data through 2025–2026 (AAAI, ICLR, ICML, NeurIPS, CVPR, ICCV, CHI, WWW, SIGIR, IJCAI, KDD, Interspeech, ICASSP, AISTATS, UAI, BMVC, ACL Anthology); monthly GitHub Action to refresh DBLP + ACL anthology; more `booktitle` abbreviations (COLM, WACV, ECCV, ICCV, NAACL, Findings, TACL, JMLR).
 
 - **2024.7** Version 1.2.0. added automatic script to download bib files for recent conferences from dblp. 
@@ -204,8 +206,15 @@ The following conferences are supported and their bib/json files are in our `dat
 | ICML | 2000 -- 2025 |
 | IJCAI | 2011 -- 2025 |
 | INTERSPEECH | 2016 -- 2025 |
-| KDD | 2010 -- 2024 |
-| MLSys | 2019 -- 2020 |
+| KDD | 2010 -- 2025 |
+| ICRA | 2020 -- 2025 (main track) |
+| IROS | 2020 -- 2025 (main track) |
+| RSS | 2020 -- 2024 |
+| CoRL | 2020 -- 2024 |
+| JMLR | 2020 -- 2026 |
+| TMLR | 2022 -- 2026 |
+| WACV | 2022 -- 2026 |
+| MLSys | 2019 -- 2025 |
 | MM | 2016 -- 2020 |
 | NeurIPS | 2000 -- 2025 |
 | RECSYS | 2010 -- 2020 |
