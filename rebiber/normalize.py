@@ -269,6 +269,43 @@ def _venue_from_lines(entry_lines):
     return entry_venue(parsed)
 
 
+_CITE_COMMAND_RE = re.compile(
+    r"\\(?:cite|citep|citet|citealp|citeyear|nocite)\s*\*?"
+    r"(?:\s*\[[^\]]*\]){0,2}\s*\{([^}]*)\}",
+    re.IGNORECASE,
+)
+
+
+def extract_cite_keys_from_tex(text):
+    """Parse cite keys from LaTeX citation commands.
+
+    Supports ``\\cite``, ``\\citep``, ``\\citet``, ``\\citealp``, ``\\citeyear``,
+    and ``\\nocite``, including starred and optional-argument variants.
+    Comma-separated lists are split. A bare ``*`` (as in ``\\nocite{*}``) is
+    ignored rather than treated as a cite key.
+    """
+    if not text:
+        return set()
+    keys = set()
+    for match in _CITE_COMMAND_RE.finditer(text):
+        inner = match.group(1) or ""
+        for part in inner.split(","):
+            key = part.strip()
+            if not key or key == "*":
+                continue
+            keys.add(key)
+    return keys
+
+
+def extract_cite_keys_from_tex_files(paths):
+    """Read ``.tex`` files and return the union of their cite keys."""
+    keys = set()
+    for path in paths or []:
+        with open(path, encoding="utf8") as handle:
+            keys |= extract_cite_keys_from_tex(handle.read())
+    return keys
+
+
 def _normalize_arxiv_id(year_part, num_part):
     return "%s.%s" % (year_part, num_part)
 
@@ -453,6 +490,7 @@ def normalize_bib(
     check_authors=True,
     format_only=False,
     dry_run=False,
+    used_keys=None,
 ):
     removed_value_names = list(removed_value_names or [])
     abbr_dict = list(abbr_dict or [])
@@ -501,6 +539,11 @@ def normalize_bib(
             bib_keys.add(original_bibkey)
 
         if format_only:
+            output_bib_entries.append(bib_entry)
+            stats["unchanged"] += 1
+            continue
+
+        if used_keys is not None and original_bibkey not in used_keys:
             output_bib_entries.append(bib_entry)
             stats["unchanged"] += 1
             continue
@@ -758,6 +801,14 @@ def build_parser(filepath=None):
         type=str,
         help="Optional file to also write the human-readable change report.",
     )
+    parser.add_argument(
+        "--used-in",
+        nargs="+",
+        metavar="FILE",
+        default=None,
+        help="Only convert or arXiv-normalize entries whose cite keys appear "
+        "in these .tex files. Unused bib keys are left unchanged.",
+    )
     return parser
 
 
@@ -802,6 +853,10 @@ def main(argv=None):
     else:
         abbr_dict = []
 
+    used_keys = None
+    if args.used_in:
+        used_keys = extract_cite_keys_from_tex_files(args.used_in)
+
     reports = []
     for input_path, output_path in zip(input_paths, output_paths):
         if len(input_paths) > 1:
@@ -818,6 +873,7 @@ def main(argv=None):
             check_authors=not args.no_check_authors,
             format_only=args.format_only,
             dry_run=args.dry_run,
+            used_keys=used_keys,
         )
         reports.append(stats.get("report") or "")
 
