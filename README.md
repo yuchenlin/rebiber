@@ -64,7 +64,7 @@ pip install -e .
 OR
 
 ```bash
-uv tool install https://github.com/yuchenlin/rebiber
+uv tool install git+https://github.com/yuchenlin/rebiber
 ```
 
 OR from a local checkout with uv:
