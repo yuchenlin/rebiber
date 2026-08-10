@@ -1,317 +1,153 @@
-# Rebiber: A tool for normalizing bibtex with official info.
+# Rebiber
 
-<p>
-<a href="https://huggingface.co/spaces/yuchenlin/Rebiber">
-    <img src="https://img.shields.io/badge/🤗 Web%20Demo--red?style=flat_square">
-  </a>
+Replace unofficial / arXiv BibTeX entries with official [DBLP](https://dblp.org/) or [ACL Anthology](https://aclanthology.org/) records. Cite keys are kept.
 
-<a href="https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing">
-    <img src="https://img.shields.io/badge/Colab%20Notebook--green?style=flat_square&logo=googlecolab">
-     <!-- <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/, width=150, height=150/></a> -->
-  </a>
+[Web demo](https://huggingface.co/spaces/yuchenlin/Rebiber) · [Colab](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing)
 
-<a href="https://twitter.com/billyuchenlin/status/1353850378438070272?s=20">
-    <img src="https://img.shields.io/badge/Tweet--blue?style=flat_square&logo=twitter">
-  </a>
-</p>
+Install **from GitHub only**. We do not publish or support PyPI (`pip install rebiber` is a 2021 1.1.3 release).
 
-We often cite papers using their arXiv versions without noting that they are already __PUBLISHED__ in some conferences. These unofficial bib entries might violate rules about submissions or camera-ready versions for some conferences. 
-We introduce __Rebiber__, a simple tool in Python to fix them automatically. It is based on the official conference information from the [DBLP](https://dblp.org/) or [the ACL anthology](https://www.aclweb.org/anthology/) (for NLP conferences)! You can check the list of supported conferences [here](#supported-conferences).
-Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citations in a unified way (DBLP-style), supporting abbreviation and value selection.
-
-
-
-<!-- ***Web demo:*** [https://rebiber.herokuapp.com/](https://rebiber.herokuapp.com/) (recommended). -->
-
-***Demo on Huggingface Space [https://huggingface.co/spaces/yuchenlin/Rebiber](https://huggingface.co/spaces/yuchenlin/Rebiber) (recommended)***
-
-***Colab notebook:*** [here](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing) 
-
-## Changelog
-
-- **2026.08** Data hygiene: always merge numbered KDD/MICCAI/ECCV/ACCV volumes; unlist CVPR/ICCV workshop dumps; skip-existing retries prev-year-thin non-journal dumps. Added ACCV 2022/2024 (~284 / ~279). KDD 2026 is V.1 only (257; V.2 not on DBLP yet). COLM still missing.
-
-- **2026.08** Install from Git only. We do **not** publish or support PyPI (the 1.1.3 package there is abandoned).
-
-- **2026.08** In-repo star-history charts (all-time + YTD), refreshed weekly from the GitHub API. No star-history.com token.
-
-- **2026.08** Develop and CI with **uv** (`uv sync --extra dev`, `uv run pytest`, `uv build`). `pip install -e .` remains supported.
-
-- **2026.08** Opt-in `--live-lookup`: after a local-index miss, search DBLP by title and apply a hit only when title keys and authors overlap (same guard as local matches). Official replacements keep the input cite key and preserve an input arXiv/`eprint` when the published record lacks one. Default CLI stays local-only (no network). Please respect DBLP rate limits.
-
-- **2026.08** Added main-track DBLP dumps for **ECCV 2022/2024** (~1.7k / ~2.5k) and **MICCAI 2022–2025**. Workshop tocs are not included. COLM is still missing (empty DBLP toc; OpenReview API 403 from this network). RSS/CoRL 2025+, ICLR/ICML/CVPR/AISTATS/UAI 2026, BMVC 2025, and NeurIPS 2026 are not on DBLP yet.
-
-- **2026.08** Venue dumps: robotics main tracks (ICRA/IROS/RSS/CoRL), TMLR, WACV, JMLR 2023–26, MLSys 2022–25, KDD 2025, full NeurIPS 2025 (~5.8k). Downloader now paginates past DBLP's 100-hit cap, supports journal tocs and multi-volume KDD/MICCAI/ECCV. No workshop dumps.
-
-- **2026.08** Version **1.3.0**. Safer title matching (author-overlap guard so a "Deep Learning" book/Nature paper is not replaced by an unrelated KDD talk); official arXiv fields (`eprint`, `archivePrefix`, `primaryClass`); do not rewrite already-published papers just because an abstract mentions arXiv; do not silently drop unparsed entries; `--format-only` / `--dry-run` / `--no-check-authors`; batch inputs (`rebiber -i *.bib`); conference data through 2025–2026 (AAAI, ICLR, ICML, NeurIPS, CVPR, ICCV, CHI, WWW, SIGIR, IJCAI, KDD, Interspeech, ICASSP, AISTATS, UAI, BMVC, ACL Anthology); monthly GitHub Action to refresh DBLP + ACL anthology; more `booktitle` abbreviations (COLM, WACV, ECCV, ICCV, NAACL, Findings, TACL, JMLR).
-
-- **2024.7** Version 1.2.0. added automatic script to download bib files for recent conferences from dblp. 
-
-- **2023.06.01** New demo ready to use on Huggingface's Space via Gradio. Also, a few conferences are added.
-
-- **2021.09.06** We fixed a few minor bugs and added features such as sorting and urls to arXiv (if the paper is not in any conferences; thanks to [@nicola-decao](https://github.com/nicola-decao)). We also updated the ACL anthology bib/json to the latest version as well as other conferences.
-
-- **2021.05.30** 
-We build a [beta version](https://rebiber.herokuapp.com/) of our **web app for Rebiber**; add new conferences to our dataset; fix a few minor bugs. (It is not working anymore. Please use the new huggingface space demo.)
-- **2021.02.08** 
-We now support multiple useful features: 1) turning off some certain values, e.g., "-r url,pages,address" for removing the values from the output, 2) using abbr. to shorten the booktitle values, e.g., `Proceedings of the .* Annual Meeting of the Association for Computational Linguistics` --> `Proc. of ACL`. More examples are [here.](https://github.com/yuchenlin/rebiber/blob/main/rebiber/abbr.tsv)
-- **2021.01.30** 
-We build a colab notebook as a simple web demo. [link](https://colab.research.google.com/drive/12oQcLs25CFjI4evsFlWfKD1DfTEiqyCN?usp=sharing)
-
-
-
-## Installation
-
-We do **not** publish or support Rebiber on PyPI. Always install from GitHub.
+## Install
 
 ```bash
-# CLI (recommended)
 uv tool install git+https://github.com/yuchenlin/rebiber
-
-# pip, always from Git
+# or
 pip install "rebiber @ git+https://github.com/yuchenlin/rebiber"
 ```
 
-### Develop from a checkout
-
-Rebiber is developed and CI-tested with [uv](https://docs.astral.sh/uv/). `pip` still works as a fallback.
+Develop from a checkout:
 
 ```bash
-git clone https://github.com/yuchenlin/rebiber.git
-cd rebiber/
-uv sync --extra dev
-uv run rebiber -v
+git clone https://github.com/yuchenlin/rebiber.git && cd rebiber
+uv sync --extra dev          # or: pip install -e ".[dev]"
 uv run pytest
 ```
 
-`uv.lock` is committed. Use `uv sync --frozen` in CI; run `uv lock` after changing dependencies.
+## Usage
+
+Omitting `-o` overwrites each `-i` file. Start with `--dry-run`.
 
 ```bash
-# pip, from a checkout
-pip install -e ".[dev]"
+rebiber -i refs.bib --dry-run
+rebiber -i refs.bib --dry-run --report changes.txt
+rebiber -i refs.bib -o refs.official.bib
+rebiber -i refs.bib --used-in paper.tex appendix.tex
+rebiber -i refs.bib --live-lookup          # opt-in DBLP search after a local miss
+rebiber -i *.bib -o ./normalized/
+rebiber -i refs.bib --format-only -o pretty.bib
+rebiber -i refs.bib --keep author,title,booktitle,journal,year,volume,number,pages,doi --protect-titles
 ```
 
-## Usage (v1.3.0)
+Examples: [`examples/input.bib`](examples/input.bib) → [`examples/output.bib`](examples/output.bib).
 
-Normalize your bibtex file(s) with the official conference information:
+| Flag | Default | Meaning |
+| --- | --- | --- |
+| `-i` | required | One or more `.bib` files |
+| `-o` | in place | Output file, or a directory if `-i` has multiple files |
+| `--dry-run` | off | Print the change report; do not write `.bib` |
+| `--report PATH` | — | Also write the change report to a file |
+| `--used-in TEX …` | all keys | Only *replace* keys cited in these files (`\cite` / `\citep` / `\citet` / `\citealp` / `\citeyear` / `\nocite`). Unused keys are still pretty-printed and still affected by `-r` / `-s` / `-st` / `-d` |
+| `--live-lookup` | off | On a local miss, search DBLP by title (max 5 hits). Same author/title guards. Respect [DBLP rate limits](https://dblp.org/faq/How+to+use+the+dblp+search+API.html) |
+| `--keep FIELDS` | keep all | Allowlist of fields (`ID` / `ENTRYTYPE` always kept) |
+| `--protect-titles` | off | Brace acronyms in titles (`BERT`, `GPT-2`, …) |
+| `--format-only` | off | Pretty-print only; no DB / DBLP / arXiv rewrite |
+| `--no-check-authors` | off | Skip last-name overlap (empty authors still do not match) |
+| `-r` | none | Drop fields, e.g. `-r url,biburl,timestamp` |
+| `-s True` | `False` | Shorten venues via [`rebiber/abbr.tsv`](rebiber/abbr.tsv) |
+| `-d False` | `True` | Keep duplicate cite keys |
+| `-st True` | `False` | Sort entries by cite key |
+| `-l` / `-a` | packaged | Custom `bib_list.txt` / `abbr.tsv` |
+| `-u` | — | Refresh packaged dumps from GitHub `main` |
+| `-v` | — | Print version |
+
+Leftover unofficial arXiv entries may still query the arXiv API for year / `primaryClass`. Use `--format-only` for a fully offline run.
+
+## Matching
+
+- **Authors.** A title hit converts only if the first-author last names match **or** at least two last names overlap. Empty/missing authors never match (including with `--no-check-authors`). Trailing `et al.` / `et.al.` / `and others` are stripped.
+- **Titles.** Digit-preserving key first (`16x16` ≠ `32x32`), then the letters-only key used by older dumps.
+- **Live DBLP.** Prefers a published (non-arXiv/CoRR) hit; skips if several published hits remain. Digit keys must agree.
+- **eprint.** If the input has an arXiv id and the official record does not, it is copied onto the replacement (local dump and live).
+- **ArXiv form.** Unofficial preprints become `@misc` with `eprint` / `archivePrefix` / `primaryClass`. Already-published papers are not rewritten because an abstract mentions arXiv.
+- **Broken entries.** Unparsed or unclosed records are kept, not dropped.
+
+Build a dump JSON:
 
 ```bash
-rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
+uv run python -m rebiber.bib2json -i path/to/conf.bib -o path/to/conf.json
 ```
 
-Examples:
+## Example
 
-```bash
-# report what would change without writing (start here)
-rebiber -i input.bib --dry-run
-# leftover unofficial arXiv entries may still query the arXiv API unless --format-only
-
-# pretty-print only: no DB matching, no DBLP, no arXiv API
-rebiber -i input.bib -o pretty.bib --format-only
-
-# single file (writes back to input.bib if -o is omitted)
-rebiber -i examples/input.bib -o examples/output.bib
-
-# batch: multiple files or a glob; -o can be a directory
-rebiber -i *.bib
-rebiber -i paper1.bib paper2.bib -o ./normalized/
-
-# also write the change report to a file (always printed to stdout)
-rebiber -i input.bib --dry-run --report changes.txt
-
-# only convert entries cited in these .tex files (others stay unchanged)
-rebiber -i input.bib --used-in paper.tex appendix.tex
-
-# opt-in live DBLP search for local-index misses (uses network; rate-limited)
-rebiber -i input.bib --live-lookup
-```
-
-You can find a pair of example input and output files in [`examples/input.bib`](examples/input.bib) and [`examples/output.bib`](examples/output.bib).
-
-```
-rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
-  -r/--remove comma fields
-  -s/--shorten True|False   (default False)
-  -d/--deduplicate True|False (default True)
-  -st/--sort True|False (default False)
-  --format-only   # pretty-print only; no DB / DBLP / arXiv API (issue 66)
-  --dry-run       # report without writing (leftover arXiv may still hit the arXiv API)
-  --report PATH   # also write the change report to PATH
-  --used-in FILE [FILE ...]  # only convert keys cited in these .tex files
-  --live-lookup   # opt-in DBLP title search on local misses (uses network)
-  --no-check-authors  # disable author-overlap guard (issue 50)
-  -u/--update
-  -v/--version
-  -l/--bib_list
-  -a/--abbr_tsv
-```
-
-| argument | usage|
-| ----------- | ----------- |
-| `-i` | or `--input_bib`. One or more input `.bib` files (shell globs like `*.bib` work). |
-| `-o` | or `--output_bib`. Output `.bib` path, or a directory when normalizing multiple files. If omitted, each input is overwritten in place. |
-| `-r` | or `--remove`. A comma-separated list of value names that you want to remove, such as `-r pages,editor,volume,month,url,biburl,address,publisher,bibsource,timestamp,doi`. Empty by __default__.  |
-| `-s` | or `--shorten`. `True`/`False`, **False** by default. Replace `booktitle`/`journal` with abbreviations from `-a`. Used as `-s True`. |
-| `-d` | or `--deduplicate`. `True`/`False`, **True** by default. Remove duplicate bib entries that share the same key. Used as `-d True`. |
-| `-st` | or `--sort`. `True`/`False`, **False** by default. Keep the input order unless set to `True` (then entries are ordered alphabetically). Used as `-st True`. |
-| `--format-only` | Pretty-print / normalize formatting only. Do not replace entries with official DBLP/ACL records and do not query DBLP or the arXiv API. Handy for reviewing diffs or a network-free run. |
-| `--dry-run` | Report conversions and issues without writing output files. Leftover unofficial arXiv entries may still query the arXiv API unless `--format-only`. |
-| `--report` | Optional path. Also write the human-readable change report (cite key, before/after venue, reason) to this file. The report is always printed to stdout. |
-| `--used-in` | One or more `.tex` files. Only convert or arXiv-normalize bib entries whose cite keys appear in `\\cite` / `\\citep` / `\\citet` / `\\citealp` / `\\citeyear` / `\\nocite` (starred and optional-arg forms included). Unused keys are left unchanged. |
-| `--live-lookup` | Opt-in. After a local-index miss, query DBLP's publication search by title and replace the entry if the title key and authors overlap. Timeout / HTTP errors / no hit keep the original entry. **Off by default** (no network). Please respect [DBLP's rate limits](https://dblp.org/faq/How+to+use+the+dblp+search+API.html); do not run this on huge bib files in a tight loop. |
-| `--no-check-authors` | Disable the author-overlap guard (see below). |
-| `-l` | or `--bib_list`. The list of bib json files to load. Default: [rebiber/bib_list.txt](rebiber/bib_list.txt). |
-| `-a` | or `--abbr_tsv`. Conference abbreviation table. Default: [rebiber/abbr.tsv](rebiber/abbr.tsv). |
-| `-u` | or `--update`. Update the local bib-related data with the latest GitHub version. |
-| `-v` | or `--version`. Print the version of current Rebiber. |
-
-### Matching behavior (v1.3.0)
-
-- **Author-overlap guard.** A title-only match is not enough when the candidate official record looks like a different paper. Rebiber will not replace a "Deep Learning" book or *Nature* article with an unrelated KDD talk that happens to share a short/generic title. Use `--no-check-authors` only if you want the old title-only behavior for named authors. Empty or missing authors on either side is **not** treated as a match (fail-closed), even with `--no-check-authors`, so editor-only front-matter such as a "Preface" will not replace a paper by that title. When both sides have names, a match requires the **first-author last names** to agree **or** at least **two** shared last names (a single shared "Wang" is not enough). Trailing `et al.` / `et.al.` / `et. al.` / `and others` is stripped before last-name compare.
-- **Digit-preserving title keys.** Lookup first tries a key that keeps digits (`16x16` ≠ `32x32`) and falls back to the letters-only key used by older dumps. Live DBLP hits do **not** fall back to letters-only when both titles have digits that disagree.
-- **Opt-in live DBLP fallback.** With `--live-lookup`, a local miss does one DBLP title search (max 5 hits). A hit is applied only when the title key matches **and** authors overlap. Published (non-arXiv/CoRR) hits are preferred; if several published title+author matches remain the lookup is treated as ambiguous and the original entry is kept. The user's cite key is kept. If the input was an arXiv preprint and the official record has no `eprint`, the input arXiv id is copied onto the published entry (local dump conversions do the same). Network failures do not crash the run. Default remains offline.
-- **Unclosed braces.** A leftover buffer at end-of-file is kept with a warning instead of being dropped.
-- **ArXiv official fields.** Unofficial arXiv preprints are rewritten with standard fields (`eprint`, `archivePrefix`, `primaryClass`) instead of a free-form `journal = {arXiv preprint ...}` string.
-- **Published papers stay published.** Rebiber will not rewrite an already-published entry just because the abstract (or another field) mentions arXiv.
-- **Unparsed entries are kept.** Entries that fail to parse are not silently dropped from the output.
-
-Convert a raw BibTeX dump to the internal JSON index:
-
-```bash
-python -m rebiber.bib2json -i path/to/conf.bib -o path/to/conf.json
-# or: bib2json -i path/to/conf.bib -o path/to/conf.json
-```
-
-
-## Example Input and Output
-An example input entry with the arXiv information (from Google Scholar or somewhere):
 ```bib
 @article{lin2020birds,
-	title={Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models},
-	author={Lin, Bill Yuchen and Lee, Seyeon and Khanna, Rahul and Ren, Xiang},
-	journal={arXiv preprint arXiv:2005.00683},
-	year={2020}
-}
-
-```
- 
-
-An example normalized output entry with the official information:
-```bib
-@inproceedings{lin2020birds,
-    title = "{B}irds have four legs?! {N}umer{S}ense: {P}robing {N}umerical {C}ommonsense {K}nowledge of {P}re-{T}rained {L}anguage {M}odels",
-    author = "Lin, Bill Yuchen  and
-      Lee, Seyeon  and
-      Khanna, Rahul  and
-      Ren, Xiang",
-    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
-    month = nov,
-    year = "2020",
-    address = "Online",
-    publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/2020.emnlp-main.557",
-    doi = "10.18653/v1/2020.emnlp-main.557",
-    pages = "6862--6868",
+  title={Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models},
+  author={Lin, Bill Yuchen and Lee, Seyeon and Khanna, Rahul and Ren, Xiang},
+  journal={arXiv preprint arXiv:2005.00683},
+  year={2020}
 }
 ```
 
+becomes the official EMNLP 2020 `@inproceedings` (same cite key), with anthology URL and DOI.
 
-## Supported Conferences 
+## Supported venues
 
-The `bib_list.txt` contains a list of converted json files of the official bib data. In this repo, we now support the full [ACL anthology](https://www.aclweb.org/anthology/), i.e., all papers that are published at *CL conferences (ACL, EMNLP, NAACL, etc.) as well as workshops.
-Also, we support any conference proceedings that can be downloaded from DBLP, for example, ICLR2020.
+Toggle files in [`rebiber/bib_list.txt`](rebiber/bib_list.txt). ACL Anthology includes *CL main conferences **and** workshops. Other dumps are **main tracks only** (no CVPR/ICCV workshops).
 
-A monthly GitHub Action refreshes DBLP dumps and the ACL anthology automatically. You can also update a single conference locally (see [Adding a new conference](#adding-a-new-conference)).
+A monthly Action opens a PR with fresh DBLP + anthology data. Years below are what is **in this repo**, not “whatever DBLP has tomorrow.”
 
-The following conferences are supported and their bib/json files are in our `data` folder. You can turn each item on/off in `bib_list.txt`. **Please feel free to create PR for adding new conferences following [this](#adding-a-new-conference)!** 
+**Kept current** (monthly job + recent dumps)
 
-| Name | Years |
-| --- | ----------- |
-| ACL Anthology | current (2026; split JSON files) |
-| ACCV | 2022, 2024 (even years; main LNCS volumes) |
-| AAAI | 2010 -- 2026 |
-| AISTATS | 2013 -- 2025 |
-| ALENEX | 2010 -- 2020 |
-| ASONAM | 2010 -- 2019 |
-| BigDataConf | 2013 -- 2019 |
-| BMVC | 2010 -- 2024 |
-| CHI | 2010 -- 2026 |
-| CIDR | 2009 -- 2020 |
-| CIKM | 2010 -- 2020 |
-| COLT | 2000 -- 2020 |
-| CVPR | 2000 -- 2025 |
-| ECCV | 2022, 2024 (even years; main LNCS volumes) |
-| ICASSP | 2015 -- 2025 |
-| ICCV | 2003 -- 2025 |
-| ICLR | 2013 -- 2025 |
-| ICML | 2000 -- 2025 |
-| IJCAI | 2011 -- 2025 |
-| INTERSPEECH | 2016 -- 2025 |
-| KDD | 2010 -- 2026 |
-| ICRA | 2020 -- 2025 (main track) |
-| IROS | 2020 -- 2025 (main track) |
-| RSS | 2020 -- 2024 |
-| CoRL | 2020 -- 2024 |
-| JMLR | 2020 -- 2026 |
-| TMLR | 2022 -- 2026 |
-| WACV | 2022 -- 2026 |
-| MLSys | 2022 -- 2025 |
-| MICCAI | 2022 -- 2025 (main LNCS volumes) |
-| MM | 2016 -- 2020 |
-| NeurIPS | 2000 -- 2025 |
-| RECSYS | 2010 -- 2020 |
-| SDM | 2010 -- 2020 |
-| SIGIR | 2010 -- 2026 |
-| SIGMOD | 2010 -- 2022 (2023 and after changed to journal) |
-| SODA | 2010 -- 2020 |
-| STOC | 2010 -- 2020 |
-| UAI | 2010 -- 2025 |
-| WSDM | 2008 -- 2020 |
-| WWW (The Web Conf) | 2001 -- 2026 |
+| Venue | Years |
+| --- | --- |
+| ACL Anthology | current (split `acl_1/2/3.json`) |
+| AAAI | 2010–2026 |
+| ACCV | 2022, 2024 |
+| AISTATS | 2013–2025 |
+| BMVC | 2010–2024 |
+| CHI | 2010–2026 |
+| CVPR | 2000–2025 |
+| ECCV | 2022, 2024 |
+| ICASSP | 2015–2025 |
+| ICCV | odd years 2003–2025 |
+| ICLR | 2013–2025 |
+| ICML | 2000–2025 |
+| IJCAI | 2011, 2013, 2015–2025 |
+| INTERSPEECH | 2016–2025 |
+| KDD | 2010–2026 |
+| ICRA / IROS | 2020–2025 (main) |
+| RSS / CoRL | 2020–2024 (main) |
+| JMLR | 2020–2026 |
+| TMLR | 2022–2026 |
+| WACV | 2022–2026 |
+| MLSys | 2019–2025 |
+| MICCAI | 2022–2025 (main) |
+| NeurIPS | 2000–2025 |
+| SIGIR | 2010–2026 |
+| UAI | 2010–2025 |
+| WWW | 2001–2026 |
 
+**Not in the index:** COLM (empty DBLP toc). ICLR/ICML/CVPR 2026, RSS/CoRL 2025, ECCV 2026 — not on DBLP yet.
 
-COLM is not packaged yet (empty DBLP toc; OpenReview is blocked from typical CI/cloud IPs).
+**Historical (frozen ~2020):** ALENEX, ASONAM, BigData, CIDR, CIKM, COLT, MM, RecSys, SDM, SIGMOD (through 2022; later years are PACMMOD), SODA, STOC, WSDM.
 
-**Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
+Thanks to [Anton Tsitsulin](http://tsitsul.in/) for the original dump collection.
 
-<!-- 
-python -m rebiber.bib2json -i data/iclr2020.bib -o data/iclr2020.json
-python -m rebiber.bib2json -i data/iclr2019.bib -o data/iclr2019.json
-python -m rebiber.bib2json -i data/iclr2018.bib -o data/iclr2018.json
-python -m rebiber.bib2json -i data/aaai2020.bib -o data/aaai2020.json
- -->
-
-
-## Adding a new conference
-
-A monthly GitHub Action refreshes DBLP + the ACL anthology. To add or update a conference yourself:
+## Adding a venue
 
 ```bash
 uv run python -m rebiber.download_dblp --confs iclr --start-year 2026
 ```
 
-`--confs` accepts a conference short name (DBLP key, e.g. `iclr`, `neurips`, `cvpr`). Repeat or pass a comma-separated list if the downloader supports multiple names. Then convert any remaining raw `.bib` files if needed:
+That writes `rebiber/data/{conf}{year}.bib.json` and appends `bib_list.txt` when needed. PRs welcome.
 
-```bash
-uv run python -m rebiber.bib2json -i raw_data/iclr2026.bib -o rebiber/data/iclr2026.bib.json
-```
+## Star history
 
-And add the new JSON path to `rebiber/bib_list.txt` if it is not already listed.
+In-repo SVGs, refreshed weekly from the GitHub API (no third-party token).
 
-Alternatively, you can still download bib files from DBLP by hand into `raw_data/` (name them `{conf}{year}.bib`) and run `bash scripts/add_conf.sh iclr 2019 2020`.
+![All-time stars](docs/star-history.svg)
 
-## Star History
-
-Charts generated in this repo from the GitHub stargazers API (no third-party host). A weekly Action refreshes [`docs/star-history.svg`](docs/star-history.svg) and [`docs/star-history-ytd.svg`](docs/star-history-ytd.svg).
-
-**All time**
-
-![Rebiber star history](docs/star-history.svg)
-
-**Year to date**
-
-![Rebiber star history YTD](docs/star-history-ytd.svg)
+![2026 year-to-date](docs/star-history-ytd.svg)
 
 ## Contact
 
-Please email [billyuchenlin@gmail.com](mailto:billyuchenlin@gmail.com) or [i@yuchenlin.xyz](mailto:i@yuchenlin.xyz), or open a [GitHub issue](https://github.com/yuchenlin/rebiber/issues) if you have any questions or suggestions.
+[billyuchenlin@gmail.com](mailto:billyuchenlin@gmail.com) · [i@yuchenlin.xyz](mailto:i@yuchenlin.xyz) · [GitHub issues](https://github.com/yuchenlin/rebiber/issues)
