@@ -100,18 +100,19 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 Examples:
 
 ```bash
+# report what would change without writing (start here)
+rebiber -i input.bib --dry-run
+# leftover unofficial arXiv entries may still query the arXiv API unless --format-only
+
+# pretty-print only: no DB matching, no DBLP, no arXiv API
+rebiber -i input.bib -o pretty.bib --format-only
+
 # single file (writes back to input.bib if -o is omitted)
 rebiber -i examples/input.bib -o examples/output.bib
 
 # batch: multiple files or a glob; -o can be a directory
 rebiber -i *.bib
 rebiber -i paper1.bib paper2.bib -o ./normalized/
-
-# pretty-print only (no official-info replacement; useful for diffs)
-rebiber -i input.bib -o pretty.bib --format-only
-
-# report what would change without writing
-rebiber -i input.bib --dry-run
 
 # also write the change report to a file (always printed to stdout)
 rebiber -i input.bib --dry-run --report changes.txt
@@ -131,8 +132,8 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
   -s/--shorten True|False   (default False)
   -d/--deduplicate True|False (default True)
   -st/--sort True|False (default False)
-  --format-only   # pretty-print only, for diffs (issue 66)
-  --dry-run       # report without writing
+  --format-only   # pretty-print only; no DB / DBLP / arXiv API (issue 66)
+  --dry-run       # report without writing (leftover arXiv may still hit the arXiv API)
   --report PATH   # also write the change report to PATH
   --used-in FILE [FILE ...]  # only convert keys cited in these .tex files
   --live-lookup   # opt-in DBLP title search on local misses (uses network)
@@ -151,8 +152,8 @@ rebiber -i input.bib [more.bib ...] [-o out.bib|outdir]
 | `-s` | or `--shorten`. `True`/`False`, **False** by default. Replace `booktitle`/`journal` with abbreviations from `-a`. Used as `-s True`. |
 | `-d` | or `--deduplicate`. `True`/`False`, **True** by default. Remove duplicate bib entries that share the same key. Used as `-d True`. |
 | `-st` | or `--sort`. `True`/`False`, **False** by default. Keep the input order unless set to `True` (then entries are ordered alphabetically). Used as `-st True`. |
-| `--format-only` | Pretty-print / normalize formatting only. Do not replace entries with official DBLP/ACL records. Handy for reviewing diffs. |
-| `--dry-run` | Report conversions and issues without writing output files. |
+| `--format-only` | Pretty-print / normalize formatting only. Do not replace entries with official DBLP/ACL records and do not query DBLP or the arXiv API. Handy for reviewing diffs or a network-free run. |
+| `--dry-run` | Report conversions and issues without writing output files. Leftover unofficial arXiv entries may still query the arXiv API unless `--format-only`. |
 | `--report` | Optional path. Also write the human-readable change report (cite key, before/after venue, reason) to this file. The report is always printed to stdout. |
 | `--used-in` | One or more `.tex` files. Only convert or arXiv-normalize bib entries whose cite keys appear in `\\cite` / `\\citep` / `\\citet` / `\\citealp` / `\\citeyear` / `\\nocite` (starred and optional-arg forms included). Unused keys are left unchanged. |
 | `--live-lookup` | Opt-in. After a local-index miss, query DBLP's publication search by title and replace the entry if the title key and authors overlap. Timeout / HTTP errors / no hit keep the original entry. **Off by default** (no network). Please respect [DBLP's rate limits](https://dblp.org/faq/How+to+use+the+dblp+search+API.html); do not run this on huge bib files in a tight loop. |

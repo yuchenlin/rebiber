@@ -932,7 +932,27 @@ def build_parser(filepath=None):
     if filepath is None:
         filepath = os.path.dirname(os.path.abspath(__file__)) + "/"
     parser = argparse.ArgumentParser(
-        description="Normalize BibTeX entries using official conference data."
+        description=(
+            "Normalize BibTeX entries using official conference data. "
+            "Default is local-index only (no DBLP). Leftover unofficial arXiv "
+            "entries may still query the arXiv API unless --format-only."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Examples:\n"
+            "  rebiber -i input.bib --dry-run\n"
+            "      Report conversions without writing output files.\n"
+            "  rebiber -i input.bib --used-in paper.tex appendix.tex\n"
+            "      Only convert keys cited in these .tex files; unused keys stay.\n"
+            "  rebiber -i input.bib --live-lookup\n"
+            "      After a local miss, search DBLP by title (uses network).\n"
+            "  rebiber -i input.bib -o pretty.bib --format-only\n"
+            "      Pretty-print only: no DB matching, no DBLP, no arXiv API.\n"
+            "\n"
+            "Note: leftover unofficial arXiv entries may still query the arXiv API\n"
+            "unless you pass --format-only. --dry-run skips writing files but does\n"
+            "not skip that lookup."
+        ),
     )
     parser.add_argument(
         "-u", "--update", action="store_true", help="Update the data of bib and abbr."
@@ -1002,12 +1022,15 @@ def build_parser(filepath=None):
     parser.add_argument(
         "--format-only",
         action="store_true",
-        help="Only pretty-print / apply abbreviations; skip DB matching and arXiv rewrite.",
+        help="Pretty-print / apply abbreviations only. Skip DB matching, live "
+        "DBLP, and the arXiv API. Use this for a network-free run.",
     )
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Print the conversion report but do not write output files.",
+        help="Print the conversion report but do not write output files. "
+        "Leftover unofficial arXiv entries may still query the arXiv API "
+        "unless --format-only.",
     )
     parser.add_argument(
         "--report",
@@ -1022,13 +1045,14 @@ def build_parser(filepath=None):
         metavar="FILE",
         default=None,
         help="Only convert or arXiv-normalize entries whose cite keys appear "
-        "in these .tex files. Unused bib keys are left unchanged.",
+        "in these .tex files. Unused bib keys are left unchanged "
+        "(venue and arXiv fields stay as-is).",
     )
     parser.add_argument(
         "--live-lookup",
         action="store_true",
         help="On local-index miss, search DBLP by title (opt-in; uses network). "
-        "Respect DBLP rate limits; default is local-only / offline.",
+        "Off by default: no DBLP. Respect DBLP rate limits.",
     )
     parser.add_argument(
         "--keep",
