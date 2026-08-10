@@ -27,6 +27,7 @@ import urllib.request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(SCRIPT_DIR)
 DEFAULT_OUTPUT = os.path.join(REPO_ROOT, "docs", "star-history.svg")
+DEFAULT_OUTPUT_YTD = os.path.join(REPO_ROOT, "docs", "star-history-ytd.svg")
 USER_AGENT = "rebiber-star-history (+https://github.com/yuchenlin/rebiber)"
 API_VERSION = "2022-11-28"
 LINK_NEXT_RE = re.compile(r'<([^>]+)>;\s*rel="next"')
@@ -60,6 +61,68 @@ def cumulative_daily(starred_at_values):
         total += counts[day]
         series.append((day, total))
     return series
+
+
+def ytd_series(series, year, today=None):
+    """Zoom a cumulative series to calendar ``year`` (absolute totals).
+
+    Starts at 1 Jan (carrying forward the prior-year total) and extends to
+    ``today`` so a quiet end of year still fills the axis. Returns
+    ``(points, gained_this_year)``.
+    """
+    if today is None:
+        today = datetime.date.today()
+    start = datetime.date(int(year), 1, 1)
+    if today < start:
+        return [], 0
+    baseline = 0
+    year_points = []
+    for day, count in series:
+        if day < start:
+            baseline = count
+        elif day <= today:
+            year_points.append((day, count))
+    points = []
+    if not year_points or year_points[0][0] > start:
+        points.append((start, baseline))
+    points.extend(year_points)
+    if points[-1][0] < today:
+        points.append((today, points[-1][1]))
+    gained = points[-1][1] - baseline
+    return points, gained
+
+
+def _x_tick_dates(first_day, last_day):
+    """Year ticks for multi-year spans; month ticks for a YTD-sized window."""
+    span_days = max((last_day - first_day).days, 1)
+    ticks = []
+    if span_days > 400:
+        year = first_day.year
+        while year <= last_day.year:
+            mark = datetime.date(year, 1, 1)
+            if mark < first_day:
+                mark = first_day
+            ticks.append(mark)
+            year += 1
+        label = lambda day: day.strftime("%Y")
+    else:
+        year, month = first_day.year, first_day.month
+        ticks.append(first_day)
+        while True:
+            month += 1
+            if month > 12:
+                month = 1
+                year += 1
+            mark = datetime.date(year, month, 1)
+            if mark > last_day:
+                break
+            ticks.append(mark)
+        label = lambda day: (
+            day.strftime("%b") if day.month != 1 else day.strftime("%b %Y")
+        )
+    if ticks[-1] != last_day and (last_day - ticks[-1]).days > 20:
+        ticks.append(last_day)
+    return ticks, label
 
 
 def downsample(series, max_points=400):
@@ -98,25 +161,40 @@ def _nice_ticks(lo, hi, target=5):
     return ticks
 
 
-def render_svg(series, repo, generated_on, width=880, height=420):
+def render_svg(
+    series,
+    repo,
+    generated_on,
+    width=880,
+    height=420,
+    title=None,
+    subtitle=None,
+    y_min=0,
+):
     """Render a simple line chart. ``series`` is ``[(date, count), ...]``."""
     if not series:
         raise ValueError("no star events to plot")
     pad_l, pad_r, pad_t, pad_b = 64, 24, 48, 56
     plot_w = width - pad_l - pad_r
     plot_h = height - pad_t - pad_b
-    first_day, _first_count = series[0]
+    first_day, first_count = series[0]
     last_day, last_count = series[-1]
     span_days = max((last_day - first_day).days, 1)
-    y_max = max(last_count, 1)
-    y_ticks = _nice_ticks(0, y_max, target=5)
+    y_lo = int(y_min)
+    y_max = max(last_count, first_count, y_lo + 1)
+    y_ticks = _nice_ticks(y_lo, y_max, target=5)
     chart_top = y_ticks[-1] if y_ticks else y_max
+    chart_bot = y_ticks[0] if y_ticks else y_lo
+    if chart_top <= chart_bot:
+        chart_top = chart_bot + 1
 
     def x_of(day):
         return pad_l + plot_w * ((day - first_day).days / float(span_days))
 
     def y_of(count):
-        return pad_t + plot_h * (1.0 - (count / float(chart_top)))
+        return pad_t + plot_h * (
+            1.0 - ((count - chart_bot) / float(chart_top - chart_bot))
+        )
 
     points = downsample(series)
     coords = [(x_of(day), y_of(count)) for day, count in points]
@@ -129,17 +207,7 @@ def render_svg(series, repo, generated_on, width=880, height=420):
         pad_t + plot_h,
     )
 
-    # Year ticks on X.
-    year_ticks = []
-    year = first_day.year
-    while year <= last_day.year:
-        mark = datetime.date(year, 1, 1)
-        if mark < first_day:
-            mark = first_day
-        year_ticks.append(mark)
-        year += 1
-    if year_ticks[-1] != last_day:
-        year_ticks.append(last_day)
+    x_ticks, x_label = _x_tick_dates(first_day, last_day)
 
     grid = []
     labels = []
@@ -154,7 +222,7 @@ def render_svg(series, repo, generated_on, width=880, height=420):
             'fill="#6b7280" font-family="ui-sans-serif, system-ui, sans-serif">'
             "%s</text>" % (pad_l - 8, y + 4, "{:,}".format(tick))
         )
-    for mark in year_ticks:
+    for mark in x_ticks:
         x = x_of(mark)
         grid.append(
             '<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" '
@@ -164,11 +232,15 @@ def render_svg(series, repo, generated_on, width=880, height=420):
         labels.append(
             '<text x="%.1f" y="%.1f" text-anchor="middle" font-size="12" '
             'fill="#6b7280" font-family="ui-sans-serif, system-ui, sans-serif">'
-            "%s</text>" % (x, pad_t + plot_h + 20, mark.strftime("%Y"))
+            "%s</text>" % (x, pad_t + plot_h + 20, x_label(mark))
         )
 
-    title = "%s star history" % repo
-    subtitle = "{:,} stars · updated {}".format(last_count, generated_on.isoformat())
+    if title is None:
+        title = "%s star history" % repo
+    if subtitle is None:
+        subtitle = "{:,} stars · updated {}".format(
+            last_count, generated_on.isoformat()
+        )
     svg = """\
 <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="{title}">
   <rect width="100%" height="100%" fill="#ffffff"/>
@@ -257,11 +329,24 @@ def build_parser():
     parser.add_argument("--repo", default="rebiber")
     parser.add_argument("--output", default=DEFAULT_OUTPUT)
     parser.add_argument(
+        "--output-ytd",
+        default=DEFAULT_OUTPUT_YTD,
+        help="Year-to-date chart path (empty string to skip).",
+    )
+    parser.add_argument(
         "--token",
         default=os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "",
         help="GitHub token (default: GITHUB_TOKEN or GH_TOKEN).",
     )
     return parser
+
+
+def _write_svg(path, svg):
+    out_dir = os.path.dirname(os.path.abspath(path))
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    with open(path, "w", encoding="utf8") as handle:
+        handle.write(svg)
 
 
 def main(argv=None):
@@ -271,20 +356,34 @@ def main(argv=None):
     if not series:
         print("No stargazer timestamps returned.", file=sys.stderr)
         return 1
-    svg = render_svg(
-        series,
-        repo="%s/%s" % (args.owner, args.repo),
-        generated_on=datetime.date.today(),
-    )
-    out_dir = os.path.dirname(os.path.abspath(args.output))
-    if out_dir:
-        os.makedirs(out_dir, exist_ok=True)
-    with open(args.output, "w", encoding="utf8") as handle:
-        handle.write(svg)
+    today = datetime.date.today()
+    repo = "%s/%s" % (args.owner, args.repo)
+    svg = render_svg(series, repo=repo, generated_on=today)
+    _write_svg(args.output, svg)
     print(
         "Wrote %s (%s stars, %s events)"
         % (args.output, series[-1][1], len(starred))
     )
+    if args.output_ytd:
+        ytd_points, gained = ytd_series(series, today.year, today=today)
+        if not ytd_points:
+            print("No YTD points to plot.", file=sys.stderr)
+            return 1
+        ytd_svg = render_svg(
+            ytd_points,
+            repo=repo,
+            generated_on=today,
+            title="%s stars (%s YTD)" % (repo, today.year),
+            subtitle="{:,} stars · {:+,} in {} · updated {}".format(
+                ytd_points[-1][1], gained, today.year, today.isoformat()
+            ),
+            y_min=ytd_points[0][1],
+        )
+        _write_svg(args.output_ytd, ytd_svg)
+        print(
+            "Wrote %s (%s YTD, %+d this year)"
+            % (args.output_ytd, today.year, gained)
+        )
     return 0
 
 

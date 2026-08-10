@@ -44,6 +44,40 @@ def test_downsample_keeps_ends():
     assert len(out) <= 5
 
 
+def test_ytd_series_carries_baseline_and_counts_gain():
+    series = [
+        (datetime.date(2025, 12, 31), 100),
+        (datetime.date(2026, 1, 2), 103),
+        (datetime.date(2026, 3, 1), 110),
+    ]
+    points, gained = star_history.ytd_series(
+        series, 2026, today=datetime.date(2026, 8, 10)
+    )
+    assert points[0] == (datetime.date(2026, 1, 1), 100)
+    assert (datetime.date(2026, 1, 2), 103) in points
+    assert points[-1] == (datetime.date(2026, 8, 10), 110)
+    assert gained == 10
+
+
+def test_ytd_series_empty_before_year_starts_at_zero():
+    series = [(datetime.date(2026, 2, 1), 4)]
+    points, gained = star_history.ytd_series(
+        series, 2026, today=datetime.date(2026, 2, 1)
+    )
+    assert points[0] == (datetime.date(2026, 1, 1), 0)
+    assert points[-1] == (datetime.date(2026, 2, 1), 4)
+    assert gained == 4
+
+
+def test_x_ticks_use_months_for_short_spans():
+    ticks, label = star_history._x_tick_dates(
+        datetime.date(2026, 1, 1), datetime.date(2026, 8, 10)
+    )
+    assert ticks[0] == datetime.date(2026, 1, 1)
+    assert datetime.date(2026, 6, 1) in ticks
+    assert label(datetime.date(2026, 6, 1)) == "Jun"
+
+
 def test_render_svg_contains_title_and_total():
     series = [
         (datetime.date(2021, 1, 25), 1),
