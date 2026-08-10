@@ -307,4 +307,3 @@ Charts generated in this repo from the GitHub stargazers API (no third-party hos
 ## Contact
 
 Please email [billyuchenlin@gmail.com](mailto:billyuchenlin@gmail.com) or [i@yuchenlin.xyz](mailto:i@yuchenlin.xyz), or open a [GitHub issue](https://github.com/yuchenlin/rebiber/issues) if you have any questions or suggestions.
-(USC: yuchen.lin@usc.edu)
