@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Develop and CI with **uv** (`uv sync --extra dev`, `uv run pytest`, `uv build`). `pip install -e .` remains supported.
+
 - **2026.08** Opt-in `--live-lookup`: after a local-index miss, search DBLP by title and apply a hit only when title keys and authors overlap (same guard as local matches). Official replacements keep the input cite key and preserve an input arXiv/`eprint` when the published record lacks one. Default CLI stays local-only (no network). Please respect DBLP rate limits.
 
 - **2026.08** Added main-track DBLP dumps for **ECCV 2022/2024** (~1.7k / ~2.5k) and **MICCAI 2022–2025**. Workshop tocs are not included. COLM is still missing (empty DBLP toc; OpenReview API 403 from this network). RSS/CoRL 2025+, ICLR/ICML/CVPR/AISTATS/UAI 2026, BMVC 2025, and NeurIPS 2026 are not on DBLP yet.
@@ -54,23 +56,31 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 
 ## Installation
 
+Rebiber is developed and CI-tested with [uv](https://docs.astral.sh/uv/). `pip` still works as a fallback.
+
+### uv (recommended)
+
+```bash
+# one-off CLI from GitHub (latest dumps + bug fixes)
+uv tool install https://github.com/yuchenlin/rebiber
+
+# develop from a checkout
+git clone https://github.com/yuchenlin/rebiber.git
+cd rebiber/
+uv sync --extra dev
+uv run rebiber -v
+uv run pytest
+```
+
+`uv.lock` is committed. Use `uv sync --frozen` in CI; run `uv lock` after changing dependencies.
+
+### pip (fallback)
+
 ```bash
 git clone https://github.com/yuchenlin/rebiber.git
 cd rebiber/
 pip install -e .
 # optional: pip install -e ".[dev]"   # pytest
-```
-
-OR
-
-```bash
-uv tool install https://github.com/yuchenlin/rebiber
-```
-
-OR from a local checkout with uv:
-
-```bash
-uv tool install .
 ```
 
 The editable / GitHub install is recommended if you want the latest conference data and bug fixes.
@@ -267,13 +277,13 @@ python -m rebiber.bib2json -i data/aaai2020.bib -o data/aaai2020.json
 A monthly GitHub Action refreshes DBLP + the ACL anthology. To add or update a conference yourself:
 
 ```bash
-python -m rebiber.download_dblp --confs iclr --start-year 2026
+uv run python -m rebiber.download_dblp --confs iclr --start-year 2026
 ```
 
 `--confs` accepts a conference short name (DBLP key, e.g. `iclr`, `neurips`, `cvpr`). Repeat or pass a comma-separated list if the downloader supports multiple names. Then convert any remaining raw `.bib` files if needed:
 
 ```bash
-python -m rebiber.bib2json -i raw_data/iclr2026.bib -o rebiber/data/iclr2026.bib.json
+uv run python -m rebiber.bib2json -i raw_data/iclr2026.bib -o rebiber/data/iclr2026.bib.json
 ```
 
 And add the new JSON path to `rebiber/bib_list.txt` if it is not already listed.

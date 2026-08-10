@@ -16,13 +16,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
+          enable-cache: true
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install requests bibtexparser tqdm
+      - name: Install package
+        run: uv sync --frozen
 
       - name: Download recent conference data from DBLP
         run: |
@@ -32,10 +33,10 @@ jobs:
           PAST_END=$((YEAR - 2))
           # Older years: skip-existing (re-fetch only if the dump looks incomplete).
           if [[ "$PAST_END" -ge 2024 ]]; then
-            python rebiber/download_dblp.py --start-year 2024 --end-year "$PAST_END"
+            uv run python -m rebiber.download_dblp --start-year 2024 --end-year "$PAST_END"
           fi
           # Current and previous year: re-fetch so late-added papers are picked up.
-          python rebiber/download_dblp.py --start-year "$PREV" --end-year "$YEAR" --force
+          uv run python -m rebiber.download_dblp --start-year "$PREV" --end-year "$YEAR" --force
 
       - name: Convert leftover bib files
         run: |
@@ -50,7 +51,7 @@ jobs:
             entry="data/${base}.bib.json"
             if [[ ! -f "$jsonfile" ]]; then
               echo "Converting $bibfile -> $jsonfile"
-              python rebiber/bib2json.py -i "$bibfile" -o "$jsonfile"
+              uv run python -m rebiber.bib2json -i "$bibfile" -o "$jsonfile"
               if ! grep -qxF "$entry" rebiber/bib_list.txt; then
                 echo "$entry" >> rebiber/bib_list.txt
               fi
@@ -64,9 +65,9 @@ jobs:
           curl -fSL https://aclanthology.org/anthology.bib.gz -o rebiber/raw_data/anthology.bib.gz
           gunzip -f rebiber/raw_data/anthology.bib.gz
           echo "Converting ACL Anthology bib to JSON..."
-          python rebiber/bib2json.py -i rebiber/raw_data/anthology.bib -o rebiber/data/acl.json
+          uv run python -m rebiber.bib2json -i rebiber/raw_data/anthology.bib -o rebiber/data/acl.json
           echo "Splitting acl.json and refreshing bib_list.txt..."
-          python scripts/refresh_bib_list.py --split-acl --chunk-size 50000
+          uv run python scripts/refresh_bib_list.py --split-acl --chunk-size 50000
 
       - name: Commit and push changes
         run: |

@@ -897,7 +897,7 @@ def main(argv=None):
         if requests is None:
             parser.error(
                 "The 'requests' package is required to download from DBLP. "
-                "Install it with: pip install requests"
+                "Install it with: uv sync   # or: pip install requests"
             )
         session = requests.Session()
         session.headers.update({"User-Agent": USER_AGENT})
