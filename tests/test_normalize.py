@@ -1079,5 +1079,73 @@ class TestLiveDblpLookup(unittest.TestCase):
         self.assertTrue(args.live_lookup)
 
 
+CAMERA_READY_INPUT = """@article{deeplearning,
+  title = {Deep Learning with BERT and NLP},
+  author = {LeCun, Yann},
+  year = {2015},
+  journal = {Nature},
+  volume = {521},
+  pages = {436--444},
+  url = {https://example.com},
+  note = {drop me},
+  doi = {10.1038/nature14539}
+}
+"""
+
+
+class TestCameraReadyNormalize(unittest.TestCase):
+    def test_keep_fields_allowlist(self):
+        output, _stats = run_normalize(
+            CAMERA_READY_INPUT,
+            {},
+            format_only=True,
+            keep_names=["author", "title", "journal", "year", "doi"],
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "deeplearning")
+        self.assertEqual(entry["ENTRYTYPE"], "article")
+        self.assertEqual(entry.get("title"), "Deep Learning with BERT and NLP")
+        self.assertIn("author", entry)
+        self.assertEqual(entry.get("journal"), "Nature")
+        self.assertEqual(entry.get("doi"), "10.1038/nature14539")
+        self.assertNotIn("url", entry)
+        self.assertNotIn("note", entry)
+        self.assertNotIn("pages", entry)
+        self.assertNotIn("volume", entry)
+
+    def test_protect_titles_wraps_acronyms(self):
+        output, _stats = run_normalize(
+            CAMERA_READY_INPUT, {}, format_only=True, protect_titles=True
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        title = entry.get("title", "")
+        self.assertIn("{BERT}", title)
+        self.assertIn("{NLP}", title)
+        self.assertNotEqual(title, "{Deep Learning with BERT and NLP}")
+        self.assertIn("url", entry)
+
+    def test_cli_keep_and_protect_defaults(self):
+        parser = build_parser()
+        args = parser.parse_args(["-i", "a.bib"])
+        self.assertEqual(args.keep, "")
+        self.assertFalse(args.protect_titles)
+        args = parser.parse_args(
+            [
+                "-i",
+                "a.bib",
+                "--keep",
+                "author,title,booktitle,journal,year,volume,number,pages,doi",
+                "--protect-titles",
+            ]
+        )
+        self.assertEqual(
+            args.keep,
+            "author,title,booktitle,journal,year,volume,number,pages,doi",
+        )
+        self.assertTrue(args.protect_titles)
+
+
 if __name__ == "__main__":
     unittest.main()
