@@ -29,7 +29,7 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
-- **2026.08** In-repo star-history chart (`docs/star-history.svg`), refreshed weekly from the GitHub API. No star-history.com token.
+- **2026.08** In-repo star-history charts (all-time + YTD), refreshed weekly from the GitHub API. No star-history.com token.
 
 - **2026.08** Develop and CI with **uv** (`uv sync --extra dev`, `uv run pytest`, `uv build`). `pip install -e .` remains supported.
 
@@ -294,9 +294,15 @@ Alternatively, you can still download bib files from DBLP by hand into `raw_data
 
 ## Star History
 
-Chart generated in this repo from the GitHub stargazers API (no third-party host). A weekly Action refreshes [`docs/star-history.svg`](docs/star-history.svg).
+Charts generated in this repo from the GitHub stargazers API (no third-party host). A weekly Action refreshes [`docs/star-history.svg`](docs/star-history.svg) and [`docs/star-history-ytd.svg`](docs/star-history-ytd.svg).
+
+**All time**
 
 ![Rebiber star history](docs/star-history.svg)
+
+**Year to date**
+
+![Rebiber star history YTD](docs/star-history-ytd.svg)
 
 ## Contact
 

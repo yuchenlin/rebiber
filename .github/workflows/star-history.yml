@@ -30,19 +30,19 @@ jobs:
           enable-cache: true
           python-version: "3.12"
 
-      - name: Render star-history SVG
+      - name: Render star-history SVGs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: uv run --no-project python scripts/star_history.py --output docs/star-history.svg
+        run: uv run --no-project python scripts/star_history.py
 
-      - name: Commit chart if it changed
+      - name: Commit charts if they changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/star-history.svg
+          git add docs/star-history.svg docs/star-history-ytd.svg
           if git diff --staged --quiet; then
             echo "Star history unchanged"
           else
-            git commit -m "chore: refresh in-repo star history chart"
+            git commit -m "chore: refresh in-repo star history charts"
             git push
           fi
