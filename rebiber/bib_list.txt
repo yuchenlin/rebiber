@@ -18,6 +18,8 @@ data/aaai2023.bib.json
 data/aaai2024.bib.json
 data/aaai2025.bib.json
 data/aaai2026.bib.json
+data/accv2022.bib.json
+data/accv2024.bib.json
 data/acl_1.json
 data/acl_2.json
 data/acl_3.json
@@ -163,8 +165,6 @@ data/cvpr2022.bib.json
 data/cvpr2023.bib.json
 data/cvpr2024.bib.json
 data/cvpr2025.bib.json
-data/cvprw2021.bib.json
-data/cvprw2022.bib.json
 data/eccv2022.bib.json
 data/eccv2024.bib.json
 data/icassp2015-2.bib.json
@@ -197,7 +197,6 @@ data/iccv2019.bib.json
 data/iccv2021.bib.json
 data/iccv2023.bib.json
 data/iccv2025.bib.json
-data/iccvw2021.bib.json
 data/iclr2013.bib.json
 data/iclr2014.bib.json
 data/iclr2015.bib.json

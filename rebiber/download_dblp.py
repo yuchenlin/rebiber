@@ -15,12 +15,14 @@ DBLP toc query shapes::
     conf (default):     toc:db/conf/{short}/{file}.bht:
     journal_year:       toc:db/journals/{short}/{short}{year}.bht:
     journal_vol (jmlr): toc:db/journals/jmlr/jmlr{year-1999}.bht:
-    conf_multivol:      bare {conf}{year}.bht, else {conf}{year}-1, -2, ...
+    conf_multivol:      always merge bare {conf}{year}.bht AND {conf}{year}-1, -2, ...
 
 NeurIPS lives under the historical ``nips`` key: ``neurips{year}`` from 2020
-onwards and ``nips{year}`` before that. ECCV / KDD / MICCAI fall back to
-numbered LNCS-style volumes when the bare toc is empty. ECML is skipped
-(renamed toc paths). COLM falls back to OpenReview when DBLP is empty.
+onwards and ``nips{year}`` before that. ECCV / KDD / MICCAI / ACCV always
+also fetch numbered LNCS-style volumes (the bare toc is often only volume 1,
+or empty). ECML is skipped (renamed toc paths). COLM falls back to
+OpenReview when DBLP is empty. Workshop tocs (cvprw, iccvw, *w) are not
+fetched.
 
 Be polite to DBLP: a descriptive User-Agent, ``--sleep`` between requests, and
 exponential backoff on HTTP 429 / "Too Many Requests".
@@ -109,6 +111,7 @@ VENUE_SPEC = {
     "kdd": {"kind": KIND_CONF_MULTIVOL, "short": "kdd"},
     "miccai": {"kind": KIND_CONF_MULTIVOL, "short": "miccai"},
     "eccv": {"kind": KIND_CONF_MULTIVOL, "short": "eccv"},
+    "accv": {"kind": KIND_CONF_MULTIVOL, "short": "accv"},
     "wacv": {"kind": KIND_CONF, "short": "wacv"},
     "colm": {"kind": KIND_CONF, "short": "colm", "openreview_fallback": True},
     "mlsys": {"kind": KIND_CONF, "short": "mlsys"},
@@ -149,6 +152,27 @@ def min_count(conf, year):
     if conf in LARGE_CONFS and year >= LARGE_MIN_YEAR:
         return LARGE_MIN_COUNT
     return 0
+
+
+def is_journal_venue(conf):
+    """True for TMLR / JMLR-style journal tocs (they grow through the year)."""
+    return venue_spec(conf).get("kind") in (KIND_JOURNAL_YEAR, KIND_JOURNAL_VOL)
+
+
+def dump_is_complete(conf, year, existing_count, prev_count=None):
+    """True if skip-existing should treat this dump as finished.
+
+    Non-journal dumps that are thin versus the previous year are *not*
+    complete, so the monthly job will retry when later volumes appear.
+    Journals are exempt: a mid-year JMLR/TMLR volume is expected to be small.
+    """
+    if existing_count is None:
+        return False
+    if existing_count < min_count(conf, year):
+        return False
+    if not is_journal_venue(conf) and _is_thin(existing_count, prev_count):
+        return False
+    return True
 
 
 def _import_bib2json():
@@ -429,20 +453,32 @@ def download_query_pages(session, query_string, max_pages, sleep_s, label=""):
 
 
 def download_conf_year(session, conf, year, max_pages, sleep_s):
-    """Return concatenated BibTeX, or '' if DBLP has no entries."""
+    """Return concatenated BibTeX, or '' if DBLP has no entries.
+
+    For ``KIND_CONF_MULTIVOL`` always also fetch numbered volumes and merge,
+    even when the bare toc is non-empty (KDD 2025/2026 publish V.1 / V.2 as
+    ``kdd{year}-1`` / ``kdd{year}-2``; the bare toc is often only V.1).
+    """
     spec = venue_spec(conf)
     primary = toc_query(conf, year)
     label = "{conf} {year}".format(conf=conf, year=year)
     text = download_query_pages(session, primary, max_pages, sleep_s, label=label)
-    if text or spec.get("kind") != KIND_CONF_MULTIVOL:
+    if spec.get("kind") != KIND_CONF_MULTIVOL:
         return text
 
-    print(
-        "Bare toc empty for {conf} {year}; trying numbered volumes".format(
-            conf=conf, year=year
+    if text:
+        print(
+            "Bare toc non-empty for {conf} {year}; also fetching numbered volumes".format(
+                conf=conf, year=year
+            )
         )
-    )
-    chunks = []
+    else:
+        print(
+            "Bare toc empty for {conf} {year}; trying numbered volumes".format(
+                conf=conf, year=year
+            )
+        )
+    chunks = [text] if text else []
     for vol in range(1, MULTIVOL_MAX + 1):
         query = _format_toc_query(conf, year, volume=vol)
         vol_label = "{conf} {year} vol {vol}".format(conf=conf, year=year, vol=vol)
@@ -688,7 +724,7 @@ def process_conf_year(session, conf, year, args):
 
     if json_exists and args.skip_existing and not args.force:
         threshold = min_count(conf, year)
-        if existing_count >= threshold:
+        if dump_is_complete(conf, year, existing_count, prev_count):
             print(
                 "Skipping {conf} {year} (json exists, {n} >= min_count {m})".format(
                     conf=conf, year=year, n=existing_count, m=threshold
@@ -696,11 +732,21 @@ def process_conf_year(session, conf, year, args):
             )
             ensure_bib_list_entry(args.bib_list, entry)
             return "skipped"
-        print(
-            "Existing {conf} {year} dump looks incomplete ({n} < min_count {m}); "
-            "re-downloading".format(
-                conf=conf, year=year, n=existing_count, m=threshold
+        if not is_journal_venue(conf) and _is_thin(existing_count, prev_count):
+            reason = (
+                "{n} < {ratio:.0%} of {prev_year} ({prev}); "
+                "prev-year-thin, not complete for skip-existing".format(
+                    n=existing_count,
+                    ratio=THIN_RATIO,
+                    prev_year=year - 1,
+                    prev=prev_count,
+                )
             )
+        else:
+            reason = "{n} < min_count {m}".format(n=existing_count, m=threshold)
+        print(
+            "Existing {conf} {year} dump looks incomplete ({reason}); "
+            "re-downloading".format(conf=conf, year=year, reason=reason)
         )
 
     if (
@@ -774,7 +820,8 @@ def build_parser():
             "(neurips{{year}} from 2020, nips{{year}} before).\n"
             "TMLR / JMLR use journal toc paths; JMLR volume = year-1999 "
             "(jmlr2024 ← jmlr25.bht).\n"
-            "KDD / MICCAI / ECCV try numbered volumes when the bare toc is empty.\n"
+            "KDD / MICCAI / ECCV / ACCV always merge numbered volumes "
+            "(even if the bare toc is non-empty).\n"
             "ECML is skipped: toc paths are renamed.\n"
             "COLM falls back to OpenReview when DBLP returns nothing.\n"
         ).format(confs=", ".join(DEFAULT_CONFS)),
@@ -868,7 +915,8 @@ def _needs_http(confs, years, args):
                 if not os.path.isfile(bib_path):
                     return True
                 continue
-            if len(existing) < min_count(conf, year):
+            prev_path = os.path.join(args.data_dir, json_filename(conf, year - 1))
+            if not dump_is_complete(conf, year, len(existing), dump_count(prev_path)):
                 return True
     return False
 

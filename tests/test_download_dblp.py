@@ -141,6 +141,9 @@ def test_eccv_not_skipped_ecml_is():
     assert "eccv" not in dd.SKIPPED_CONFS
     assert "ecml" in dd.SKIPPED_CONFS
     assert dd.venue_spec("eccv")["kind"] == dd.KIND_CONF_MULTIVOL
+    assert dd.venue_spec("kdd")["kind"] == dd.KIND_CONF_MULTIVOL
+    assert dd.venue_spec("miccai")["kind"] == dd.KIND_CONF_MULTIVOL
+    assert dd.venue_spec("accv")["kind"] == dd.KIND_CONF_MULTIVOL
     assert "tmlr" in dd.DEFAULT_CONFS
     assert "jmlr" in dd.DEFAULT_CONFS
     assert "wacv" in dd.DEFAULT_CONFS
@@ -150,6 +153,7 @@ def test_eccv_not_skipped_ecml_is():
     assert "iros" in dd.DEFAULT_CONFS
     assert "rss" in dd.DEFAULT_CONFS
     assert "corl" in dd.DEFAULT_CONFS
+    assert "accv" in dd.DEFAULT_CONFS
 
 
 def test_toc_queries_robotics_main_tracks_not_workshops():
@@ -195,6 +199,43 @@ def test_multivol_yields_numbered_volumes_after_empty_bare():
     assert "toc:db/conf/eccv/eccv2022-3.bht:" in calls
     # stopped after the first empty numbered volume
     assert not any(q.endswith("eccv2022-4.bht:") for q in calls)
+
+
+def test_multivol_always_merges_numbered_volumes_when_bare_nonempty():
+    """KDD-style: a non-empty bare toc is often only V.1; still fetch -1, -2, ..."""
+    calls = []
+
+    def fake_get(url, params=None, headers=None, timeout=None):
+        query = (params or {}).get("q", "")
+        calls.append(query)
+        if query.endswith("kdd2026.bht:"):
+            return FakeResponse(
+                "@inproceedings{bare,\n  title={Bare Volume One Paper},\n  author={A},\n  year={2026}\n}\n"
+            )
+        if query.endswith("kdd2026-1.bht:"):
+            return FakeResponse(
+                "@inproceedings{v1,\n  title={Numbered Volume One Paper},\n  author={B},\n  year={2026}\n}\n"
+            )
+        if query.endswith("kdd2026-2.bht:"):
+            return FakeResponse(
+                "@inproceedings{v2,\n  title={Numbered Volume Two Paper},\n  author={C},\n  year={2026}\n}\n"
+            )
+        if query.endswith("kdd2026-3.bht:"):
+            return FakeResponse("")
+        return FakeResponse("")
+
+    session = mock.Mock()
+    session.get.side_effect = fake_get
+    text = dd.download_conf_year(session, "kdd", 2026, max_pages=2, sleep_s=0)
+
+    assert "Bare Volume One Paper" in text
+    assert "Numbered Volume One Paper" in text
+    assert "Numbered Volume Two Paper" in text
+    assert "toc:db/conf/kdd/kdd2026.bht:" in calls
+    assert "toc:db/conf/kdd/kdd2026-1.bht:" in calls
+    assert "toc:db/conf/kdd/kdd2026-2.bht:" in calls
+    assert "toc:db/conf/kdd/kdd2026-3.bht:" in calls
+    assert not any(q.endswith("kdd2026-4.bht:") for q in calls)
 
 
 def test_skip_incomplete_small_json_redownloads(tmp_path, monkeypatch):
@@ -320,3 +361,58 @@ def test_prev_year_thin_prints_error_but_writes_when_no_existing(
     json_path = Path(args.data_dir) / "icml2024.bib.json"
     assert json_path.is_file()
     assert len(json.loads(json_path.read_text(encoding="utf-8"))) == 2
+    # Written, but not complete: skip-existing must retry next month.
+    assert not dd.dump_is_complete("icml", 2024, 2, prev_count=100)
+
+
+def test_skip_existing_prev_year_thin_non_journal_redownloads(tmp_path, monkeypatch):
+    """A non-journal dump that is thin vs last year is not skip-existing-complete."""
+    args = _args(tmp_path, skip_existing=True, force=False)
+    json_path = Path(args.data_dir) / "kdd2026.bib.json"
+    prev_path = Path(args.data_dir) / "kdd2025.bib.json"
+    # Existing is already prev-year-thin (2 < 40% of 100) so skip-existing must retry.
+    _write_json(json_path, n=2)
+    _write_json(prev_path, n=100)
+    assert dd.dump_is_complete("kdd", 2026, 2, prev_count=100) is False
+
+    called = []
+
+    def fake_dl(session, conf, year, max_pages, sleep_s):
+        called.append((conf, year))
+        return _two_paper_bib("KDD")
+
+    monkeypatch.setattr(dd, "download_conf_year", fake_dl)
+    status = dd.process_conf_year(object(), "kdd", 2026, args)
+    assert called == [("kdd", 2026)]
+    assert status == "downloaded"
+
+
+def test_skip_existing_prev_year_thin_journal_still_skips(tmp_path, monkeypatch):
+    """Journals grow through the year; a small mid-year dump is still complete."""
+    args = _args(tmp_path, skip_existing=True, force=False)
+    json_path = Path(args.data_dir) / "jmlr2026.bib.json"
+    prev_path = Path(args.data_dir) / "jmlr2025.bib.json"
+    _write_json(json_path, n=20)
+    _write_json(prev_path, n=100)
+    assert dd.is_journal_venue("jmlr")
+    assert dd.dump_is_complete("jmlr", 2026, 20, prev_count=100)
+
+    def boom(*_a, **_k):
+        raise AssertionError("download_conf_year should not be called for thin journals")
+
+    monkeypatch.setattr(dd, "download_conf_year", boom)
+    status = dd.process_conf_year(None, "jmlr", 2026, args)
+    assert status == "skipped"
+    assert len(json.loads(json_path.read_text(encoding="utf-8"))) == 20
+
+
+def test_needs_http_when_prev_year_thin_non_journal(tmp_path):
+    args = _args(tmp_path, skip_existing=True, force=False)
+    _write_json(Path(args.data_dir) / "kdd2025.bib.json", n=100)
+    _write_json(Path(args.data_dir) / "kdd2026.bib.json", n=20)
+    assert dd._needs_http(["kdd"], [2026], args) is True
+    # journal thin: no HTTP needed
+    args_j = _args(tmp_path, skip_existing=True, force=False)
+    _write_json(Path(args_j.data_dir) / "jmlr2025.bib.json", n=100)
+    _write_json(Path(args_j.data_dir) / "jmlr2026.bib.json", n=20)
+    assert dd._needs_http(["jmlr"], [2026], args_j) is False

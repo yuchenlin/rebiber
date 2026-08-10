@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Data hygiene: always merge numbered KDD/MICCAI/ECCV/ACCV volumes; unlist CVPR/ICCV workshop dumps; skip-existing retries prev-year-thin non-journal dumps. Added ACCV 2022/2024 (~284 / ~279). KDD 2026 is V.1 only (257; V.2 not on DBLP yet). COLM still missing.
+
 - **2026.08** Install from Git only. We do **not** publish or support PyPI (the 1.1.3 package there is abandoned).
 
 - **2026.08** In-repo star-history charts (all-time + YTD), refreshed weekly from the GitHub API. No star-history.com token.
@@ -226,6 +228,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | Name | Years |
 | --- | ----------- |
 | ACL Anthology | current (2026; split JSON files) |
+| ACCV | 2022, 2024 (even years; main LNCS volumes) |
 | AAAI | 2010 -- 2026 |
 | AISTATS | 2013 -- 2025 |
 | ALENEX | 2010 -- 2020 |
@@ -244,7 +247,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | ICML | 2000 -- 2025 |
 | IJCAI | 2011 -- 2025 |
 | INTERSPEECH | 2016 -- 2025 |
-| KDD | 2010 -- 2025 |
+| KDD | 2010 -- 2026 |
 | ICRA | 2020 -- 2025 (main track) |
 | IROS | 2020 -- 2025 (main track) |
 | RSS | 2020 -- 2024 |
@@ -252,7 +255,7 @@ The following conferences are supported and their bib/json files are in our `dat
 | JMLR | 2020 -- 2026 |
 | TMLR | 2022 -- 2026 |
 | WACV | 2022 -- 2026 |
-| MLSys | 2019 -- 2025 |
+| MLSys | 2022 -- 2025 |
 | MICCAI | 2022 -- 2025 (main LNCS volumes) |
 | MM | 2016 -- 2020 |
 | NeurIPS | 2000 -- 2025 |
@@ -266,6 +269,8 @@ The following conferences are supported and their bib/json files are in our `dat
 | WSDM | 2008 -- 2020 |
 | WWW (The Web Conf) | 2001 -- 2026 |
 
+
+COLM is not packaged yet (empty DBLP toc; OpenReview is blocked from typical CI/cloud IPs).
 
 **Thanks for [Anton Tsitsulin](http://tsitsul.in/)'s great work on collecting such a complete set bib files!**
 
