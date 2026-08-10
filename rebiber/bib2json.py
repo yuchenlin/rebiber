@@ -15,10 +15,12 @@ _SKIP_ENTRY_PREFIXES = ("@string", "@comment", "@preamble")
 def normalize_title(title_str, keep_digits=False):
     """Normalize a title to a lowercase key.
 
-    Combining marks are dropped, then non-letter characters are stripped.
+    Apply NFKD first so precomposed characters decompose (é → e + accent),
+    then drop combining marks and strip non-letter characters.
     By default only ASCII letters are kept (compatible with existing dumps).
     Pass ``keep_digits=True`` to also keep ASCII digits (new dumps).
     """
+    title_str = unicodedata.normalize("NFKD", title_str)
     title_str = "".join(ch for ch in title_str if not unicodedata.combining(ch))
     if keep_digits:
         title_str = re.sub(r"[^a-zA-Z0-9]", r"", title_str)
@@ -39,9 +41,22 @@ def _is_skip_entry(stripped_lower):
     return any(stripped_lower.startswith(prefix) for prefix in _SKIP_ENTRY_PREFIXES)
 
 
+def _is_month_field_line(line):
+    """True only for a month= field assignment, not a whole @ entry."""
+    stripped = line.lstrip()
+    if stripped.startswith("@"):
+        return False
+    return re.match(r"month\s*=", stripped, flags=re.IGNORECASE) is not None
+
+
+def _flush_entry(all_bib_entries, bib_entry_buffer):
+    if bib_entry_buffer and bib_entry_buffer not in (["\n"], [""]):
+        all_bib_entries.append(bib_entry_buffer)
+
+
 def load_bib_file(bibpath):
     all_bib_entries = []
-    with open(bibpath, encoding="utf8") as f:
+    with open(bibpath, encoding="utf-8-sig") as f:
         bib_entry_buffer = []
         lines = f.readlines() + ["\n"]
 
@@ -63,21 +78,48 @@ def load_bib_file(bibpath):
                     skip_brace_count = None
                 continue
 
+            # A line starting with @ starts a new entry (or a skip block).
+            # If an unclosed leftover buffer exists, split there.
+            if stripped.startswith("@"):
+                if bib_entry_buffer:
+                    print(
+                        "WARNING: unclosed braces before next @ in %s; "
+                        "splitting leftover buffer." % bibpath
+                    )
+                    _flush_entry(all_bib_entries, bib_entry_buffer)
+                    bib_entry_buffer = []
+                    brace_count = 0
+                if _is_skip_entry(stripped_lower):
+                    skip_brace_count = line.count("{") - line.count("}")
+                    if skip_brace_count <= 0:
+                        skip_brace_count = None
+                    continue
+                bib_entry_buffer = [line]
+                brace_count = line.count("{") - line.count("}")
+                if brace_count <= 0:
+                    _flush_entry(all_bib_entries, bib_entry_buffer)
+                    bib_entry_buffer = []
+                    brace_count = 0
+                continue
+
             if _is_skip_entry(stripped_lower):
                 skip_brace_count = line.count("{") - line.count("}")
                 if skip_brace_count <= 0:
                     skip_brace_count = None
                 continue
 
+            # Leading / between-entry junk: do not start a buffer.
+            if not bib_entry_buffer:
+                continue
+
             bib_entry_buffer.append(line)
             brace_count += line.count("{") - line.count("}")
 
-            # If brace_count is zero, then all opened braces have been closed
-            if brace_count == 0:
-                # Filter out the entries that only contain ['\n'] or ['']
-                if bib_entry_buffer != ["\n"] and bib_entry_buffer != [""]:
-                    all_bib_entries.append(bib_entry_buffer)
+            # End-of-entry when brace_count <= 0; reset to recover from extra }.
+            if brace_count <= 0:
+                _flush_entry(all_bib_entries, bib_entry_buffer)
                 bib_entry_buffer = []
+                brace_count = 0
 
     if bib_entry_buffer and bib_entry_buffer not in (["\n"], [""]):
         print(
@@ -93,18 +135,23 @@ def build_json(all_bib_entries):
     all_bib_dict = {}
     num_exceptions = 0
     for bib_entry in tqdm(all_bib_entries[:]):
+        # Filter month= field lines only; never drop a whole @... line.
         bib_entry_str = " ".join(
-            [
-                line
-                for line in bib_entry
-                if not re.search(r"month\s*=", line, flags=re.IGNORECASE)
-            ]
-        ).lower()
+            line for line in bib_entry if not _is_month_field_line(line)
+        )
         try:
-            bib_entry_parsed = bibtexparser.loads(bib_entry_str)
+            bibparser = bibtexparser.bparser.BibTexParser(
+                ignore_nonstandard_types=False
+            )
+            bib_entry_parsed = bibtexparser.loads(bib_entry_str, bibparser)
             bib_key = normalize_title(
                 bib_entry_parsed.entries[0]["title"], keep_digits=True
             )
+            if bib_key in all_bib_dict:
+                print(
+                    "WARNING: duplicate normalize_title key %r; keeping last."
+                    % bib_key
+                )
             all_bib_dict[bib_key] = bib_entry
         except Exception as e:
             print(bib_entry)

@@ -252,3 +252,149 @@ def test_load_bib_file_keeps_unclosed_entry():
         assert "broken" in joined
     finally:
         os.unlink(path)
+
+
+def test_load_bib_file_recovers_from_extra_closing_brace():
+    path = _write_bib(
+        """
+@article{one,
+  title={First Title},
+  year={2020}
+}}
+@article{two,
+  title={Second Title},
+  year={2021}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        assert len(entries) == 2
+        first = "".join(entries[0])
+        second = "".join(entries[1])
+        assert "First Title" in first
+        assert "Second Title" in second
+        assert "Second Title" not in first
+        assert "@article" in second.lower()
+    finally:
+        os.unlink(path)
+
+
+def test_load_bib_file_splits_unclosed_buffer_at_next_at():
+    path = _write_bib(
+        """@article{broken,
+  title={Unclosed Title},
+  author={Alice}
+
+@article{two,
+  title={Second Title},
+  year={2021}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        assert len(entries) == 2
+        first = "".join(entries[0])
+        second = "".join(entries[1])
+        assert "Unclosed Title" in first
+        assert "Second Title" in second
+        assert "Second Title" not in first
+        assert "@article" in second.lower()
+    finally:
+        os.unlink(path)
+
+
+def test_build_json_keeps_single_line_entry_containing_month():
+    path = _write_bib(
+        "@article{x, title={Single Line Month}, month={jan}, year={2020}}\n"
+    )
+    try:
+        entries = load_bib_file(path)
+        assert len(entries) == 1
+        db = build_json(entries)
+        key = normalize_title("Single Line Month", keep_digits=True)
+        assert key == "singlelinemonth"
+        assert key in db
+        joined = "".join(db[key])
+        assert "Single Line Month" in joined
+        assert "month=" in joined.lower().replace(" ", "")
+    finally:
+        os.unlink(path)
+
+
+def test_normalize_title_nfkd_before_ascii_strip():
+    assert normalize_title("Café") == "cafe"
+    assert normalize_title("résumé") == "resume"
+    assert normalize_title("naïve") == "naive"
+    assert normalize_title("é") == "e"
+    assert normalize_title("e\u0301") == "e"
+    assert normalize_title("Café au lait 2", keep_digits=True) == "cafeaulait2"
+
+
+def test_load_bib_file_accepts_utf8_sig_bom():
+    handle = tempfile.NamedTemporaryFile("wb", suffix=".bib", delete=False)
+    try:
+        payload = (
+            "@article{bom,\n" "  title={BOM Title},\n" "  year={2020}\n" "}\n"
+        )
+        handle.write(b"\xef\xbb\xbf" + payload.encode("utf-8"))
+        handle.close()
+        entries = load_bib_file(handle.name)
+        assert len(entries) == 1
+        joined = "".join(entries[0])
+        assert "BOM Title" in joined
+        assert "\ufeff" not in joined
+        first_nonempty = next(line for line in entries[0] if line.strip())
+        assert first_nonempty.lstrip().startswith("@")
+    finally:
+        os.unlink(handle.name)
+
+
+def test_load_bib_file_ignores_leading_junk_before_at():
+    path = _write_bib(
+        """this is not an entry
+random junk
+@article{one,
+  title={Only Real},
+  year={2020}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        assert len(entries) == 1
+        joined = "".join(entries[0])
+        assert "Only Real" in joined
+        assert "random junk" not in joined
+        assert joined.lstrip().startswith("@")
+    finally:
+        os.unlink(path)
+
+
+def test_build_json_duplicate_key_warns_and_keeps_last(capsys):
+    path = _write_bib(
+        """
+@article{first,
+  title={Same Title},
+  year={2020}
+}
+@article{second,
+  title={Same Title},
+  year={2021}
+}
+"""
+    )
+    try:
+        entries = load_bib_file(path)
+        db = build_json(entries)
+        key = normalize_title("Same Title", keep_digits=True)
+        assert key == "sametitle"
+        assert key in db
+        assert db[key] == entries[1]
+        assert "2021" in "".join(db[key])
+        captured = capsys.readouterr()
+        assert "WARNING" in captured.out
+        assert key in captured.out
+    finally:
+        os.unlink(path)
