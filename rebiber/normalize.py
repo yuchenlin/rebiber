@@ -8,6 +8,7 @@ import os
 import re
 import shutil
 import tempfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -41,7 +42,20 @@ CITEKEY_ARXIV_RE = re.compile(
 ARXIV_VENUE_RE = re.compile(r"arxiv|\bcorr\b|preprint", re.IGNORECASE)
 PLACEHOLDER_VENUE_RE = re.compile(r"^[\s~\-{}]*$")
 DBLP_API = "https://dblp.org/search/publ/api"
+ARXIV_API = "https://export.arxiv.org/api/query"
 REBIBER_USER_AGENT = "rebiber/1.3.0 (+https://github.com/yuchenlin/rebiber)"
+ARXIV_READ_LIMIT = 1024 * 1024
+DBLP_READ_LIMIT = 1024 * 1024
+# Seconds to pause before a live DBLP request. Default 0 so unit tests stay fast.
+DBLP_REQUEST_SLEEP = 0
+# Optional callable hook; if set, used instead of time.sleep.
+_dblp_sleep = None
+UPDATE_ALLOWED_ROOT = ("bib_list.txt", "abbr.tsv")
+_ET_AL_TRAILING_RE = re.compile(r",?\s+et\.?\s*al\.?\s*$", re.IGNORECASE)
+_AND_OTHERS_TRAILING_RE = re.compile(r",?\s+and\s+others\s*$", re.IGNORECASE)
+_ET_AL_EXACT = frozenset(
+    ("others", "et al", "et al.", "etal", "et.al", "et.al.", "et. al", "et. al.")
+)
 
 
 def str2bool(value):
@@ -176,46 +190,89 @@ def strip_latex_markup(text):
     return text.strip()
 
 
+def _last_name_from_part(part):
+    """Return the lowercased last name from one author part, or ``""``."""
+    part = strip_latex_markup(part)
+    part = re.sub(r"\s+", " ", part).strip(" ,")
+    # Strip trailing "et al." / "et.al." / "et. al." / "and others".
+    part = _ET_AL_TRAILING_RE.sub("", part)
+    part = _AND_OTHERS_TRAILING_RE.sub("", part)
+    part = part.strip(" ,")
+    if not part:
+        return ""
+    if part.lower() in _ET_AL_EXACT:
+        return ""
+    if "," in part:
+        last = part.split(",", 1)[0].strip()
+    else:
+        tokens = part.split()
+        last = tokens[-1] if tokens else ""
+    last = re.sub(r"[^0-9a-zA-Z\-']", "", last).lower()
+    # Compare without punctuation so LeCun / lec.un still overlap.
+    last = re.sub(r"[^a-z]", "", last)
+    return last
+
+
 def extract_last_names(author_field):
     """Return a set of lowercased last names from a BibTeX author field.
 
     Handles ``Last, First``, ``First Last``, and ``Last1 and Last2``.
+    Trailing ``et al.`` / ``et.al.`` / ``et. al.`` / ``and others`` on a part
+    is stripped before the last token is taken.
     """
     if not author_field:
         return set()
     last_names = set()
     parts = re.split(r"\s+and\s+", str(author_field).strip(), flags=re.IGNORECASE)
     for part in parts:
-        part = strip_latex_markup(part)
-        part = re.sub(r"\s+", " ", part).strip(" ,")
-        # Strip trailing "et al." / "and others" before taking the last token.
-        part = re.sub(r",?\s+et\s+al\.?\s*$", "", part, flags=re.IGNORECASE)
-        part = re.sub(r",?\s+and\s+others\s*$", "", part, flags=re.IGNORECASE)
-        part = part.strip(" ,")
-        if not part:
-            continue
-        if part.lower() in ("others", "et al", "et al.", "etal"):
-            continue
-        if "," in part:
-            last = part.split(",", 1)[0].strip()
-        else:
-            tokens = part.split()
-            last = tokens[-1] if tokens else ""
-        last = re.sub(r"[^0-9a-zA-Z\-']", "", last).lower()
-        # Compare without punctuation so LeCun / lec.un still overlap.
-        last = re.sub(r"[^a-z]", "", last)
+        last = _last_name_from_part(part)
         if last:
             last_names.add(last)
     return last_names
 
 
+def extract_first_last_name(author_field):
+    """Return the last name of the first author, or ``""``."""
+    if not author_field:
+        return ""
+    parts = re.split(r"\s+and\s+", str(author_field).strip(), flags=re.IGNORECASE)
+    for part in parts:
+        last = _last_name_from_part(part)
+        if last:
+            return last
+    return ""
+
+
 def authors_overlap(input_authors, db_authors):
-    """True if last names overlap. Empty on either side is not a match."""
+    """True if first-author last names match or at least two last names overlap.
+
+    Empty on either side is never a match. A single shared last name that is
+    not the first author (e.g. one shared ``Wang``) is not enough.
+    """
     input_names = extract_last_names(input_authors)
     db_names = extract_last_names(db_authors)
     if not input_names or not db_names:
         return False
-    return bool(input_names & db_names)
+    input_first = extract_first_last_name(input_authors)
+    db_first = extract_first_last_name(db_authors)
+    if input_first and db_first and input_first == db_first:
+        return True
+    return len(input_names & db_names) >= 2
+
+
+def _author_replace_allowed(input_authors, db_authors, check_authors=True):
+    """Whether a title hit may replace the input entry.
+
+    Empty authors on either side always refuse (fail-closed), even when
+    ``check_authors`` is False.
+    """
+    if authors_overlap(input_authors, db_authors):
+        return True
+    input_names = extract_last_names(input_authors)
+    db_names = extract_last_names(db_authors)
+    if not input_names or not db_names:
+        return False
+    return not check_authors
 
 
 def _meaningful_venue(value):
@@ -365,6 +422,35 @@ def _as_entry_lines(hit):
     ]
 
 
+def _bounded_read(response, limit):
+    """Read at most ``limit`` bytes. Returns ``(data, truncated)``."""
+    read_fn = getattr(response, "read", None)
+    if read_fn is None:
+        return b"", False
+    try:
+        data = read_fn(limit + 1)
+    except TypeError:
+        data = read_fn()
+    if data is None:
+        return b"", False
+    if not isinstance(data, (bytes, bytearray)):
+        data = str(data).encode("utf-8", errors="replace")
+    data = bytes(data)
+    if len(data) > limit:
+        return data[:limit], True
+    return data, False
+
+
+def _pause_before_dblp_request():
+    hook = _dblp_sleep
+    if hook is not None:
+        hook()
+        return
+    delay = DBLP_REQUEST_SLEEP
+    if delay:
+        time.sleep(delay)
+
+
 def search_dblp_by_title(title, timeout=10, opener=None):
     """Query DBLP for ``title``. Returns a list of entry line-lists. Never raises."""
     if not title or not str(title).strip():
@@ -374,12 +460,19 @@ def search_dblp_by_title(title, timeout=10, opener=None):
         urllib.parse.quote(str(title).strip()),
     )
     try:
+        _pause_before_dblp_request()
         request = urllib.request.Request(
             query, headers={"User-Agent": REBIBER_USER_AGENT}
         )
         open_fn = opener or urllib.request.urlopen
         with open_fn(request, timeout=timeout) as response:
-            payload = response.read()
+            payload, truncated = _bounded_read(response, DBLP_READ_LIMIT)
+        if truncated:
+            print(
+                "WARNING: DBLP response too large for %r; continuing without live lookup."
+                % (title,)
+            )
+            return []
         return _split_bib_entries_from_text(payload)
     except Exception as exc:
         print(
@@ -389,11 +482,37 @@ def search_dblp_by_title(title, timeout=10, opener=None):
         return []
 
 
-def select_dblp_hit(input_entry, hit_entries, check_authors=True):
-    """Pick the first DBLP hit whose title key and authors match.
+def _title_digit_keys(title):
+    title = title or ""
+    key_new = normalize_title(title, keep_digits=True)
+    key_old = normalize_title(title, keep_digits=False)
+    return key_new, key_old
 
-    Title match tries the digit-preserving key first, then letters-only.
-    Returns chosen hit entry lines or None.
+
+def _titles_match_for_live(input_title, hit_title):
+    """Match titles for live DBLP hits.
+
+    Digit-preserving keys must agree when both sides have digits. Do not
+    accept a letters-only match if digit keys exist and differ
+    (``16x16`` must not match ``32x32``).
+    """
+    key_new, key_old = _title_digit_keys(input_title)
+    hit_new, hit_old = _title_digit_keys(hit_title)
+    if key_new and hit_new and key_new == hit_new:
+        return True
+    input_has_digits = bool(key_new) and key_new != key_old
+    hit_has_digits = bool(hit_new) and hit_new != hit_old
+    if input_has_digits and hit_has_digits and key_new != hit_new:
+        return False
+    return bool(key_old) and bool(hit_old) and key_old == hit_old
+
+
+def select_dblp_hit(input_entry, hit_entries, check_authors=True):
+    """Pick a DBLP hit whose title key and authors match.
+
+    Digit-preserving keys must agree when both titles contain digits.
+    Published (non-arXiv/CoRR) hits are preferred. If more than one
+    published title+author match remains, return None (ambiguous).
     """
     if not input_entry or not hit_entries:
         return None
@@ -402,9 +521,9 @@ def select_dblp_hit(input_entry, hit_entries, check_authors=True):
     input_title = input_entry.get("title") or ""
     if not input_title:
         return None
-    key_new = normalize_title(input_title, keep_digits=True)
-    key_old = normalize_title(input_title, keep_digits=False)
     input_authors = input_entry.get("author")
+    published = []
+    unpublished = []
     for hit in hit_entries:
         lines = _as_entry_lines(hit)
         if not lines:
@@ -412,19 +531,22 @@ def select_dblp_hit(input_entry, hit_entries, check_authors=True):
         parsed, _warning = parse_bib_entry(lines)
         if not parsed or "title" not in parsed:
             continue
-        hit_new = normalize_title(parsed["title"], keep_digits=True)
-        hit_old = normalize_title(parsed["title"], keep_digits=False)
-        if key_new and key_new == hit_new:
-            title_match = True
-        elif key_old and key_old == hit_old:
-            title_match = True
+        if not _titles_match_for_live(input_title, parsed["title"]):
+            continue
+        if not _author_replace_allowed(
+            input_authors, parsed.get("author"), check_authors
+        ):
+            continue
+        if looks_published(parsed):
+            published.append(lines)
         else:
-            title_match = False
-        if not title_match:
-            continue
-        if check_authors and not authors_overlap(input_authors, parsed.get("author")):
-            continue
-        return lines
+            unpublished.append(lines)
+    if published:
+        if len(published) > 1:
+            return None
+        return published[0]
+    if len(unpublished) == 1:
+        return unpublished[0]
     return None
 
 
@@ -514,15 +636,22 @@ def extract_arxiv_ids(entry):
     return found
 
 
-def fetch_arxiv_metadata(arxiv_id, timeout=5):
+def fetch_arxiv_metadata(arxiv_id, timeout=5, opener=None):
     """Query the arXiv API. Returns {} on any failure (never raises)."""
-    url = "http://export.arxiv.org/api/query?id_list=%s&max_results=1" % arxiv_id
+    url = "%s?id_list=%s&max_results=1" % (ARXIV_API, arxiv_id)
     try:
         request = urllib.request.Request(
             url, headers={"User-Agent": REBIBER_USER_AGENT}
         )
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            payload = response.read()
+        open_fn = opener or urllib.request.urlopen
+        with open_fn(request, timeout=timeout) as response:
+            payload, truncated = _bounded_read(response, ARXIV_READ_LIMIT)
+        if truncated:
+            print(
+                "WARNING: arXiv API response too large for %s; continuing without metadata."
+                % arxiv_id
+            )
+            return {}
         root = ET.fromstring(payload)
         ns = {
             "atom": "http://www.w3.org/2005/Atom",
@@ -736,7 +865,7 @@ def normalize_bib(
             db_item = bib_db[title]
             db_authors = parse_db_authors(db_item)
             input_authors = parsed_entry.get("author")
-            if check_authors and not authors_overlap(input_authors, db_authors):
+            if not _author_replace_allowed(input_authors, db_authors, check_authors):
                 print(
                     "WARNING: title matched but no common author; keeping original. "
                     "ID: %s Title: %s DB authors: %s input authors: %s"
@@ -759,7 +888,8 @@ def normalize_bib(
                 output_bib_entries.append(bib_entry)
                 continue
 
-            found_bibitem = replace_citation_key(db_item, original_bibkey)
+            found_bibitem = preserve_eprint(db_item, parsed_entry)
+            found_bibitem = replace_citation_key(found_bibitem, original_bibkey)
             print(
                 "Converted. ID: %s ; Title: %s" % (original_bibkey, original_title)
             )
@@ -867,7 +997,49 @@ def normalize_bib(
     return stats
 
 
-def update(filepath):
+def _safe_zip_parts(name):
+    """Split a zip member path; return None if it looks unsafe."""
+    if not name:
+        return None
+    text = str(name).replace("\\", "/")
+    if text.startswith("/") or text.startswith("//"):
+        return None
+    parts = []
+    for part in text.split("/"):
+        if part in ("", "."):
+            continue
+        if part == ".." or "\x00" in part:
+            return None
+        parts.append(part)
+    return parts
+
+
+def _classify_update_member(name):
+    """Return ``('root', leaf)`` or ``('data', leaf)`` for allowed members."""
+    parts = _safe_zip_parts(name)
+    if not parts:
+        return None
+    leaf = parts[-1]
+    if not leaf or leaf in (".", "..") or "/" in leaf or "\\" in leaf:
+        return None
+    if len(parts) >= 2 and parts[-2] == "rebiber" and leaf in UPDATE_ALLOWED_ROOT:
+        return ("root", leaf)
+    if len(parts) >= 3 and parts[-3] == "rebiber" and parts[-2] == "data":
+        return ("data", leaf)
+    return None
+
+
+def _dest_is_inside(dest, dest_dir):
+    dest_dir_real = os.path.realpath(dest_dir)
+    dest_real = os.path.realpath(dest)
+    try:
+        common = os.path.commonpath([dest_dir_real, dest_real])
+    except ValueError:
+        return False
+    return common == dest_dir_real
+
+
+def update(filepath, opener=None, timeout=60):
     """Refresh packaged bib data from GitHub using stdlib only (Windows-friendly)."""
     url = "https://github.com/yuchenlin/rebiber/archive/refs/heads/main.zip"
     dest_dir = filepath
@@ -875,39 +1047,68 @@ def update(filepath):
     try:
         zip_path = os.path.join(tmpdir, "rebiber.zip")
         print("Downloading", url)
-        urllib.request.urlretrieve(url, zip_path)
-        with zipfile.ZipFile(zip_path, "r") as zf:
-            zf.extractall(tmpdir)
+        request = urllib.request.Request(
+            url, headers={"User-Agent": REBIBER_USER_AGENT}
+        )
+        open_fn = opener or urllib.request.urlopen
+        with open_fn(request, timeout=timeout) as response:
+            payload = response.read()
+        if not payload:
+            print("ERROR: empty download from %s" % url)
+            return
+        with open(zip_path, "wb") as handle:
+            handle.write(payload)
 
-        extracted = os.path.join(tmpdir, "rebiber-main", "rebiber")
-        if not os.path.isdir(extracted):
-            extracted = None
-            for root, dirs, _files in os.walk(tmpdir):
-                if os.path.basename(root) == "rebiber" and "bib_list.txt" in _files:
-                    extracted = root
-                    break
-        if extracted is None or not os.path.isdir(extracted):
-            print("ERROR: could not find rebiber/ directory in downloaded archive.")
+        try:
+            zf = zipfile.ZipFile(zip_path, "r")
+        except zipfile.BadZipFile:
+            print("ERROR: downloaded archive is not a valid zip.")
             return
 
-        for name in ("bib_list.txt", "abbr.tsv"):
-            src = os.path.join(extracted, name)
-            if os.path.isfile(src):
-                shutil.copy2(src, os.path.join(dest_dir, name))
-                print("Updated", name)
-            else:
-                print("WARNING: %s missing from archive" % name)
+        extracted_root = {name: False for name in UPDATE_ALLOWED_ROOT}
+        data_count = 0
+        try:
+            for info in zf.infolist():
+                filename = info.filename
+                if filename.endswith("/") or (
+                    hasattr(info, "is_dir") and info.is_dir()
+                ):
+                    continue
+                classified = _classify_update_member(filename)
+                if classified is None:
+                    continue
+                kind, leaf = classified
+                if kind == "root":
+                    dest = os.path.join(dest_dir, leaf)
+                else:
+                    dest = os.path.join(dest_dir, "data", leaf)
+                dest_parent = os.path.dirname(dest)
+                os.makedirs(dest_parent, exist_ok=True)
+                if not _dest_is_inside(dest, dest_dir):
+                    print("WARNING: skipping unsafe archive member %s" % filename)
+                    continue
+                if os.path.lexists(dest) and (
+                    os.path.islink(dest) or not os.path.isfile(dest)
+                ):
+                    print("WARNING: skipping non-file destination for %s" % leaf)
+                    continue
+                with zf.open(info, "r") as src:
+                    data = src.read()
+                with open(dest, "wb") as out:
+                    out.write(data)
+                if kind == "root":
+                    extracted_root[leaf] = True
+                    print("Updated", leaf)
+                else:
+                    data_count += 1
+        finally:
+            zf.close()
 
-        data_src = os.path.join(extracted, "data")
-        data_dst = os.path.join(dest_dir, "data")
-        if os.path.isdir(data_src):
-            os.makedirs(data_dst, exist_ok=True)
-            for name in os.listdir(data_src):
-                src = os.path.join(data_src, name)
-                dst = os.path.join(data_dst, name)
-                if os.path.isfile(src):
-                    shutil.copy2(src, dst)
-            print("Updated data/")
+        for name, found in extracted_root.items():
+            if not found:
+                print("WARNING: %s missing from archive" % name)
+        if data_count:
+            print("Updated data/ (%s files)" % data_count)
         else:
             print("WARNING: data/ missing from archive")
         print("Done Updating.")

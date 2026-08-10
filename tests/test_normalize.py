@@ -1,12 +1,16 @@
+import io
 import os
 import tempfile
 import unittest
+import zipfile
 from unittest.mock import patch
 
 import bibtexparser
 
 from rebiber.bib2json import load_bib_file, normalize_title
 from rebiber.normalize import (
+    ARXIV_API,
+    ARXIV_READ_LIMIT,
     DBLP_API,
     REBIBER_USER_AGENT,
     authors_overlap,
@@ -16,7 +20,9 @@ from rebiber.normalize import (
     extract_arxiv_ids,
     extract_cite_keys_from_tex,
     extract_cite_keys_from_tex_files,
+    extract_first_last_name,
     extract_last_names,
+    fetch_arxiv_metadata,
     format_change_report,
     looks_published,
     main,
@@ -27,6 +33,7 @@ from rebiber.normalize import (
     search_dblp_by_title,
     select_dblp_hit,
     str2bool,
+    update,
 )
 
 
@@ -218,11 +225,31 @@ class TestAuthorLastNames(unittest.TestCase):
             {"huang"},
         )
         self.assertTrue(authors_overlap("De-An Huang et al.", "Huang, De-An"))
+        self.assertEqual(extract_last_names("De-An Huang et.al."), {"huang"})
+        self.assertEqual(extract_last_names("De-An Huang et. al."), {"huang"})
+        self.assertEqual(extract_last_names("Huang, De-An et.al."), {"huang"})
+        self.assertTrue(authors_overlap("De-An Huang et.al.", "Huang, De-An"))
+        self.assertTrue(authors_overlap("De-An Huang et. al.", "Huang, De-An"))
+        self.assertEqual(extract_first_last_name("De-An Huang et.al."), "huang")
 
     def test_overlap_empty_is_false(self):
         self.assertFalse(authors_overlap("", "Ada Lovelace"))
         self.assertFalse(authors_overlap("Ada Lovelace", None))
         self.assertFalse(authors_overlap("", None))
+
+    def test_single_shared_last_name_is_not_enough(self):
+        self.assertFalse(
+            authors_overlap("Zhang, Wei and Wang, Li", "Li, Ming and Wang, Fang")
+        )
+        self.assertTrue(
+            authors_overlap("Wang, Li and Zhang, Wei", "Wang, Fang and Li, Ming")
+        )
+        self.assertTrue(
+            authors_overlap(
+                "Lovelace, Ada and Turing, Alan and Hopper, Grace",
+                "Turing, Alan and Hopper, Grace",
+            )
+        )
 
 
 class TestIssue50AuthorCheck(unittest.TestCase):
@@ -427,6 +454,20 @@ class TestFailClosedAuthorOverlap(unittest.TestCase):
         db = {key: _db_entry_lines(PREFACE_EDITOR_ONLY)}
         output, stats = run_normalize(
             JANE_DOE_PREFACE, db, check_authors=True
+        )
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "janedoe")
+        self.assertIn("doe", extract_last_names(entry.get("author", "")))
+        self.assertNotIn("booktitle", entry)
+        self.assertEqual(stats["converted"], 0)
+        self.assertEqual(stats["skipped_author_mismatch"], 1)
+
+    def test_preface_editor_only_fail_closed_without_author_check(self):
+        key = normalize_title("Preface")
+        db = {key: _db_entry_lines(PREFACE_EDITOR_ONLY)}
+        output, stats = run_normalize(
+            JANE_DOE_PREFACE, db, check_authors=False
         )
         entry = parse_first_entry(output)
         self.assertIsNotNone(entry)
@@ -1077,6 +1118,292 @@ class TestLiveDblpLookup(unittest.TestCase):
         self.assertFalse(args.live_lookup)
         args = parser.parse_args(["-i", "a.bib", "--live-lookup"])
         self.assertTrue(args.live_lookup)
+
+    def test_digit_keys_do_not_fall_back_when_they_differ(self):
+        hit_32 = _db_entry_lines(
+            """@inproceedings{n32,
+  title={A 32x32 Convolution Network},
+  author={Ada Lovelace},
+  booktitle={COLM},
+  year={2024}
+}
+"""
+        )
+        hit_16 = _db_entry_lines(
+            """@inproceedings{n16,
+  title={A 16x16 Convolution Network},
+  author={Ada Lovelace},
+  booktitle={TMLR},
+  year={2024}
+}
+"""
+        )
+        selected = select_dblp_hit(
+            {
+                "title": "A 16x16 Convolution Network",
+                "author": "Ada Lovelace",
+            },
+            [hit_32],
+            check_authors=True,
+        )
+        self.assertIsNone(selected)
+        chosen = select_dblp_hit(
+            {
+                "title": "A 16x16 Convolution Network",
+                "author": "Ada Lovelace",
+            },
+            [hit_32, hit_16],
+            check_authors=True,
+        )
+        parsed, _warning = parse_bib_entry(chosen)
+        self.assertEqual(parsed.get("booktitle"), "TMLR")
+        self.assertIn("16x16", parsed.get("title", ""))
+
+    def test_prefers_published_over_arxiv_and_rejects_ambiguous(self):
+        published = _db_entry_lines(
+            """@inproceedings{icml,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  booktitle={Proceedings of the 38th International Conference on Machine Learning},
+  year={2021}
+}
+"""
+        )
+        arxiv = _db_entry_lines(
+            """@article{corr,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  journal={CoRR},
+  volume={abs/2101.01234},
+  year={2021}
+}
+"""
+        )
+        other_published = _db_entry_lines(
+            """@inproceedings{neurips,
+  title={A Completely Unique Live Lookup Title That Is Not In Any Dump},
+  author={Ada Lovelace},
+  booktitle={NeurIPS},
+  year={2021}
+}
+"""
+        )
+        input_entry = {
+            "title": LIVE_UNIQUE_TITLE,
+            "author": "Ada Lovelace",
+        }
+        chosen = select_dblp_hit(
+            input_entry, [arxiv, published], check_authors=True
+        )
+        parsed, _warning = parse_bib_entry(chosen)
+        self.assertEqual(
+            parsed.get("booktitle"),
+            "Proceedings of the 38th International Conference on Machine Learning",
+        )
+        self.assertIsNone(
+            select_dblp_hit(
+                input_entry, [published, other_published], check_authors=True
+            )
+        )
+
+
+LOCAL_EPRINT_INPUT = """@article{mine,
+  title={Local Eprint Preserve Title},
+  author={Ada Lovelace},
+  year={2021},
+  eprint={2101.01234},
+  archivePrefix={arXiv}
+}
+"""
+
+LOCAL_OFFICIAL_NO_EPRINT = """@inproceedings{official,
+  title={Local Eprint Preserve Title},
+  author={Ada Lovelace},
+  booktitle={ICML},
+  year={2021}
+}
+"""
+
+
+class TestLocalPreserveEprint(unittest.TestCase):
+    def test_local_dump_convert_keeps_input_eprint(self):
+        key = normalize_title("Local Eprint Preserve Title")
+        db = {key: _db_entry_lines(LOCAL_OFFICIAL_NO_EPRINT)}
+        output, stats = run_normalize(LOCAL_EPRINT_INPUT, db, check_authors=True)
+        entry = parse_first_entry(output)
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["ID"], "mine")
+        self.assertEqual(entry.get("booktitle"), "ICML")
+        self.assertEqual(entry.get("eprint"), "2101.01234")
+        self.assertEqual(entry.get("archiveprefix"), "arXiv")
+        self.assertEqual(stats["converted"], 1)
+
+
+class TestFetchArxivMetadata(unittest.TestCase):
+    def test_uses_https_export_timeout_and_read_cap(self):
+        captured = {}
+
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, n=-1):
+                captured["read_n"] = n
+                return (
+                    b'<?xml version="1.0"?>'
+                    b'<feed xmlns="http://www.w3.org/2005/Atom"></feed>'
+                )
+
+        def fake_open(request, timeout=None):
+            captured["url"] = request.full_url
+            captured["timeout"] = timeout
+            captured["ua"] = request.get_header("User-agent") or request.headers.get(
+                "User-Agent"
+            )
+            return FakeResp()
+
+        result = fetch_arxiv_metadata("2005.00683", opener=fake_open)
+        self.assertEqual(result, {})
+        self.assertTrue(captured["url"].startswith(ARXIV_API))
+        self.assertTrue(captured["url"].startswith("https://export.arxiv.org/"))
+        self.assertEqual(captured["timeout"], 5)
+        self.assertEqual(captured["ua"], REBIBER_USER_AGENT)
+        self.assertLessEqual(captured["read_n"], ARXIV_READ_LIMIT + 1)
+        self.assertGreater(captured["read_n"], 0)
+
+    def test_oversized_payload_returns_empty(self):
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, n=-1):
+                size = n if n and n > 0 else ARXIV_READ_LIMIT + 1
+                return b"x" * size
+
+        def fake_open(request, timeout=None):
+            return FakeResp()
+
+        self.assertEqual(
+            fetch_arxiv_metadata("2005.00683", opener=fake_open), {}
+        )
+
+    def test_failure_returns_empty(self):
+        def boom(request, timeout=None):
+            raise TimeoutError("simulated timeout")
+
+        self.assertEqual(fetch_arxiv_metadata("2005.00683", opener=boom), {})
+
+
+class TestDblpSleepHook(unittest.TestCase):
+    def test_default_hook_does_not_sleep(self):
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, n=-1):
+                return b""
+
+        def fake_open(request, timeout=None):
+            return FakeResp()
+
+        with patch("rebiber.normalize.time.sleep") as mock_sleep:
+            search_dblp_by_title(LIVE_UNIQUE_TITLE, opener=fake_open)
+            mock_sleep.assert_not_called()
+
+    def test_custom_hook_is_used(self):
+        calls = []
+
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, n=-1):
+                return b""
+
+        def fake_open(request, timeout=None):
+            return FakeResp()
+
+        def hook():
+            calls.append(1)
+
+        with patch("rebiber.normalize._dblp_sleep", hook):
+            search_dblp_by_title(LIVE_UNIQUE_TITLE, opener=fake_open)
+        self.assertEqual(calls, [1])
+
+
+class TestUpdateNetwork(unittest.TestCase):
+    def _zip_bytes(self, members):
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as zf:
+            for name, content in members.items():
+                zf.writestr(name, content)
+        return buf.getvalue()
+
+    def test_urlopen_user_agent_timeout_and_safe_extract(self):
+        captured = {}
+        zip_data = self._zip_bytes(
+            {
+                "rebiber-main/rebiber/bib_list.txt": "ok.json\n",
+                "rebiber-main/rebiber/abbr.tsv": "ACL|ACL\n",
+                "rebiber-main/rebiber/data/conf.json": "{}\n",
+                "rebiber-main/rebiber/normalize.py": "should-not-extract\n",
+                "../evil.txt": "zip-slip\n",
+                "rebiber-main/rebiber/data/../../outside.txt": "zip-slip-2\n",
+                "rebiber-main/.github/workflows/tests.yml": "nope\n",
+            }
+        )
+
+        class FakeResp(object):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, n=-1):
+                return zip_data
+
+        def fake_open(request, timeout=None):
+            captured["url"] = request.full_url
+            captured["timeout"] = timeout
+            captured["ua"] = request.get_header("User-agent") or request.headers.get(
+                "User-Agent"
+            )
+            return FakeResp()
+
+        with tempfile.TemporaryDirectory() as tmp:
+            update(tmp, opener=fake_open, timeout=15)
+            self.assertTrue(os.path.isfile(os.path.join(tmp, "bib_list.txt")))
+            self.assertTrue(os.path.isfile(os.path.join(tmp, "abbr.tsv")))
+            self.assertTrue(os.path.isfile(os.path.join(tmp, "data", "conf.json")))
+            with open(os.path.join(tmp, "bib_list.txt"), encoding="utf8") as handle:
+                self.assertEqual(handle.read(), "ok.json\n")
+            self.assertFalse(os.path.isfile(os.path.join(tmp, "normalize.py")))
+            self.assertFalse(os.path.isfile(os.path.join(tmp, "evil.txt")))
+            self.assertFalse(os.path.isfile(os.path.join(tmp, "outside.txt")))
+            self.assertFalse(os.path.isfile(os.path.join(tmp, "tests.yml")))
+            parent_evil = os.path.abspath(os.path.join(tmp, "..", "evil.txt"))
+            # zip-slip member must not be written next to the dest dir either
+            if os.path.isfile(parent_evil):
+                with open(parent_evil, encoding="utf8") as handle:
+                    self.assertNotEqual(handle.read(), "zip-slip\n")
+
+        self.assertEqual(captured["ua"], REBIBER_USER_AGENT)
+        self.assertEqual(captured["timeout"], 15)
+        self.assertIn("github.com", captured["url"])
+        self.assertIn("main.zip", captured["url"])
 
 
 CAMERA_READY_INPUT = """@article{deeplearning,
