@@ -23,6 +23,15 @@ REPO_ROOT = os.path.dirname(SCRIPT_DIR)
 DEFAULT_DATA_DIR = os.path.join(REPO_ROOT, "rebiber", "data")
 DEFAULT_BIB_LIST = os.path.join(REPO_ROOT, "rebiber", "bib_list.txt")
 
+# Workshop dumps are not part of the main index (cvprw / iccvw).
+_WORKSHOP_PREFIXES = ("cvprw", "iccvw")
+
+
+def is_workshop_dump(name):
+    """True for CVPR/ICCV workshop dump filenames (not WACV, not www)."""
+    base = os.path.basename(name).lower()
+    return base.startswith(_WORKSHOP_PREFIXES)
+
 
 def split_acl_json(data_dir, chunk_size=50000):
     """Split data/acl.json into data/acl_N.json chunks and remove acl.json."""
@@ -69,16 +78,20 @@ def collect_entries(data_dir, bib_list_path):
                 line = line.strip()
                 if not line or line == "data/acl.json" or line.endswith("/acl.json"):
                     continue
+                if is_workshop_dump(line):
+                    continue
                 abs_path = os.path.normpath(os.path.join(bib_list_dir, line))
                 if os.path.isfile(abs_path):
                     rel = os.path.relpath(abs_path, bib_list_dir).replace(os.sep, "/")
                     if rel == "data/acl.json" or rel.endswith("/acl.json"):
                         continue
+                    if is_workshop_dump(rel):
+                        continue
                     entries.add(rel)
 
     if os.path.isdir(data_dir):
         for name in os.listdir(data_dir):
-            if name == "acl.json":
+            if name == "acl.json" or is_workshop_dump(name):
                 continue
             path = os.path.join(data_dir, name)
             if not os.path.isfile(path):
