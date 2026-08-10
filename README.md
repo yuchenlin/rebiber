@@ -64,7 +64,7 @@ Rebiber is developed and CI-tested with [uv](https://docs.astral.sh/uv/). `pip` 
 
 ```bash
 # one-off CLI from GitHub (latest dumps + bug fixes)
-uv tool install https://github.com/yuchenlin/rebiber
+uv tool install git+https://github.com/yuchenlin/rebiber
 
 # develop from a checkout
 git clone https://github.com/yuchenlin/rebiber.git
