@@ -1,4 +1,5 @@
 from rebiber.bib2json import normalize_title, load_bib_file
+from rebiber.camera import apply_keep_fields, protect_title_caps
 import argparse
 import json
 import bibtexparser
@@ -101,7 +102,14 @@ def is_contain_var(line):
     return False
 
 
-def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
+def post_processing(
+    output_bib_entries,
+    removed_value_names,
+    abbr_dict,
+    sort,
+    keep_names=None,
+    protect_titles=False,
+):
     bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
     bib_entry_str = ""
     for entry in output_bib_entries:
@@ -134,6 +142,13 @@ def post_processing(output_bib_entries, removed_value_names, abbr_dict, sort):
                 if place in output_entry:
                     if re.match(pattern, output_entry[place], flags=re.DOTALL):
                         output_entry[place] = short
+        if keep_names:
+            kept = apply_keep_fields(output_entry, keep_names)
+            for key in list(output_entry.keys()):
+                if key not in kept:
+                    del output_entry[key]
+        if protect_titles and output_entry.get("title"):
+            output_entry["title"] = protect_title_caps(output_entry["title"])
 
     writer = BibTexWriter()
     if not sort:
@@ -652,6 +667,8 @@ def normalize_bib(
     used_keys=None,
     live_lookup=False,
     dblp_search=None,
+    keep_names=None,
+    protect_titles=False,
 ):
     removed_value_names = list(removed_value_names or [])
     abbr_dict = list(abbr_dict or [])
@@ -828,7 +845,12 @@ def normalize_bib(
     print_summary(stats)
     print(stats["report"], end="")
     output_string = post_processing(
-        output_bib_entries, removed_value_names, abbr_dict, sort
+        output_bib_entries,
+        removed_value_names,
+        abbr_dict,
+        sort,
+        keep_names=keep_names,
+        protect_titles=protect_titles,
     )
     stats["output"] = output_string
 
@@ -1008,6 +1030,20 @@ def build_parser(filepath=None):
         help="On local-index miss, search DBLP by title (opt-in; uses network). "
         "Respect DBLP rate limits; default is local-only / offline.",
     )
+    parser.add_argument(
+        "--keep",
+        default="",
+        type=str,
+        help="A comma-separated allowlist of fields to keep (ID and ENTRYTYPE "
+        "are always kept). Empty (default) keeps current behavior. Example: "
+        "'--keep author,title,booktitle,journal,year,volume,number,pages,doi'.",
+    )
+    parser.add_argument(
+        "--protect-titles",
+        action="store_true",
+        help="Wrap uppercase tokens/acronyms in titles with braces so BibTeX "
+        "styles do not lowercase them.",
+    )
     return parser
 
 
@@ -1047,6 +1083,7 @@ def main(argv=None):
         bib_db = construct_bib_db(args.bib_list, start_dir=filepath)
 
     removed_value_names = [s.strip() for s in args.remove.split(",") if s.strip()]
+    keep_names = [s.strip() for s in args.keep.split(",") if s.strip()]
     if args.shorten:
         abbr_dict = load_abbr_tsv(args.abbr_tsv)
     else:
@@ -1074,6 +1111,8 @@ def main(argv=None):
             dry_run=args.dry_run,
             used_keys=used_keys,
             live_lookup=args.live_lookup,
+            keep_names=keep_names,
+            protect_titles=args.protect_titles,
         )
         reports.append(stats.get("report") or "")
 
