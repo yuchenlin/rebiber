@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** Install from Git only. We do **not** publish or support PyPI (the 1.1.3 package there is abandoned).
+
 - **2026.08** In-repo star-history charts (all-time + YTD), refreshed weekly from the GitHub API. No star-history.com token.
 
 - **2026.08** Develop and CI with **uv** (`uv sync --extra dev`, `uv run pytest`, `uv build`). `pip install -e .` remains supported.
@@ -58,15 +60,21 @@ We build a colab notebook as a simple web demo. [link](https://colab.research.go
 
 ## Installation
 
-Rebiber is developed and CI-tested with [uv](https://docs.astral.sh/uv/). `pip` still works as a fallback.
-
-### uv (recommended)
+We do **not** publish or support Rebiber on PyPI. Always install from GitHub.
 
 ```bash
-# one-off CLI from GitHub (latest dumps + bug fixes)
+# CLI (recommended)
 uv tool install git+https://github.com/yuchenlin/rebiber
 
-# develop from a checkout
+# pip, always from Git
+pip install "rebiber @ git+https://github.com/yuchenlin/rebiber"
+```
+
+### Develop from a checkout
+
+Rebiber is developed and CI-tested with [uv](https://docs.astral.sh/uv/). `pip` still works as a fallback.
+
+```bash
 git clone https://github.com/yuchenlin/rebiber.git
 cd rebiber/
 uv sync --extra dev
@@ -76,16 +84,10 @@ uv run pytest
 
 `uv.lock` is committed. Use `uv sync --frozen` in CI; run `uv lock` after changing dependencies.
 
-### pip (fallback)
-
 ```bash
-git clone https://github.com/yuchenlin/rebiber.git
-cd rebiber/
-pip install -e .
-# optional: pip install -e ".[dev]"   # pytest
+# pip, from a checkout
+pip install -e ".[dev]"
 ```
-
-The editable / GitHub install is recommended if you want the latest conference data and bug fixes.
 
 ## Usage (v1.3.0)
 
