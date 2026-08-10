@@ -29,6 +29,8 @@ Apart from handling outdated arXiv citations, __Rebiber__ also normalizes citati
 
 ## Changelog
 
+- **2026.08** In-repo star-history chart (`docs/star-history.svg`), refreshed weekly from the GitHub API. No star-history.com token.
+
 - **2026.08** Develop and CI with **uv** (`uv sync --extra dev`, `uv run pytest`, `uv build`). `pip install -e .` remains supported.
 
 - **2026.08** Opt-in `--live-lookup`: after a local-index miss, search DBLP by title and apply a hit only when title keys and authors overlap (same guard as local matches). Official replacements keep the input cite key and preserve an input arXiv/`eprint` when the published record lacks one. Default CLI stays local-only (no network). Please respect DBLP rate limits.
@@ -292,7 +294,9 @@ Alternatively, you can still download bib files from DBLP by hand into `raw_data
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yuchenlin/rebiber&type=Date)](https://star-history.com/#yuchenlin/rebiber&Date)
+Chart generated in this repo from the GitHub stargazers API (no third-party host). A weekly Action refreshes [`docs/star-history.svg`](docs/star-history.svg).
+
+![Rebiber star history](docs/star-history.svg)
 
 ## Contact
 
