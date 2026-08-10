@@ -5,13 +5,13 @@ on:
     - cron: "0 3 1 * *" # first day of every month at 03:00 UTC
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   update-conferences:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -25,22 +25,28 @@ jobs:
       - name: Install package
         run: uv sync --frozen
 
+      # Fail-soft: a DBLP miss should not skip leftover conversion, ACL, or the PR.
       - name: Download recent conference data from DBLP
+        continue-on-error: true
         run: |
           mkdir -p rebiber/raw_data
           YEAR=$(date +%Y)
           PREV=$((YEAR - 1))
           PAST_END=$((YEAR - 2))
+          status=0
           # Older years: skip-existing (re-fetch only if the dump looks incomplete).
           if [[ "$PAST_END" -ge 2024 ]]; then
-            uv run python -m rebiber.download_dblp --start-year 2024 --end-year "$PAST_END"
+            uv run python -m rebiber.download_dblp --start-year 2024 --end-year "$PAST_END" || status=1
           fi
           # Current and previous year: re-fetch so late-added papers are picked up.
-          uv run python -m rebiber.download_dblp --start-year "$PREV" --end-year "$YEAR" --force
+          uv run python -m rebiber.download_dblp --start-year "$PREV" --end-year "$YEAR" --force || status=1
+          exit "$status"
 
       - name: Convert leftover bib files
+        continue-on-error: true
         run: |
           shopt -s nullglob
+          status=0
           for bibfile in rebiber/raw_data/*.bib; do
             base=$(basename "$bibfile" .bib)
             # anthology.bib is handled in the ACL step
@@ -51,14 +57,20 @@ jobs:
             entry="data/${base}.bib.json"
             if [[ ! -f "$jsonfile" ]]; then
               echo "Converting $bibfile -> $jsonfile"
-              uv run python -m rebiber.bib2json -i "$bibfile" -o "$jsonfile"
-              if ! grep -qxF "$entry" rebiber/bib_list.txt; then
-                echo "$entry" >> rebiber/bib_list.txt
+              if uv run python -m rebiber.bib2json -i "$bibfile" -o "$jsonfile"; then
+                if ! grep -qxF "$entry" rebiber/bib_list.txt; then
+                  echo "$entry" >> rebiber/bib_list.txt
+                fi
+              else
+                echo "Failed to convert $bibfile"
+                status=1
               fi
             fi
           done
+          exit "$status"
 
       - name: Update ACL Anthology data
+        continue-on-error: true
         run: |
           mkdir -p rebiber/raw_data
           echo "Downloading ACL Anthology bib file..."
@@ -69,14 +81,19 @@ jobs:
           echo "Splitting acl.json and refreshing bib_list.txt..."
           uv run python scripts/refresh_bib_list.py --split-acl --chunk-size 50000
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add rebiber/data/ rebiber/bib_list.txt
-          if git diff --staged --quiet; then
-            echo "No new conference data found"
-          else
-            git commit -m "chore: update conference data from DBLP and ACL Anthology"
-            git push
-          fi
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: update conference data from DBLP and ACL Anthology"
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          branch: chore/update-conference-data
+          delete-branch: true
+          title: "chore: update conference data"
+          body: |
+            Automated monthly refresh of conference dumps from DBLP and the ACL Anthology.
+
+            Opened by `.github/workflows/update-conferences.yml` instead of pushing to `main`.
+          add-paths: |
+            rebiber/data/
+            rebiber/bib_list.txt
