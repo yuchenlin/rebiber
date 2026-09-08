@@ -26,7 +26,7 @@ uv run pytest
 
 ## Changes in 1.4
 
-- Migrate to bibtexparser 2 and raise the minimum Python version from 3.9 to 3.10.
+- Migrate to bibtexparser 2 and raise the minimum Python version from 3.8 to 3.10.
 - Preserve single-space field indentation and one blank line between entries.
 - Apply field removal, venue abbreviation, field selection, title protection, and sorting to entries with repeated cite keys when `-d False` is set.
 
