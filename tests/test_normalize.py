@@ -1503,5 +1503,72 @@ class TestParserCompatibility(unittest.TestCase):
                 self.assertEqual(by_id["a"]["ENTRYTYPE"], "custom")
 
 
+class TestDuplicatePostProcessing(unittest.TestCase):
+    def test_remove_and_abbreviate_with_deduplication_disabled(self):
+        text = """@article{samekey,
+  title={First Paper},
+  abstract={First abstract},
+  booktitle={Long Conference}
+}
+@article{samekey,
+  TITLE={Second Paper},
+  abstract={Second abstract},
+  booktitle={Long Conference}
+}
+"""
+        output, stats = run_normalize(
+            text, {}, deduplicate=False, format_only=True,
+            removed_value_names=["abstract"], abbr_dict=[("CONF", "Long Conference")],
+        )
+        self.assertEqual(stats["duplicates_removed"], 0)
+        self.assertEqual(output.count("@article{samekey,"), 2)
+        self.assertEqual(output.count("booktitle = {CONF}"), 2)
+        self.assertNotIn("abstract", output)
+        self.assertNotIn("WARNING", output)
+        self.assertIn("title = {First Paper}", output)
+        self.assertIn("title = {Second Paper}", output)
+
+    def test_duplicate_sort_keep_and_title_protection(self):
+        entries = [
+            ['@article{z, title={First BERT}, note={drop}}'],
+            ['@article{a, title={Middle NASA}, note={drop}}'],
+            ['@article{z, title={Last GPT}, note={drop}}'],
+        ]
+        for sort, titles in [
+            (False, ["First {BERT}", "Middle {NASA}", "Last {GPT}"]),
+            (True, ["Middle {NASA}", "First {BERT}", "Last {GPT}"]),
+        ]:
+            with self.subTest(sort=sort):
+                output = post_processing(
+                    entries, [], [], sort=sort, keep_names=["title"], protect_titles=True
+                )
+                self.assertEqual(output.count("@article{"), 3)
+                self.assertNotIn("note", output)
+                self.assertNotIn("WARNING", output)
+                positions = [output.index(title) for title in titles]
+                self.assertEqual(positions, sorted(positions))
+
+    def test_writer_spacing_matches_v1(self):
+        entries = [
+            ['@article{z, year={2024}, title={First}}'],
+            ['@article{a, title={Second}, year={2025}}'],
+        ]
+        self.assertEqual(
+            post_processing(entries, [], [], sort=False),
+            "@article{z,\n title = {First},\n year = {2024}\n}\n\n"
+            "@article{a,\n title = {Second},\n year = {2025}\n}\n",
+        )
+
+    def test_string_reference_in_entry_blob(self):
+        entries = [[
+            '@string{conf = {ICML}}\n',
+            '@article{key, title={A Paper}, booktitle=conf}\n',
+        ]]
+        output = post_processing(entries, [], [], sort=False)
+        parsed = bibtexparser.parse_string(output)
+        self.assertEqual(parsed.entries[0]["booktitle"], "ICML")
+        self.assertNotIn("WARNING", output)
+
+
 if __name__ == "__main__":
     unittest.main()

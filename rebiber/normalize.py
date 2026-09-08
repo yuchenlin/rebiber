@@ -5,10 +5,8 @@ import json
 import bibtexparser
 from bibtexparser.middlewares import (
     NormalizeFieldKeys,
-    SortBlocksMiddleware,
     SortFieldsAlphabeticallyMiddleware,
 )
-from bibtexparser.model import Entry
 import os
 import re
 import shutil
@@ -48,7 +46,7 @@ ARXIV_VENUE_RE = re.compile(r"arxiv|\bcorr\b|preprint", re.IGNORECASE)
 PLACEHOLDER_VENUE_RE = re.compile(r"^[\s~\-{}]*$")
 DBLP_API = "https://dblp.org/search/publ/api"
 ARXIV_API = "https://export.arxiv.org/api/query"
-REBIBER_USER_AGENT = "rebiber/1.3.0 (+https://github.com/yuchenlin/rebiber)"
+REBIBER_USER_AGENT = "rebiber/1.4.0 (+https://github.com/yuchenlin/rebiber)"
 ARXIV_READ_LIMIT = 1024 * 1024
 DBLP_READ_LIMIT = 1024 * 1024
 # Seconds to pause before a live DBLP request. Default 0 so unit tests stay fast.
@@ -129,31 +127,22 @@ def post_processing(
     keep_names=None,
     protect_titles=False,
 ):
-    bib_entry_str = ""
-    for entry in output_bib_entries:
-        for line in entry:
-            if is_contain_var(line):
-                continue
-            bib_entry_str += line
-        bib_entry_str += "\n"
-    parsed_entries = bibtexparser.parse_string(
-        bib_entry_str, append_middleware=[NormalizeFieldKeys()]
-    )
-    if len(parsed_entries.entries) != len(output_bib_entries) or (
-        len(parsed_entries.entries) == 0 and len(output_bib_entries) > 0
-    ):
+    libraries = [
+        bibtexparser.parse_string(
+            "".join(line for line in entry if not is_contain_var(line)),
+            append_middleware=[NormalizeFieldKeys()],
+        )
+        for entry in output_bib_entries
+    ]
+    if any(len(library.entries) != 1 for library in libraries):
         print(
-            "Warning: len(parsed_entries.entries) != len(output_bib_entries) -->",
-            len(parsed_entries.entries),
+            "Warning: parsed entry count differs from expected count -->",
+            sum(len(library.entries) for library in libraries),
             len(output_bib_entries),
         )
-        output_str = ""
-        for entry in output_bib_entries:
-            for line in entry:
-                output_str += line
-            output_str += "\n"
-        return output_str
-    for output_entry in parsed_entries.entries:
+        return "".join("".join(entry) + "\n" for entry in output_bib_entries)
+    for library in libraries:
+        output_entry = library.entries[0]
         for remove_name in removed_value_names:
             if remove_name in output_entry:
                 del output_entry[remove_name]
@@ -170,12 +159,19 @@ def post_processing(
         if protect_titles and "title" in output_entry and output_entry["title"]:
             output_entry["title"] = protect_title_caps(output_entry["title"])
 
-    middleware = [SortFieldsAlphabeticallyMiddleware()]
     if sort:
-        middleware.append(
-            SortBlocksMiddleware(key=lambda block: block.key if isinstance(block, Entry) else "")
+        libraries.sort(key=lambda library: library.entries[0].key)
+    bibtex_format = bibtexparser.BibtexFormat()
+    bibtex_format.indent = " "
+    bibtex_format.block_separator = "\n"
+    return "\n".join(
+        bibtexparser.write_string(
+            library,
+            bibtex_format=bibtex_format,
+            prepend_middleware=[SortFieldsAlphabeticallyMiddleware()],
         )
-    return bibtexparser.write_string(parsed_entries, prepend_middleware=middleware)
+        for library in libraries
+    )
 
 
 def load_abbr_tsv(abbr_tsv_file):
