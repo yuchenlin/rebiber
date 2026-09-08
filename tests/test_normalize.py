@@ -137,10 +137,10 @@ def write_and_load(directory, bib_text, name="in.bib"):
 
 
 def parse_first_entry(bib_text):
-    parsed = bibtexparser.loads(bib_text)
+    parsed = bibtexparser.parse_string(bib_text)
     if not parsed.entries:
         return None
-    return parsed.entries[0]
+    return dict(parsed.entries[0].items())
 
 
 def run_normalize(bib_text, bib_db, **kwargs):
@@ -295,8 +295,8 @@ class TestIssue67KeepBrokenEntries(unittest.TestCase):
         output, stats = run_normalize(NO_TITLE_ENTRY, {}, check_authors=True)
         self.assertIn("notitle", output)
         self.assertGreaterEqual(stats["parse_warnings"], 1)
-        parsed = bibtexparser.loads(output)
-        ids = [entry.get("ID") for entry in parsed.entries]
+        parsed = bibtexparser.parse_string(output)
+        ids = [entry.key for entry in parsed.entries]
         self.assertIn("notitle", ids)
 
     def test_single_line_month_entry_not_dropped(self):
@@ -383,16 +383,17 @@ class TestFormatOnlyAndDedup(unittest.TestCase):
 
     def test_dedup_by_key(self):
         output, stats = run_normalize(DUP_KEY_BIB, {}, deduplicate=True)
-        parsed = bibtexparser.loads(output)
+        parsed = bibtexparser.parse_string(output)
         self.assertEqual(len(parsed.entries), 1)
         self.assertEqual(parsed.entries[0]["ID"], "samekey")
-        self.assertIn("First Paper", parsed.entries[0].get("title", ""))
+        self.assertIn("First Paper", parsed.entries[0]["title"])
         self.assertEqual(stats["duplicates_removed"], 1)
 
     def test_dedup_disabled_keeps_both(self):
         output, stats = run_normalize(DUP_KEY_BIB, {}, deduplicate=False)
-        parsed = bibtexparser.loads(output)
-        self.assertEqual(len(parsed.entries), 2)
+        self.assertEqual(output.count("@article{samekey,"), 2)
+        self.assertIn("First Paper", output)
+        self.assertIn("Second Paper", output)
         self.assertEqual(stats["duplicates_removed"], 0)
 
     def test_dry_run_does_not_write(self):
@@ -771,8 +772,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys={"alpha"},
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
         self.assertIn("lovelace", extract_last_names(by_id["alpha"].get("author", "")))
         self.assertEqual(
@@ -790,8 +791,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys={"alpha", "beta"},
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
         self.assertEqual(by_id["beta"].get("booktitle"), "NeurIPS")
         self.assertEqual(stats["converted"], 2)
@@ -804,8 +805,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys=set(),
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(
             by_id["alpha"].get("journal"), "arXiv preprint arXiv:2001.00001"
         )
@@ -1472,6 +1473,34 @@ class TestCameraReadyNormalize(unittest.TestCase):
             "author,title,booktitle,journal,year,volume,number,pages,doi",
         )
         self.assertTrue(args.protect_titles)
+
+
+class TestParserCompatibility(unittest.TestCase):
+    def test_parse_returns_dictionary_with_lowercase_fields(self):
+        entry, warning = parse_bib_entry([
+            '@custom{MixedKey, TITLE={Café and {NASA}}, archivePrefix={arXiv}}'
+        ])
+        self.assertIsNone(warning)
+        self.assertIsInstance(entry, dict)
+        self.assertEqual(entry, {
+            "ID": "MixedKey", "ENTRYTYPE": "custom",
+            "title": "Café and {NASA}", "archiveprefix": "arXiv",
+        })
+
+    def test_post_processing_preserves_text_and_sorts_by_key(self):
+        entries = [
+            ['@article{z, TITLE={Café and {NASA}}, year={2024}}'],
+            ['@custom{a, title={Nested {inner {deep}} braces}, year={2025}}'],
+        ]
+        for sort, expected in [(False, ["z", "a"]), (True, ["a", "z"])]:
+            with self.subTest(sort=sort):
+                output = post_processing(entries, [], [], sort=sort)
+                parsed = bibtexparser.parse_string(output)
+                self.assertEqual([entry.key for entry in parsed.entries], expected)
+                by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
+                self.assertEqual(by_id["z"]["title"], "Café and {NASA}")
+                self.assertEqual(by_id["a"]["title"], "Nested {inner {deep}} braces")
+                self.assertEqual(by_id["a"]["ENTRYTYPE"], "custom")
 
 
 if __name__ == "__main__":

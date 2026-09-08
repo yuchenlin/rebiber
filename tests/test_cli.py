@@ -81,8 +81,8 @@ def read_text(path):
 
 
 def parse_by_id(bib_text):
-    parsed = bibtexparser.loads(bib_text)
-    return {entry["ID"]: entry for entry in parsed.entries}
+    parsed = bibtexparser.parse_string(bib_text)
+    return {entry.key: dict(entry.items()) for entry in parsed.entries}
 
 
 def raise_if_dblp_called(*_args, **_kwargs):

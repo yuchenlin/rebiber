@@ -3,7 +3,12 @@ from rebiber.camera import apply_keep_fields, protect_title_caps
 import argparse
 import json
 import bibtexparser
-from bibtexparser.bwriter import BibTexWriter
+from bibtexparser.middlewares import (
+    NormalizeFieldKeys,
+    SortBlocksMiddleware,
+    SortFieldsAlphabeticallyMiddleware,
+)
+from bibtexparser.model import Entry
 import os
 import re
 import shutil
@@ -124,7 +129,6 @@ def post_processing(
     keep_names=None,
     protect_titles=False,
 ):
-    bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
     bib_entry_str = ""
     for entry in output_bib_entries:
         for line in entry:
@@ -132,7 +136,9 @@ def post_processing(
                 continue
             bib_entry_str += line
         bib_entry_str += "\n"
-    parsed_entries = bibtexparser.loads(bib_entry_str, bibparser)
+    parsed_entries = bibtexparser.parse_string(
+        bib_entry_str, append_middleware=[NormalizeFieldKeys()]
+    )
     if len(parsed_entries.entries) != len(output_bib_entries) or (
         len(parsed_entries.entries) == 0 and len(output_bib_entries) > 0
     ):
@@ -157,17 +163,19 @@ def post_processing(
                     if re.match(pattern, output_entry[place], flags=re.DOTALL):
                         output_entry[place] = short
         if keep_names:
-            kept = apply_keep_fields(output_entry, keep_names)
-            for key in list(output_entry.keys()):
+            kept = apply_keep_fields(dict(output_entry.items()), keep_names)
+            for key in list(output_entry.fields_dict):
                 if key not in kept:
                     del output_entry[key]
-        if protect_titles and output_entry.get("title"):
+        if protect_titles and "title" in output_entry and output_entry["title"]:
             output_entry["title"] = protect_title_caps(output_entry["title"])
 
-    writer = BibTexWriter()
-    if not sort:
-        writer.order_entries_by = None
-    return bibtexparser.dumps(parsed_entries, writer=writer)
+    middleware = [SortFieldsAlphabeticallyMiddleware()]
+    if sort:
+        middleware.append(
+            SortBlocksMiddleware(key=lambda block: block.key if isinstance(block, Entry) else "")
+        )
+    return bibtexparser.write_string(parsed_entries, prepend_middleware=middleware)
 
 
 def load_abbr_tsv(abbr_tsv_file):
@@ -713,22 +721,23 @@ def build_arxiv_entry(entry, arxiv_id, meta=None):
 
 def parse_bib_entry(bib_entry):
     """Parse a list-of-lines bib entry. Returns (entry_dict or None, warning_or_None)."""
-    bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
     filtered = [line for line in bib_entry if not is_contain_var(line)]
     bib_entry_str = " ".join(filtered)
     try:
-        parsed = bibtexparser.loads(bib_entry_str, bibparser)
+        parsed = bibtexparser.parse_string(bib_entry_str, append_middleware=[NormalizeFieldKeys()])
     except Exception as exc:
         return None, "failed to parse (%s)" % exc
     if not parsed.entries:
         # Retry on the raw text; month= filtering can gut single-line entries.
         try:
-            parsed = bibtexparser.loads(" ".join(bib_entry), bibparser)
+            parsed = bibtexparser.parse_string(
+                " ".join(bib_entry), append_middleware=[NormalizeFieldKeys()]
+            )
         except Exception as exc:
             return None, "failed to parse (%s)" % exc
     if not parsed.entries:
         return None, "failed to parse (empty result)"
-    return parsed.entries[0], None
+    return dict(parsed.entries[0].items()), None
 
 
 def replace_citation_key(entry_lines, new_key):

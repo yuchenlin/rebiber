@@ -120,7 +120,7 @@ def _load_fixture_db():
         raw = json.load(handle)
     bib_db = {}
     for _stored_key, lines in raw.items():
-        parsed = bibtexparser.loads("".join(lines))
+        parsed = bibtexparser.parse_string("".join(lines))
         title = parsed.entries[0]["title"]
         bib_db[normalize_title(title)] = lines
     return bib_db, raw
@@ -136,8 +136,8 @@ def _run(bib_text, bib_db, **kwargs):
         stats = normalize_bib(bib_db, entries, out_path, **kwargs)
         with open(out_path, encoding="utf8") as handle:
             output = handle.read()
-    parsed = bibtexparser.loads(output)
-    return output, parsed.entries, stats
+    parsed = bibtexparser.parse_string(output)
+    return output, [dict(entry.items()) for entry in parsed.entries], stats
 
 
 def _data_path(name):
@@ -151,7 +151,7 @@ class TestRealVenueFixtures(unittest.TestCase):
 
     def test_fixture_keys_match_normalize_title(self):
         for stored_key, lines in self.raw.items():
-            parsed = bibtexparser.loads("".join(lines))
+            parsed = bibtexparser.parse_string("".join(lines))
             title = parsed.entries[0]["title"]
             self.assertEqual(normalize_title(title), stored_key)
 
