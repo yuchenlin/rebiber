@@ -3,7 +3,10 @@ from rebiber.camera import apply_keep_fields, protect_title_caps
 import argparse
 import json
 import bibtexparser
-from bibtexparser.bwriter import BibTexWriter
+from bibtexparser.middlewares import (
+    NormalizeFieldKeys,
+    SortFieldsAlphabeticallyMiddleware,
+)
 import os
 import re
 import shutil
@@ -43,7 +46,7 @@ ARXIV_VENUE_RE = re.compile(r"arxiv|\bcorr\b|preprint", re.IGNORECASE)
 PLACEHOLDER_VENUE_RE = re.compile(r"^[\s~\-{}]*$")
 DBLP_API = "https://dblp.org/search/publ/api"
 ARXIV_API = "https://export.arxiv.org/api/query"
-REBIBER_USER_AGENT = "rebiber/1.3.0 (+https://github.com/yuchenlin/rebiber)"
+REBIBER_USER_AGENT = "rebiber/1.4.0 (+https://github.com/yuchenlin/rebiber)"
 ARXIV_READ_LIMIT = 1024 * 1024
 DBLP_READ_LIMIT = 1024 * 1024
 # Seconds to pause before a live DBLP request. Default 0 so unit tests stay fast.
@@ -124,30 +127,22 @@ def post_processing(
     keep_names=None,
     protect_titles=False,
 ):
-    bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
-    bib_entry_str = ""
-    for entry in output_bib_entries:
-        for line in entry:
-            if is_contain_var(line):
-                continue
-            bib_entry_str += line
-        bib_entry_str += "\n"
-    parsed_entries = bibtexparser.loads(bib_entry_str, bibparser)
-    if len(parsed_entries.entries) != len(output_bib_entries) or (
-        len(parsed_entries.entries) == 0 and len(output_bib_entries) > 0
-    ):
+    libraries = [
+        bibtexparser.parse_string(
+            "".join(line for line in entry if not is_contain_var(line)),
+            append_middleware=[NormalizeFieldKeys()],
+        )
+        for entry in output_bib_entries
+    ]
+    if any(len(library.entries) != 1 for library in libraries):
         print(
-            "Warning: len(parsed_entries.entries) != len(output_bib_entries) -->",
-            len(parsed_entries.entries),
+            "Warning: parsed entry count differs from expected count -->",
+            sum(len(library.entries) for library in libraries),
             len(output_bib_entries),
         )
-        output_str = ""
-        for entry in output_bib_entries:
-            for line in entry:
-                output_str += line
-            output_str += "\n"
-        return output_str
-    for output_entry in parsed_entries.entries:
+        return "".join("".join(entry) + "\n" for entry in output_bib_entries)
+    for library in libraries:
+        output_entry = library.entries[0]
         for remove_name in removed_value_names:
             if remove_name in output_entry:
                 del output_entry[remove_name]
@@ -157,17 +152,26 @@ def post_processing(
                     if re.match(pattern, output_entry[place], flags=re.DOTALL):
                         output_entry[place] = short
         if keep_names:
-            kept = apply_keep_fields(output_entry, keep_names)
-            for key in list(output_entry.keys()):
+            kept = apply_keep_fields(dict(output_entry.items()), keep_names)
+            for key in list(output_entry.fields_dict):
                 if key not in kept:
                     del output_entry[key]
-        if protect_titles and output_entry.get("title"):
+        if protect_titles and "title" in output_entry and output_entry["title"]:
             output_entry["title"] = protect_title_caps(output_entry["title"])
 
-    writer = BibTexWriter()
-    if not sort:
-        writer.order_entries_by = None
-    return bibtexparser.dumps(parsed_entries, writer=writer)
+    if sort:
+        libraries.sort(key=lambda library: library.entries[0].key)
+    bibtex_format = bibtexparser.BibtexFormat()
+    bibtex_format.indent = " "
+    bibtex_format.block_separator = "\n"
+    return "\n".join(
+        bibtexparser.write_string(
+            library,
+            bibtex_format=bibtex_format,
+            prepend_middleware=[SortFieldsAlphabeticallyMiddleware()],
+        )
+        for library in libraries
+    )
 
 
 def load_abbr_tsv(abbr_tsv_file):
@@ -713,22 +717,23 @@ def build_arxiv_entry(entry, arxiv_id, meta=None):
 
 def parse_bib_entry(bib_entry):
     """Parse a list-of-lines bib entry. Returns (entry_dict or None, warning_or_None)."""
-    bibparser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
     filtered = [line for line in bib_entry if not is_contain_var(line)]
     bib_entry_str = " ".join(filtered)
     try:
-        parsed = bibtexparser.loads(bib_entry_str, bibparser)
+        parsed = bibtexparser.parse_string(bib_entry_str, append_middleware=[NormalizeFieldKeys()])
     except Exception as exc:
         return None, "failed to parse (%s)" % exc
     if not parsed.entries:
         # Retry on the raw text; month= filtering can gut single-line entries.
         try:
-            parsed = bibtexparser.loads(" ".join(bib_entry), bibparser)
+            parsed = bibtexparser.parse_string(
+                " ".join(bib_entry), append_middleware=[NormalizeFieldKeys()]
+            )
         except Exception as exc:
             return None, "failed to parse (%s)" % exc
     if not parsed.entries:
         return None, "failed to parse (empty result)"
-    return parsed.entries[0], None
+    return dict(parsed.entries[0].items()), None
 
 
 def replace_citation_key(entry_lines, new_key):

@@ -398,3 +398,8 @@ def test_build_json_duplicate_key_warns_and_keeps_last(capsys):
         assert key in captured.out
     finally:
         os.unlink(path)
+
+
+def test_build_json_accepts_uppercase_title():
+    entries = [['@custom{key, TITLE={Café and {NASA}}}']]
+    assert build_json(entries) == {"cafeandnasa": entries[0]}

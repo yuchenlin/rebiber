@@ -2,6 +2,7 @@ import json
 import re
 import unicodedata
 import bibtexparser
+from bibtexparser.middlewares import NormalizeFieldKeys
 import argparse
 from tqdm import tqdm
 import os
@@ -140,10 +141,9 @@ def build_json(all_bib_entries):
             line for line in bib_entry if not _is_month_field_line(line)
         )
         try:
-            bibparser = bibtexparser.bparser.BibTexParser(
-                ignore_nonstandard_types=False
+            bib_entry_parsed = bibtexparser.parse_string(
+                bib_entry_str, append_middleware=[NormalizeFieldKeys()]
             )
-            bib_entry_parsed = bibtexparser.loads(bib_entry_str, bibparser)
             bib_key = normalize_title(
                 bib_entry_parsed.entries[0]["title"], keep_digits=True
             )

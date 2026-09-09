@@ -8,6 +8,8 @@ Install **from GitHub only**. We do not publish or support PyPI (`pip install re
 
 ## Install
 
+Requires Python 3.10 or newer. Rebiber 1.4 uses bibtexparser 2 (`>=2,<3`).
+
 ```bash
 uv tool install git+https://github.com/yuchenlin/rebiber
 # or
@@ -21,6 +23,12 @@ git clone https://github.com/yuchenlin/rebiber.git && cd rebiber
 uv sync --extra dev          # or: pip install -e ".[dev]"
 uv run pytest
 ```
+
+## Changes in 1.4
+
+- Migrate to bibtexparser 2 and raise the minimum Python version from 3.8 to 3.10.
+- Preserve single-space field indentation and one blank line between entries.
+- Apply field removal, venue abbreviation, field selection, title protection, and sorting to entries with repeated cite keys when `-d False` is set.
 
 ## Usage
 

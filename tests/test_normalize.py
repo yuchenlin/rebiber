@@ -137,10 +137,10 @@ def write_and_load(directory, bib_text, name="in.bib"):
 
 
 def parse_first_entry(bib_text):
-    parsed = bibtexparser.loads(bib_text)
+    parsed = bibtexparser.parse_string(bib_text)
     if not parsed.entries:
         return None
-    return parsed.entries[0]
+    return dict(parsed.entries[0].items())
 
 
 def run_normalize(bib_text, bib_db, **kwargs):
@@ -295,8 +295,8 @@ class TestIssue67KeepBrokenEntries(unittest.TestCase):
         output, stats = run_normalize(NO_TITLE_ENTRY, {}, check_authors=True)
         self.assertIn("notitle", output)
         self.assertGreaterEqual(stats["parse_warnings"], 1)
-        parsed = bibtexparser.loads(output)
-        ids = [entry.get("ID") for entry in parsed.entries]
+        parsed = bibtexparser.parse_string(output)
+        ids = [entry.key for entry in parsed.entries]
         self.assertIn("notitle", ids)
 
     def test_single_line_month_entry_not_dropped(self):
@@ -383,16 +383,17 @@ class TestFormatOnlyAndDedup(unittest.TestCase):
 
     def test_dedup_by_key(self):
         output, stats = run_normalize(DUP_KEY_BIB, {}, deduplicate=True)
-        parsed = bibtexparser.loads(output)
+        parsed = bibtexparser.parse_string(output)
         self.assertEqual(len(parsed.entries), 1)
         self.assertEqual(parsed.entries[0]["ID"], "samekey")
-        self.assertIn("First Paper", parsed.entries[0].get("title", ""))
+        self.assertIn("First Paper", parsed.entries[0]["title"])
         self.assertEqual(stats["duplicates_removed"], 1)
 
     def test_dedup_disabled_keeps_both(self):
         output, stats = run_normalize(DUP_KEY_BIB, {}, deduplicate=False)
-        parsed = bibtexparser.loads(output)
-        self.assertEqual(len(parsed.entries), 2)
+        self.assertEqual(output.count("@article{samekey,"), 2)
+        self.assertIn("First Paper", output)
+        self.assertIn("Second Paper", output)
         self.assertEqual(stats["duplicates_removed"], 0)
 
     def test_dry_run_does_not_write(self):
@@ -771,8 +772,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys={"alpha"},
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
         self.assertIn("lovelace", extract_last_names(by_id["alpha"].get("author", "")))
         self.assertEqual(
@@ -790,8 +791,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys={"alpha", "beta"},
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(by_id["alpha"].get("booktitle"), "ICML")
         self.assertEqual(by_id["beta"].get("booktitle"), "NeurIPS")
         self.assertEqual(stats["converted"], 2)
@@ -804,8 +805,8 @@ class TestUsedInFilter(unittest.TestCase):
             check_authors=True,
             used_keys=set(),
         )
-        parsed = bibtexparser.loads(output)
-        by_id = {entry["ID"]: entry for entry in parsed.entries}
+        parsed = bibtexparser.parse_string(output)
+        by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
         self.assertEqual(
             by_id["alpha"].get("journal"), "arXiv preprint arXiv:2001.00001"
         )
@@ -1472,6 +1473,101 @@ class TestCameraReadyNormalize(unittest.TestCase):
             "author,title,booktitle,journal,year,volume,number,pages,doi",
         )
         self.assertTrue(args.protect_titles)
+
+
+class TestParserCompatibility(unittest.TestCase):
+    def test_parse_returns_dictionary_with_lowercase_fields(self):
+        entry, warning = parse_bib_entry([
+            '@custom{MixedKey, TITLE={Café and {NASA}}, archivePrefix={arXiv}}'
+        ])
+        self.assertIsNone(warning)
+        self.assertIsInstance(entry, dict)
+        self.assertEqual(entry, {
+            "ID": "MixedKey", "ENTRYTYPE": "custom",
+            "title": "Café and {NASA}", "archiveprefix": "arXiv",
+        })
+
+    def test_post_processing_preserves_text_and_sorts_by_key(self):
+        entries = [
+            ['@article{z, TITLE={Café and {NASA}}, year={2024}}'],
+            ['@custom{a, title={Nested {inner {deep}} braces}, year={2025}}'],
+        ]
+        for sort, expected in [(False, ["z", "a"]), (True, ["a", "z"])]:
+            with self.subTest(sort=sort):
+                output = post_processing(entries, [], [], sort=sort)
+                parsed = bibtexparser.parse_string(output)
+                self.assertEqual([entry.key for entry in parsed.entries], expected)
+                by_id = {entry.key: dict(entry.items()) for entry in parsed.entries}
+                self.assertEqual(by_id["z"]["title"], "Café and {NASA}")
+                self.assertEqual(by_id["a"]["title"], "Nested {inner {deep}} braces")
+                self.assertEqual(by_id["a"]["ENTRYTYPE"], "custom")
+
+
+class TestDuplicatePostProcessing(unittest.TestCase):
+    def test_remove_and_abbreviate_with_deduplication_disabled(self):
+        text = """@article{samekey,
+  title={First Paper},
+  abstract={First abstract},
+  booktitle={Long Conference}
+}
+@article{samekey,
+  TITLE={Second Paper},
+  abstract={Second abstract},
+  booktitle={Long Conference}
+}
+"""
+        output, stats = run_normalize(
+            text, {}, deduplicate=False, format_only=True,
+            removed_value_names=["abstract"], abbr_dict=[("CONF", "Long Conference")],
+        )
+        self.assertEqual(stats["duplicates_removed"], 0)
+        self.assertEqual(output.count("@article{samekey,"), 2)
+        self.assertEqual(output.count("booktitle = {CONF}"), 2)
+        self.assertNotIn("abstract", output)
+        self.assertNotIn("WARNING", output)
+        self.assertIn("title = {First Paper}", output)
+        self.assertIn("title = {Second Paper}", output)
+
+    def test_duplicate_sort_keep_and_title_protection(self):
+        entries = [
+            ['@article{z, title={First BERT}, note={drop}}'],
+            ['@article{a, title={Middle NASA}, note={drop}}'],
+            ['@article{z, title={Last GPT}, note={drop}}'],
+        ]
+        for sort, titles in [
+            (False, ["First {BERT}", "Middle {NASA}", "Last {GPT}"]),
+            (True, ["Middle {NASA}", "First {BERT}", "Last {GPT}"]),
+        ]:
+            with self.subTest(sort=sort):
+                output = post_processing(
+                    entries, [], [], sort=sort, keep_names=["title"], protect_titles=True
+                )
+                self.assertEqual(output.count("@article{"), 3)
+                self.assertNotIn("note", output)
+                self.assertNotIn("WARNING", output)
+                positions = [output.index(title) for title in titles]
+                self.assertEqual(positions, sorted(positions))
+
+    def test_writer_spacing_matches_v1(self):
+        entries = [
+            ['@article{z, year={2024}, title={First}}'],
+            ['@article{a, title={Second}, year={2025}}'],
+        ]
+        self.assertEqual(
+            post_processing(entries, [], [], sort=False),
+            "@article{z,\n title = {First},\n year = {2024}\n}\n\n"
+            "@article{a,\n title = {Second},\n year = {2025}\n}\n",
+        )
+
+    def test_string_reference_in_entry_blob(self):
+        entries = [[
+            '@string{conf = {ICML}}\n',
+            '@article{key, title={A Paper}, booktitle=conf}\n',
+        ]]
+        output = post_processing(entries, [], [], sort=False)
+        parsed = bibtexparser.parse_string(output)
+        self.assertEqual(parsed.entries[0]["booktitle"], "ICML")
+        self.assertNotIn("WARNING", output)
 
 
 if __name__ == "__main__":
